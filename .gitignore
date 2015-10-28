@@ -36,3 +36,7 @@ userdata/tasklogs/*
 
 #mkdown
 .*.md.html
+
+/.settings/
+.classpath
+.project
