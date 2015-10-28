@@ -9,6 +9,8 @@ import io.parallec.core.exception.ParallelTaskInvalidException;
 import io.parallec.core.exception.TargetHostsLoadException;
 import io.parallec.core.resources.HttpClientStore;
 
+import java.util.Arrays;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -75,6 +77,11 @@ public class ParallelTaskBuilderTest extends TestBase {
         tb.setTcpIdleTimeoutSec(5);
         tb.handleInManager();
         tb.handleInWorker();
+        tb.sync();
+        tb.getAsyncHttpClient();
+        tb.setHttpEntityBody("test");
+        tb.setTargetHostsFromList(Arrays.asList("www.parallec.io"));
+        
         tb.setAsyncHttpClient(HttpClientStore.getInstance().getCurrentDefaultClient());
         try {
 

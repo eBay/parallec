@@ -6,7 +6,6 @@ www.baidu.com
 www.wikipedia.org
 www.live.com
 www.amazon.com
-www.qq.com
 www.twitter.com
 www.taobao.com
 www.google.co.in
@@ -37,13 +36,11 @@ www.PayPal.com
 www.google.ru
 www.google.es
 www.google.it
-www.tmall.com
 www.fc2.com
 www.blogger.com
 www.imdb.com
 www.craigslist.org
 www.ask.com
-www.sohu.com
 www.conduit.com
 www.bbc.co.uk
 www.go.com
@@ -55,7 +52,6 @@ www.amazon.de
 www.adobe.com
 www.flickr.com
 www.avg.com
-www.ifeng.com
 www.aol.com
 www.rakuten.co.jp
 www.cnn.com
@@ -95,3 +91,10 @@ www.skype.com
 www.wikihow.com
 www.walmart.com
 www.forbes.com
+www.starpulse.com
+www.sfgate.com
+www.toptenvideos.com
+www.walgreens.com
+www.liveleak.com
+www.discover.com
+www.mosthappy.com

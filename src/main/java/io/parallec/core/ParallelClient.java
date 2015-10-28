@@ -124,7 +124,7 @@ public class ParallelClient {
             isClosed.set(false);
             logger.info("Parallel Client Resources has been initialized.");
         } else {
-            logger.info("NO OP. Parallel Client Resources has already been initialized.");
+            logger.debug("NO OP. Parallel Client Resources has already been initialized.");
         }
     }
 
@@ -153,15 +153,15 @@ public class ParallelClient {
                     + "\nNow safe to stop your application.");
 
         } else {
-            logger.info("NO OP. ParallelClient resources have already been released.");
+            logger.debug("NO OP. ParallelClient resources have already been released.");
         }
 
     }
 
     /**
-     * auto reinit if closed.
+     * Auto re-initialize external resourced 
+     * if resources have been already released.
      */
-
     public void reinitIfClosed() {
         if (isClosed.get() == true) {
             logger.info("External Resource was released. Now Re-initializing resources ...");
@@ -169,7 +169,6 @@ public class ParallelClient {
             ActorConfig.createAndGetActorSystem();
             httpClientStore.reinit();
             tcpClientStore.reinit();
-            // TODO
             try {
                 Thread.sleep(1000l);
             } catch (InterruptedException e) {
@@ -178,7 +177,7 @@ public class ParallelClient {
             isClosed.set(true);
             logger.info("Parallel Client Resources has been reinitialized.");
         } else {
-            logger.info("NO OP. Resource was not released.");
+            logger.debug("NO OP. Resource was not released.");
         }
     }
 

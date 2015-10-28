@@ -175,7 +175,7 @@ public class ParallelTaskBuilder {
     }
     
     /**
-     * Async.
+     * Execute the task asynchronously.
      *
      * @return the parallel task builder
      */
@@ -185,7 +185,7 @@ public class ParallelTaskBuilder {
     }
 
     /**
-     * Sync. the default run mode
+     * Execute the task synchronously (the default run mode).
      *
      * @return the parallel task builder
      */

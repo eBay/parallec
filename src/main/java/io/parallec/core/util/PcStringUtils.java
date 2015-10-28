@@ -45,23 +45,6 @@ public class PcStringUtils {
     }
 
     /**
-     * Checks if is null or empty.
-     *
-     * @param str
-     *            the str
-     * @return true, if is null or empty
-     */
-    public static boolean isNullOrEmpty(String str) {
-
-        if (str == null)
-            return true;
-        if (str.isEmpty())
-            return true;
-
-        return false;
-    }
-
-    /**
      * Str map to str.
      *
      * @param map

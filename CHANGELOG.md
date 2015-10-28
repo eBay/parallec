@@ -2,6 +2,16 @@ Change Log
 ==========
 
 
+## Version 0.8.11
+
+_2015-10-28_
+
+* Javadoc: refine javadoc. 
+* Coverage: add code coverage.
+* Maven: setup with maven central deployment. Added codecov and travis CI.
+
+
+
 
 ## Version 0.8.10
 
@@ -47,7 +57,6 @@ _2015-10-15_
 
 _2015-10-15_
 
-https://plumbr.eu/outofmemoryerror/unable-to-create-new-native-thread
 * Fix: change from single thread executor to pool executor in SSH/Ping worker to significantly reduce the thread size.
 * Add: Add scalable PING with InetAddress and process based. 
 * Fix: replace all tab by spaces for consistency.
@@ -92,7 +101,6 @@ _2015-10-11a_
  * Fix: Removed the structure of SSH Meta when it is not SSH.
  * Enhance: Refined the logic to get error message summary.
  * Add: Add Aggregation on return status code with list and count.
- * TODO: Added testing on HTTP header replacement (50min)
  * Understand: socket connection exception. Change to google DNS will resolve the issue.
  
 
@@ -107,4 +115,3 @@ _2015-10-04_
  * Fix: reduced solar critical from 9 to 2.
  * Fix: change HTTP Store to be singleton from static functions
  * Test: Test passed JDK 1.7 and JDK 1.8.0_60
- * TODO:  TODO Testing PC Multiple instance tests.

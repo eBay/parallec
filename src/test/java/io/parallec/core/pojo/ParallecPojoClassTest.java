@@ -43,6 +43,8 @@ import io.parallec.core.exception.ExecutionManagerExecutionException;
 import io.parallec.core.exception.TcpRequestCreateException;
 import io.parallec.core.main.http.pollable.sampleserver.HttpServerThread;
 import io.parallec.core.main.http.pollable.sampleserver.ServerWithPollableJobs.NanoJob;
+import io.parallec.core.resources.HttpClientStore;
+import io.parallec.core.resources.TcpSshPingResourceStore;
 import io.parallec.core.task.ParallelTaskBean;
 import io.parallec.core.task.TaskErrorMeta;
 
@@ -154,6 +156,8 @@ public class ParallecPojoClassTest {
         
         pojoClasses.add(ExecutionManagerExecutionException.class);
         pojoClasses.add(TcpRequestCreateException.class);
+        pojoClasses.add(TcpSshPingResourceStore.class);
+        pojoClasses.add(HttpClientStore.class);
         
         return pojoClasses;
     }

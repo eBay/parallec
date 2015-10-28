@@ -40,3 +40,4 @@ userdata/tasklogs/*
 /.settings/
 .classpath
 .project
+/bin/

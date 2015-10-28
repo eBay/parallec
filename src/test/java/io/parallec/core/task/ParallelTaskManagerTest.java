@@ -26,6 +26,11 @@ public class ParallelTaskManagerTest extends TestBase {
     @Test
     public void testDirectorForException() {
         try {
+            
+            ParallelTaskManager.getInstance().getRemainingCapacity();
+            ParallelTaskManager.getInstance().getTaskFromInProgressMap("1");
+            ParallelTaskManager.getInstance().getInprogressTaskMap();
+            
             ParallelTaskManager.getInstance().sendTaskToExecutionManager(null);
 
         } catch (Exception ex) {

@@ -32,7 +32,7 @@ public class ParallelClientSshTest extends TestBase {
     public void sshWorkerFakeVmPasswordTest() {
 
         Map<String, Object> responseContext = new HashMap<String, Object>();
-        pc.prepareSsh().setConcurrency(300)
+        pc.prepareSsh().setConcurrency(500)
                 .setTargetHostsFromString(hostIpSample)
                 .setSshCommandLine("df -h; ds; ").setSshUserName(userName)
                 .setSshPassword(passwd).setSshConnectionTimeoutMillis(5000)

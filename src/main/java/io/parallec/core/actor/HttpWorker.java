@@ -38,6 +38,7 @@ import akka.actor.Cancellable;
 //import akka.actor.PoisonPill;
 import akka.actor.UntypedActor;
 
+import com.google.common.base.Strings;
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
@@ -166,7 +167,7 @@ public class HttpWorker extends UntypedActor {
             }
 
             PcHttpUtils.addHeaders(builder, this.httpHeaderMap);
-            if (!PcStringUtils.isNullOrEmpty(postData)) {
+            if (!Strings.isNullOrEmpty(postData)) {
                 builder.setBody(postData);
             }
 
