@@ -1,0 +1,23 @@
+{
+    "sample": {
+        "small-target-hosts": [
+            {
+                "hostName": "parallec.github.io",
+                "description": "parallec website"
+            },
+            {
+                "hostName": "www.jeffpei.com",
+                "description": "my personal website"
+            },
+            {
+                "hostName": "www.restcommander.com",
+                "description": "restcommander website"
+            }
+        ],
+        "others": {
+            "hostName": "www.google.com",
+            "description": "google website"
+        }
+    },
+    "totalCount": 3
+}
