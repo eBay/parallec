@@ -17,7 +17,7 @@ import io.parallec.core.util.PcStringUtils;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * easy to use builder to add header key/value pair then get the results
  * directly for use.

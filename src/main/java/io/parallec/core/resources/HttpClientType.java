@@ -12,7 +12,7 @@ limitations under the License.
  */
 package io.parallec.core.resources;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum HCTYPE.
  */

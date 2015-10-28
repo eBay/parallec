@@ -15,7 +15,7 @@ package io.parallec.core.actor.message;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class CancelTaskOnHostRequestToManager.
  */

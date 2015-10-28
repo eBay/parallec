@@ -15,7 +15,7 @@ package io.parallec.core.actor.message;
 import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcDateUtils;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * a single HTTP response for each http request
  * 

@@ -12,7 +12,7 @@ limitations under the License.
  */
 package io.parallec.core.exception;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class HttpRequestCreateException.
  */

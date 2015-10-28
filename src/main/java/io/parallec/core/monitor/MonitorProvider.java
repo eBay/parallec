@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.GsonBuilder;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class MonitorProvider.
  */

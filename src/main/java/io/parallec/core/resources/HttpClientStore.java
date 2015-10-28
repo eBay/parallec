@@ -18,7 +18,7 @@ import java.util.Map.Entry;
 
 import com.ning.http.client.AsyncHttpClient;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * this stores a pair of default fast/slow AsyncHttpClient, and another pair of
  * customized fast/slow AsyncHttpClient the default.

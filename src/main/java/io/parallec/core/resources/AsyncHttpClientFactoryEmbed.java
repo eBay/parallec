@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClientConfigBean;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class HttpClientFactoryEmbed.
  *

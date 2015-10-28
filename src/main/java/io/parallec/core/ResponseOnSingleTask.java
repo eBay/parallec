@@ -19,18 +19,15 @@ import io.parallec.core.util.PcStringUtils;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * this includes the request
  * each target host will have one.
  * 
- * For easy import and usability, move this class from message package to main package
+ * {@link ResponseOnSingleTask#isError()} is true: means fail to receive resposne 
+ *
  * @author Yuanteng Jeff Pei
  * 
- */
-/**
- * @author Yuanteng Jeff Pei
- *
  */
 public class ResponseOnSingleTask {
 

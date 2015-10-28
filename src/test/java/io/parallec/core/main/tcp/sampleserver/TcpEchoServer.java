@@ -136,8 +136,10 @@ public class TcpEchoServer {
                 }
 
             }
-
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException  e) {
+            logger.error("Exception in echo server. "
+                    + "\nExpected when shutdown. {}", e.getLocalizedMessage());
+        } catch ( InterruptedException e) {
             logger.error("Exception in echo server. "
                     + "\nExpected when shutdown. {}", e.getLocalizedMessage());
         } finally{

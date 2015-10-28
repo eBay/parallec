@@ -27,7 +27,7 @@ import akka.actor.ActorSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The static akka actor system
  */

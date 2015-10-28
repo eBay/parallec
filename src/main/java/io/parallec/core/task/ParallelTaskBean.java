@@ -32,7 +32,7 @@ import java.util.Map;
 
 import akka.actor.ActorRef;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ParallelTaskBean. this is for serialization and see as a snapshot
  */

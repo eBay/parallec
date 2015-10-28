@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Define how to poll progress 1. how to get the job id from the 1st response.
  * 2. what is the URL template to poll progress (assuming it is a HTTP GET) 3.

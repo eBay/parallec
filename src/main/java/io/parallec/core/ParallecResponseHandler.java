@@ -14,7 +14,7 @@ package io.parallec.core;
 
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface ParallecResponseHandler.
  * 
@@ -23,15 +23,19 @@ import java.util.Map;
 public interface ParallecResponseHandler {
 
     /**
-     * When a response coming back or a timeout received at the Command Manager,
-     * apply this response handler.
+     * When timeout / error occurred or response received for the target host,
+     * will trigger execution of onCompleted(). 
      * 
-     * this gap includes the request content inside
+     * This can be run at the execution manager (default) or the worker thread 
+     * based on the config {@link ParallelTaskBuilder#handleInWorker()}
+     * 
+     * <br> 
+     * When {@link ResponseOnSingleTask#isError()} is true: Fail to receive resposne 
      *
      * @param res
-     *            the res
+     *            the response
      * @param responseContext
-     *            the response context
+     *            the response context 
      */
 
     public void onCompleted(ResponseOnSingleTask res,

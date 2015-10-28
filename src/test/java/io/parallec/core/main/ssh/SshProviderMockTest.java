@@ -11,8 +11,8 @@ import io.parallec.core.commander.workflow.ssh.SshProvider;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.io.Charsets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -131,7 +131,7 @@ public class SshProviderMockTest extends TestBase {
 
         String stdoutStr = "Mon Sep 14 21:52:27 UTC 2015";
         InputStream in = new ByteArrayInputStream(
-                stdoutStr.getBytes(StandardCharsets.UTF_8));
+                stdoutStr.getBytes(Charsets.UTF_8));
 
         try {
             when(channel.getInputStream()).thenReturn(in);
@@ -158,7 +158,7 @@ public class SshProviderMockTest extends TestBase {
         sshProvider = new SshProvider(sshMetaKey, hostIpSample);
         String stdoutStr = "Mon Sep 14 21:52:27 UTC 2015";
         InputStream in = new ByteArrayInputStream(
-                stdoutStr.getBytes(StandardCharsets.UTF_8));
+                stdoutStr.getBytes(Charsets.UTF_8));
 
         try {
             when(channel.getInputStream()).thenReturn(in);

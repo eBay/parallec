@@ -15,7 +15,7 @@ package io.parallec.core.bean.ssh;
 import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ParallelTaskInvalidException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * all ssh metadata except for the target host name. also those timeout configs
  * and

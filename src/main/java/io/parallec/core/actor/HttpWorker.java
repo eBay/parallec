@@ -44,7 +44,7 @@ import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
 import com.ning.http.client.ListenableFuture;
 import com.ning.http.client.Response;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * This is an akka actor with async http client.
  *

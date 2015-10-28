@@ -14,7 +14,7 @@ package io.parallec.core.util;
 
 import java.util.concurrent.ThreadFactory;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * A factory for creating DaemonThread objects.
  */

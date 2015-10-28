@@ -43,7 +43,7 @@ import akka.actor.UntypedActor;
 
 import com.ning.http.client.AsyncHttpClient;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * AHC based.
  *

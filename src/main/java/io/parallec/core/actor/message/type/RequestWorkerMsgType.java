@@ -12,7 +12,7 @@ limitations under the License.
  */
 package io.parallec.core.actor.message.type;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum RequestWorkerMsgType. for SSH/HTTP Workers only.
  */

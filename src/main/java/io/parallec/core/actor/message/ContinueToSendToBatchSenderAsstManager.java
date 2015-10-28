@@ -12,7 +12,7 @@ limitations under the License.
  */
 package io.parallec.core.actor.message;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ContinueToSendToBatchSenderAsstManager.
  */
