@@ -8,16 +8,12 @@
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) 
 
-
 Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. Response handler with context enables you conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. 
 
-Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like". Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The library focuses on HTTP while also enables scalable communication over SSH/Ping/TCP.
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
-
 ### Get Started
-
 
 Maven
 
@@ -34,7 +30,7 @@ Gradle
 compile 'io.parallec:parallec-core:0.9.0'
 ```
 
-- **More Samples** please check [here](https://github.com/ebay/parallec-samples#http).
+10 Line Example
 
 ```java
 import io.parallec.core.*;
@@ -49,6 +45,10 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 });
 ```	
 
+- [**More Sample Applications**](https://github.com/ebay/parallec-samples#http).
+- [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, cms query from local or remote URLs.
+- [**Full Documentation**](http://www.parallec.io/docs/)
+- - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
 
 ###Use Cases
 
@@ -60,6 +60,8 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 
 
 ## Features<a name="features"></a>
+
+Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like". Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The library focuses on HTTP while also enables scalable communication over SSH/Ping/TCP.
 
 **90%+ Test coverage** assures you always find an example of each of feature.
 
@@ -143,18 +145,8 @@ As usual, don't rely on these numbers and perform your own benchmarks.
 |  Configurable response log trimming on intervals|    Yes   |       No      |              No             |
 |  Cancel task on a list of target hosts |    Yes   |       No      |              No             |
 
-#### Actor Based Concurrency Control
 
-![System Design](http://www.parallec.io/images/parallec-actors-v2.svg)
-
-This is similar to the [model](www.ebaytechblog.com/2014/03/11/rest-commander-scalable-web-server-management-and-monitoring/#akka) in REST Commander, except that:
-
-- The user defined response handler can be triggerred in either the manager after aggregation, or in parallel when each operation worker receives the response. 
-- When handling async APIs, a single task may contains one job submission request, plus *1-n* progress polling requests.
-- Worker now have more protocols such as SSH/Ping/TCP to support.
-
-
-## [Plugins](https://github.com/eBay/parallec-plugins)
+## Plugins
 
 #### [SSL Client Auth Plugin](https://github.com/eBay/parallec-plugins)
 
