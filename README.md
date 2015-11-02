@@ -10,11 +10,9 @@
 
 Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. Response handler with context enables you conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. 
 
-
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
 ### Get Started
-
 Maven
 
 ```xml
@@ -45,7 +43,7 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 });
 ```	
 
-- [**More Sample Applications**](https://github.com/ebay/parallec-samples#http).
+- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, request templates, send to elastic search, async running, track progress.
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
@@ -93,7 +91,7 @@ With the feedbacks, lessons, and improvements from the past year of internal usa
 
 ## Watch Parallec in Action
 
-[**Watch Demo**](https://www.youtube.com/watch?v=QcavegPMDms"Parallec demo - Click to Watch!"): Parallec Aggregates 100 websites status with 20 lines of code.
+[**Watch Demo**](https://www.youtube.com/watch?v=QcavegPMDms"Parallec demo - Click to Watch!"): Parallec Aggregates 100 websites status to elastic search and visualized with [20 lines of code](https://github.com/eBay/parallec-samples/blob/master/sample-apps/src/main/java/io/parallec/sample/app/http/Http100WebAggregateToElasticSearchApp.java).
 
 <a title="Click to Watch HD version in Youtube" href="https://www.youtube.com/watch?v=QcavegPMDms"><img alt="20 lines parallec to elastic search demo" src="http://www.parallec.io/demos/elastic-web100-v3.gif" /></a>
 
