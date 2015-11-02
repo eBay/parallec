@@ -9,19 +9,46 @@
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) 
 
 
-Parallec is a performant parallel async http/ssh/tcp/ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. Response handler with context enables you conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. 
+Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. Response handler with context enables you conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. 
 
 Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like". Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The library focuses on HTTP while also enables scalable communication over SSH/Ping/TCP.
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
 
-####Motivation
-- Flexible response handling and immediate processing embedded in other applications.
-- Handle async APIs with auto progress polling for task level concurrency control.
-- Support of other protocols, and [more](#features)..
+### Get Started
 
-With the feedbacks, lessons, and improvements from the past year of internal usage and open source of **[REST Commander](http://www.restcommander.com)**, we now made the core of REST Commander as an easy to use standalone library. We added [**15+ new**](#compare) features, rewritten 70%+ of the code, with [**90%+ test coverage**](https://codecov.io/github/eBay/parallec) for confident usage and contribution. This time we also structure it better so that most internal development can be directly made here.
+
+Maven
+
+```xml
+<dependency>
+	<groupId>io.parallec</groupId>
+	<artifactId>parallec-core</artifactId>
+	<version>0.9.0</version>
+</dependency>
+```
+
+Gradle
+```xml
+compile 'io.parallec:parallec-core:0.9.0'
+```
+
+- **More Samples** please check [here](https://github.com/ebay/parallec-samples#http).
+
+```java
+import io.parallec.core.*;
+import java.util.Map;
+
+ParallelClient pc = new ParallelClient(); 
+pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.yahoo.com")
+.execute(new ParallecResponseHandler() {
+    public void onCompleted(ResponseOnSingleTask res,
+        Map<String, Object> responseContext) {
+        System.out.println( res.toString() );  }
+});
+```	
+
 
 ###Use Cases
 
@@ -53,69 +80,13 @@ With the feedbacks, lessons, and improvements from the past year of internal usa
 1. **Parallel TCP** supports idle timeout based channel closes.
 
 
-### Get Started
 
-#### Maven / Gradle Import
+##Motivation
+- Flexible response handling and immediate processing embedded in other applications.
+- Handle async APIs with auto progress polling for task level concurrency control.
+- Support of other protocols, and [more](#features)..
 
-Please replace the version with the latest version available.
-
-######Maven
-
-```xml
-<dependency>
-	<groupId>io.parallec</groupId>
-	<artifactId>parallec-core</artifactId>
-	<version>0.9.0</version>
-</dependency>
-```
-
-######Gradle
-
-```xml
-compile 'io.parallec:parallec-core:0.9.0'
-```
-
-####Examples 
-
-- **List of Code Examples** please check [here](https://github.com/ebay/parallec-samples#http).
-
-In the example below,  simply changing **prepareHttpGet()** to **prepareSsh()**, **prepareTcp()**, **preparePing()** enables you to conduct parallel SSH/TCP/Ping. Details please refer to [Java Doc](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html).
-
-```java
-import io.parallec.core.*;
-import java.util.Map;
-
-ParallelClient pc = new ParallelClient(); 
-pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.yahoo.com")
-.execute(new ParallecResponseHandler() {
-    public void onCompleted(ResponseOnSingleTask res,
-        Map<String, Object> responseContext) {
-        System.out.println( res.toString() );  }
-});
-pc.releaseExternalResources();
-```	
-
-Here is another example with response parsing and a little more parameters.
-
-```java
-import io.parallec.core.*;
-import java.util.Map;
-
-ParallelClient pc= new ParallelClient();
-pc.prepareGet("/validateInternals.html")
-    .setConcurrency(1000)
-    .setTargetHostsFromString("parallec.github.io www.jeffpei.com www.restcommander.com")
-    .execute(new ParallecResponseHandler() {
-        @Override
-        public void onCompleted(ResponseOnSingleTask res,
-				Map<String, Object> responseContext) {
-        	String cpu = new FilterRegex(".*<td>CPU-Usage-Percent</td>\\s*<td>(.*?)</td>.*")
-			.filter(res.getResponseContent());
-            System.out.println("cpu:" + cpu + " host: " + res.getHost() );
-        }
-    });
-pc.releaseExternalResources();
-```	
+With the feedbacks, lessons, and improvements from the past year of internal usage and open source of **[REST Commander](http://www.restcommander.com)**, we now made the core of REST Commander as an easy to use standalone library. We added [**15+ new**](#compare) features, rewritten 70%+ of the code, with [**90%+ test coverage**](https://codecov.io/github/eBay/parallec) for confident usage and contribution. This time we also structure it better so that most internal development can be directly made here.
 
 
 ## Watch Parallec in Action
