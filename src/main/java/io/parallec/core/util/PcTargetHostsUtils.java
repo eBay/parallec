@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class PcTargetHostsUtils.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class PcTargetHostsUtils {
 

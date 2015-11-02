@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 import com.ning.http.client.AsyncHttpClient;
 
+
 /**
  * 
  * This store all the metadata to build the ParallelTask
@@ -56,7 +57,7 @@ import com.ning.http.client.AsyncHttpClient;
  * validation, certain missing parameters will use the default values. execute()
  * is the key function
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class ParallelTaskBuilder {
 
@@ -240,7 +241,9 @@ public class ParallelTaskBuilder {
 
             if (task.getConfig().isEnableCapacityAwareTaskScheduler()) {
 
-                // add to the task
+                //late initialize the task scheduler
+                ParallelTaskManager.getInstance().initTaskSchedulerIfNot();
+                // add task to the wait queue
                 ParallelTaskManager.getInstance().getWaitQ().add(task);
 
                 logger.info("Enabled CapacityAwareTaskScheduler. Submitted task to waitQ in builder.. "
@@ -267,7 +270,6 @@ public class ParallelTaskBuilder {
                         task.getTaskId());
 
                 while (task != null && !task.isCompleted()) {
-
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException e) {
@@ -589,7 +591,7 @@ public class ParallelTaskBuilder {
     }
 
     /**
-     * Gets the mode of either sync or async
+     * Gets the mode of either sync or async.
      *
      * @return the mode
      */
@@ -929,11 +931,12 @@ public class ParallelTaskBuilder {
         return this;
     }
 
+ 
     /**
-     * Sets the ssh priv key need passphrase and set value.
+     * Sets the ssh priv key relative path wtih passphrase.
      *
-     * @param userName
-     *            the user name
+     * @param privKeyRelativePath the priv key relative path
+     * @param passphrase the passphrase
      * @return the parallel task builder
      */
     public ParallelTaskBuilder setSshPrivKeyRelativePathWtihPassphrase(
@@ -1009,7 +1012,6 @@ public class ParallelTaskBuilder {
         return this;
     }
 
-
     /**
      * Sets the config.
      *
@@ -1060,6 +1062,11 @@ public class ParallelTaskBuilder {
 
     /**
      * Sets the auto save log to local.
+     * Will auto save logs to the local file system. 
+     * 
+     * The logs by default are written to path "userdata/task/logs" folder.
+     * 
+     * Note that it is user's responsibility to clearn these logs.
      * 
      * OPTIONAL. DEFAULT: false. 
      * @param autoSaveLogToLocal
@@ -1111,7 +1118,8 @@ public class ParallelTaskBuilder {
 
     
     /**
-     * Sets the ping mode.
+     * Sets the ping mode. Process or INET_ADDRESS_REACHABLE based.
+     * Default as InetAddress mode. InetAddress requires Root privilege. 
      *
      * @param mode the mode
      * @return the parallel task builder

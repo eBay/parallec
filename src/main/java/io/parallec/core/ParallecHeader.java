@@ -19,10 +19,9 @@ import java.util.Map;
 
 
 /**
- * easy to use builder to add header key/value pair then get the results
- * directly for use.
+ * Easy to use HTTP Header builder to add header key/value pair.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class ParallecHeader {
 

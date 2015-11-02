@@ -24,11 +24,9 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * To save the content request and response By default the responseContent is
- * NULL because dont need it in InProgress entries. But must init!! when in
- * valid entries.
+ * To save the request parameter and the task response for this target host.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class NodeReqResponse {

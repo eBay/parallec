@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 /**
  * load node from CMS.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class TargetHostsBuilderHelperCms {
 

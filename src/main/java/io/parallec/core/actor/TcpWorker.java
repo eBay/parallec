@@ -59,7 +59,7 @@ import akka.actor.UntypedActor;
 /**
  * A worker for single TCP request class 
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class TcpWorker extends UntypedActor {
 
@@ -395,7 +395,7 @@ public class TcpWorker extends UntypedActor {
     /**
      * define the list of handlers for this channel.
      *
-     * @author Yuanteng Jeff Pei
+     * @author Yuanteng (Jeff) Pei
      */
     public static class MyPipelineFactory implements ChannelPipelineFactory{
         
@@ -446,7 +446,7 @@ public class TcpWorker extends UntypedActor {
     /**
      * how to pass the idle event back to the worker.
      *
-     * @author Yuanteng Jeff Pei
+     * @author Yuanteng (Jeff) Pei
      */
     public static class MyIdleHandler extends IdleStateAwareChannelHandler {
 
@@ -487,7 +487,7 @@ public class TcpWorker extends UntypedActor {
     /**
      * The Netty response/channel handler.
      *
-     * @author Yuanteng Jeff Pei
+     * @author Yuanteng (Jeff) Pei
      */
     public static class TcpChannelHandler extends SimpleChannelHandler {
 

@@ -18,7 +18,7 @@ package io.parallec.core;
  * 
  * Currently values include HTTP, HTTPS, SSH, PING, TCP
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public enum RequestProtocol {
 

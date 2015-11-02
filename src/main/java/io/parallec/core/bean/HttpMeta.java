@@ -28,7 +28,7 @@ import com.ning.http.client.AsyncHttpClient;
  * The metadata about the HTTP request (url/port/header/concurrency etc) It does
  * not include the target hosts information.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class HttpMeta {
     /** The logger. */

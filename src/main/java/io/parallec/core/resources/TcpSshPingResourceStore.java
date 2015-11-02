@@ -23,7 +23,7 @@ import org.jboss.netty.util.HashedWheelTimer;
  * Provide external resources needed for netty based TCP worker:
  * ChannelFactory and HashedWheelTimer timer
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class TcpSshPingResourceStore {
 

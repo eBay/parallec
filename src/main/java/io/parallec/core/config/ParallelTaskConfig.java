@@ -13,14 +13,18 @@ limitations under the License.
 package io.parallec.core.config;
 
 import io.parallec.core.ParallelTask;
+import io.parallec.core.ParallelTaskBuilder;
 
 /**
  * Configuration class to use with a {@link ParallelTask}. 
  * 
  * This can be overwritten for each task. 
  * 
- * Configs about various timeout, whether to auto save responses,
- * whether to enable the s  
+ * Configs about various timeout, whether to auto save logs / save responses.
+ * whether to enable the capacity scheduler.
+ * 
+ * Some of the most useful ones we directly have APIs by the {@link ParallelTaskBuilder} 
+ * 
  * will load from the default value from {@link ParallelTaskConfigDefault}
  *
  */

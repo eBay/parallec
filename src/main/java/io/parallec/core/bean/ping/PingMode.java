@@ -15,7 +15,7 @@ package io.parallec.core.bean.ping;
 /**
  * The Enum of Ping Mode. Process or INET_ADDRESS_REACHABLE based.
  * Default as InetAddress mode. InetAddress requires Root privilege. 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public enum PingMode {
 

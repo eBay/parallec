@@ -27,7 +27,7 @@ import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
  * Adding http header logic TODO; should finally be data driven and specific for
  * each command. Now it is defined here and user can easily change.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class PcHttpUtils {

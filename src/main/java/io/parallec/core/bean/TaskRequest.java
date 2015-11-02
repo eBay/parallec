@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * This is the request send to the operation worker. 
  * It contains the actual request that has been replaced if there are variables defined.
  * 
- * @author Yuanteng Jeff Pei 
+ * @author Yuanteng (Jeff) Pei 
  */
 public class TaskRequest {
 

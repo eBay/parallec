@@ -95,7 +95,7 @@ public class TargetHostsBuilderTest extends TestBase {
 
     }
 
-    // http://parallec.github.io/userdata/sample_target_hosts_json_path.json
+    // http://www.parallec.io/userdata/sample_target_hosts_json_path.json
     @Test
     public void setTargetHostsFromJsonPathTest() {
         String jsonPath = "$.sample.small-target-hosts[*].hostName";
@@ -146,7 +146,7 @@ public class TargetHostsBuilderTest extends TestBase {
         // bad query
         try {
 
-            thb.setTargetHostsFromCmsQueryUrl("http://1parallec.github.io/cms/repositories/cmsdb/branches"
+            thb.setTargetHostsFromCmsQueryUrl("http://1www.parallec.io/cms/repositories/cmsdb/branches"
                     + "/main/query/sample_cms_query_results_single_page.json");
         } catch (TargetHostsLoadException e) {
             logger.info("expected exception: " + e);
@@ -154,11 +154,11 @@ public class TargetHostsBuilderTest extends TestBase {
 
         // with projection null/empty
         thb.setTargetHostsFromCmsQueryUrl(
-                "http://parallec.github.io/cms/repositories/cmsdb/branches"
+                "http://www.parallec.io/cms/repositories/cmsdb/branches"
                         + "/main/query/sample_cms_query_results_single_page.json",
                 null);
         thb.setTargetHostsFromCmsQueryUrl(
-                "http://parallec.github.io/cms/repositories/cmsdb/branches"
+                "http://www.parallec.io/cms/repositories/cmsdb/branches"
                         + "/main/query/sample_cms_query_results_single_page.json",
                 "");
 

@@ -17,15 +17,16 @@ import io.parallec.core.util.PcDateUtils;
 
 
 /**
- * a single HTTP response for each http request
+ * A single HTTP response for each http request
  * 
  * Note that the failObtainResponse in the response is whether work successfully
  * received. it is not about 200 code.
  * 
  * The Single Response will be in error when the HTTP Worker fail to obtain the
- * response back on condition of CANCEL PROCESS_ON_EXCEPTION PROCESS_ON_TIMEOUT
+ * response back on condition of 
+ * [CANCEL or PROCESS_ON_EXCEPTION or PROCESS_ON_TIMEOUT]
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class ResponseOnSingeRequest {

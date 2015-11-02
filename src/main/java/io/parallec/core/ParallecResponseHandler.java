@@ -18,7 +18,6 @@ import java.util.Map;
 /**
  * The Interface ParallecResponseHandler.
  * 
- * Consider make it serializable if we need to pass this for akka clustering.
  */
 public interface ParallecResponseHandler {
 

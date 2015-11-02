@@ -33,16 +33,9 @@ import akka.actor.UntypedActor;
 
 /**
  * 
- * 20131014; update major logic to enable concurrency control
+ * The assistant manager is for sending out requests in batch;
  * 
- * 20130730 The assistant manager is soley for sending out requests in batch;
- * with interval based sleep 1. Enables IN PARALLEL sending batch requests and
- * geting response 2. Enables > 5K nodes per requests. The manager gives all
- * request sending task to this AssistantExecutionManager. this guy
- * tells workers to directly reply back to the original manager. So that
- * requests and replies can happen the same time.
- * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class AssistantExecutionManager extends UntypedActor {

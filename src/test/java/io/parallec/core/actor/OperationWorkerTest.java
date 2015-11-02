@@ -49,7 +49,7 @@ public class OperationWorkerTest extends TestBase {
                             new TaskRequest(actorMaxOperationTimeoutSec,
                                     RequestProtocol.valueOf("HTTP"
                                             .toUpperCase()),
-                                    "parallec.github.io", null, 80, "", "",
+                                    "www.parallec.io", null, 80, "", "",
                                     HttpMethod.GET, false, null, 
                                     null,
                                     new HashMap<String, Object>(),

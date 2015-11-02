@@ -19,14 +19,17 @@ import io.parallec.core.util.PcStringUtils;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 /**
- * this includes the request
- * each target host will have one.
+ * this includes the request each target host will have one.
  * 
- * {@link ResponseOnSingleTask#isError()} is true: means fail to receive resposne 
- *
- * @author Yuanteng Jeff Pei
+ * {@link ResponseOnSingleTask#isError()} is true: means fail to receive
+ * response.
+ * 
+ * Note that by default, the response content is not saved into the
+ * singleTaskResponse. Unless the user change the config by calling
+ * {@link ParallelTaskBuilder#setSaveResponseToTask}
+ * 
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class ResponseOnSingleTask {

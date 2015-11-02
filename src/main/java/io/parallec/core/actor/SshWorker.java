@@ -39,6 +39,7 @@ import akka.actor.Cancellable;
 import akka.actor.UntypedActor;
 
 
+
 /**
  *
  * Using callable to start a new thread to run the SSH execution task (which
@@ -47,13 +48,14 @@ import akka.actor.UntypedActor;
  * subsequent messages.
  * 
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class SshWorker extends UntypedActor {
 
     /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(SshWorker.class);
     
+    /** The actor max operation timeout sec. */
     private int actorMaxOperationTimeoutSec;
 
     /** The sender. */
@@ -86,10 +88,9 @@ public class SshWorker extends UntypedActor {
     /**
      * Instantiates a new ssh worker.
      *
-     * @param sshMeta
-     *            the ssh meta
-     * @param targetHost
-     *            the target host
+     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
+     * @param sshMeta the ssh meta
+     * @param targetHost the target host
      */
     public SshWorker(int actorMaxOperationTimeoutSec, SshMeta sshMeta,
             String targetHost) {
@@ -373,7 +374,7 @@ public class SshWorker extends UntypedActor {
     /**
      * thread to return the future.
      *
-     * @author Yuanteng Jeff Pei
+     * @author Yuanteng (Jeff) Pei
      */
     private static class SshTask implements Callable<ResponseOnSingeRequest> {
 

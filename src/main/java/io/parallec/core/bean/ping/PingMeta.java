@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Ping metadata on mode,timeout and retries. 
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class PingMeta {

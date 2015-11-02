@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 package io.parallec.core.main.ping;

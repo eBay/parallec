@@ -16,7 +16,7 @@ package io.parallec.core.actor.message;
 /**
  * Receive count from the manager to asst manager; for flow control.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class ResponseCountToBatchSenderAsstManager {
 

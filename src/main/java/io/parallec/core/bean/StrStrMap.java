@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * variable name : e.g. GET /checkProgress/$JOBID value: the actual value string
  * that will replace the JOBID
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class StrStrMap {
 

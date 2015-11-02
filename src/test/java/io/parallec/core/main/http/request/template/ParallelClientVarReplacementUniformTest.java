@@ -51,7 +51,7 @@ public class ParallelClientVarReplacementUniformTest extends TestBase {
         pc.prepareHttpGet("/$URL_VARIABLE.html")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .setReplacementVarMap(replacementVarMap)
                 .execute(new ParallecResponseHandler() {
                     @Override

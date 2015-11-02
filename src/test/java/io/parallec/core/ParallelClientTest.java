@@ -32,7 +32,7 @@ public class ParallelClientTest extends TestBase {
                 .setConcurrency(1700)
                 .handleInWorker()
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .execute(new ParallecResponseHandler() {
 
                     @Override

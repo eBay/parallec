@@ -10,6 +10,7 @@ import io.parallec.core.TestBase;
 import io.parallec.core.bean.StrStrMap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
     public void hitWebsitesMinTargetHostSpecificReplacement() {
 
         Map<String, StrStrMap> replacementVarMapNodeSpecific = new HashMap<String, StrStrMap>();
-        replacementVarMapNodeSpecific.put("parallec.github.io",
+        replacementVarMapNodeSpecific.put("www.parallec.io",
                 new StrStrMap().addPair("JOB_ID", "job_a"));
         replacementVarMapNodeSpecific.put("www.jeffpei.com",
                 new StrStrMap().addPair("JOB_ID", "job_b"));
@@ -52,7 +53,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
         pc.prepareHttpGet("/$JOB_ID.html")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .setReplacementVarMapNodeSpecific(replacementVarMapNodeSpecific)
                 .execute(new ParallecResponseHandler() {
                     @Override
@@ -71,14 +72,11 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
 
     /**
      * note that the target host must match the key this is the new way new
-     * http://parallec.github.io/userdata/sample_weather_48824.txt
-     * http://parallec.github.io/userdata/sample_weather_95037.txt
+     * http://www.parallec.io/userdata/sample_weather_48824.txt
+     * http://www.parallec.io/userdata/sample_weather_95037.txt
      */
     @Test
     public void differentRequestsToSameTargetHost() {
-        List<String> replaceList = new ArrayList<String>();
-        replaceList.add("95037");
-        replaceList.add("48824");
 
         Map<String, Object> responseContext = new HashMap<String, Object>();
         responseContext.put("temp", null);
@@ -88,8 +86,8 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
                         new ParallecHeader().addPair("content-type",
                                 "text/xml;charset=UTF-8"))
                 .setConcurrency(1700)
-                .setReplaceVarMapToSingleTargetSingleVar("ZIP", replaceList,
-                        "parallec.github.io")
+                .setReplaceVarMapToSingleTargetSingleVar("ZIP", Arrays.asList("95037","48824"),
+                        "www.parallec.io")
                 .setResponseContext(responseContext)
                 .execute(new ParallecResponseHandler() {
 
@@ -130,8 +128,8 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
 
     /**
      * Use this api if need to match multiple variables new
-     * http://parallec.github.io/userdata/MI/sample_weather_48824.txt
-     * http://parallec.github.io/userdata/CA/sample_weather_95037.txt
+     * http://www.parallec.io/userdata/MI/sample_weather_48824.txt
+     * http://www.parallec.io/userdata/CA/sample_weather_95037.txt
      */
     @Test
     public void differentRequestsToSameTargetHostMultiVar() {
@@ -151,7 +149,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
                                 "text/xml;charset=UTF-8"))
                 .setConcurrency(1700)
                 .setReplaceVarMapToSingleTarget(replacementVarMapList,
-                        "parallec.github.io")
+                        "www.parallec.io")
 
                 .setResponseContext(responseContext)
                 .execute(new ParallecResponseHandler() {
@@ -179,8 +177,8 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
     /**
      * note that the target host must match the key
      * 
-     * new http://parallec.github.io/userdata/sample_weather_48824.txt
-     * http://parallec.github.io/userdata/sample_weather_95037.txt
+     * new http://www.parallec.io/userdata/sample_weather_48824.txt
+     * http://www.parallec.io/userdata/sample_weather_95037.txt
      */
     @Test
     public void differentRequestsToSameTargetHostWithMap() {
@@ -202,7 +200,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
                 .setConcurrency(1700)
                 .setTargetHostsFromString("api1 api2")
                 .setReplaceVarMapToSingleTargetFromMap(
-                        replacementVarMapNodeSpecific, "parallec.github.io")
+                        replacementVarMapNodeSpecific, "www.parallec.io")
                 .setResponseContext(responseContext)
                 .execute(new ParallecResponseHandler() {
 
@@ -299,7 +297,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
     public void hitWebsitesMinTargetHostSpecificReplacementWithNA() {
 
         Map<String, StrStrMap> replacementVarMapNodeSpecific = new HashMap<String, StrStrMap>();
-        replacementVarMapNodeSpecific.put("parallec.github.io",
+        replacementVarMapNodeSpecific.put("www.parallec.io",
                 new StrStrMap().addPair("JOB_ID", "job_a"));
         replacementVarMapNodeSpecific.put("www.jeffpei.com", new StrStrMap()
                 .addPair("JOB_ID", "job_b").addPair("NA", "NA"));
@@ -310,7 +308,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
                 .prepareHttpGet("/$JOB_ID.html")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .setReplacementVarMapNodeSpecific(replacementVarMapNodeSpecific)
                 .execute(new ParallecResponseHandler() {
                     @Override
@@ -335,7 +333,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
     public void hitWebsitesMinTargetHostSpecificReplacementWithAllNA() {
 
         Map<String, StrStrMap> replacementVarMapNodeSpecific = new HashMap<String, StrStrMap>();
-        replacementVarMapNodeSpecific.put("parallec.github.io", new StrStrMap()
+        replacementVarMapNodeSpecific.put("www.parallec.io", new StrStrMap()
                 .addPair("JOB_ID", "job_a").addPair("NA", "NA"));
         replacementVarMapNodeSpecific.put("www.jeffpei.com", new StrStrMap()
                 .addPair("JOB_ID", "job_b").addPair("NA", "NA"));
@@ -346,7 +344,7 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
                 .prepareHttpGet("/$JOB_ID.html")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .setReplacementVarMapNodeSpecific(replacementVarMapNodeSpecific)
                 .execute(new ParallecResponseHandler() {
                     @Override

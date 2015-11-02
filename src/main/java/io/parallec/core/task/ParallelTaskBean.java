@@ -35,6 +35,8 @@ import akka.actor.ActorRef;
 
 /**
  * The Class ParallelTaskBean. this is for serialization and see as a snapshot
+ * 
+ * @author Yuanteng (Jeff) Pei
  */
 public class ParallelTaskBean {
 

@@ -46,13 +46,15 @@ import com.ning.http.client.ListenableFuture;
 import com.ning.http.client.Response;
 
 
+
 /**
  * This is an akka actor with async http client.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class HttpWorker extends UntypedActor {
 
+    /** The actor max operation timeout sec. */
     private int actorMaxOperationTimeoutSec;
 
     /** The client. */
@@ -95,22 +97,17 @@ public class HttpWorker extends UntypedActor {
     private boolean sentReply = false;
 
     /** The response future. */
-    // 20150221
     ListenableFuture<ResponseOnSingeRequest> responseFuture = null;
-
+    
     /**
      * Instantiates a new http worker.
      *
-     * @param client
-     *            the client
-     * @param requestUrl
-     *            the request url
-     * @param httpMethod
-     *            the http method
-     * @param postData
-     *            the post data
-     * @param httpHeaderMap
-     *            the http header map
+     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
+     * @param client the client
+     * @param requestUrl the request url
+     * @param httpMethod the http method
+     * @param postData the post data
+     * @param httpHeaderMap the http header map
      */
     public HttpWorker(final int actorMaxOperationTimeoutSec,
             final AsyncHttpClient client, final String requestUrl,
@@ -289,6 +286,7 @@ public class HttpWorker extends UntypedActor {
     }
 
     /**
+     * Cancel cancellable.
      */
     public void cancelCancellable() {
 

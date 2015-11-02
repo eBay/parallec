@@ -31,7 +31,7 @@ www.mail.ru
 www.pinterest.com
 www.apple.com
 www.google.com.br
-www.soso.com
+www.loc.gov
 www.PayPal.com
 www.google.ru
 www.google.es
@@ -46,7 +46,6 @@ www.bbc.co.uk
 www.go.com
 www.amazon.co.jp
 www.google.com.mx
-www.odnoklassniki.ru
 www.google.ca
 www.amazon.de
 www.adobe.com
@@ -75,7 +74,6 @@ www.dailymotion.com
 www.imgur.com
 www.zedo.com
 www.google.pl
-www.uol.com.br
 www.deviantart.com
 www.google.nl
 www.dropbox.com
@@ -98,3 +96,5 @@ www.walgreens.com
 www.liveleak.com
 www.discover.com
 www.mosthappy.com
+www.reverbnation.com
+www.irs.gov

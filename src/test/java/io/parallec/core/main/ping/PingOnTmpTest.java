@@ -73,7 +73,7 @@ public class PingOnTmpTest extends TestBase {
                 .setPingNumRetries(0)
                 .setTargetHostsFromLineByLineText(FILEPATH_TMP1, SOURCE_LOCAL)
                 // .setTargetHostsFromString(
-                // "parallec.github.io www.jeffpei.com www.restcommander.com bad.c21tom")
+                // "www.parallec.io www.jeffpei.com www.restcommander.com bad.c21tom")
                 .execute(new ParallecResponseHandler() {
                     @Override
                     public void onCompleted(ResponseOnSingleTask res,
@@ -98,7 +98,7 @@ public class PingOnTmpTest extends TestBase {
         ParallelTask task = pc.preparePing().async().setConcurrency(1500)
                 .setTargetHostsFromLineByLineText(FILEPATH_TMP1, SOURCE_LOCAL)
                 // .setTargetHostsFromString(
-                // "parallec.github.io www.jeffpei.com www.restcommander.com bad.c21tom")
+                // "www.parallec.io www.jeffpei.com www.restcommander.com bad.c21tom")
                 .execute(new ParallecResponseHandler() {
                     @Override
                     public void onCompleted(ResponseOnSingleTask res,

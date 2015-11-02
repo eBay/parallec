@@ -35,7 +35,7 @@ public class ParallecAppMin {
         pc.prepareHttpGet("/validateInternals.html")
                 .setConcurrency(1000)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .execute(new ParallecResponseHandler() {
 
                     @Override

@@ -15,7 +15,7 @@ package io.parallec.core.exception;
 /**
  * The Class ActorMessageTypeInvalidException.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class ActorMessageTypeInvalidException extends RuntimeException {
 

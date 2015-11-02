@@ -34,7 +34,7 @@ public class ParallelClientHttpBasicTestInvalidInput extends TestBase {
 
         boolean validate = pc.prepareHttpGet(" /validateInternals.html ")
                 .setConcurrency(1700)
-                // .setTargetHostsFromString("parallec.github.io www.jeffpei.com www.restcommander.com")
+                // .setTargetHostsFromString("www.parallec.io www.jeffpei.com www.restcommander.com")
                 .validation();
         System.out.println("validation: " + validate);
 
@@ -44,7 +44,7 @@ public class ParallelClientHttpBasicTestInvalidInput extends TestBase {
                 .async()
                 .sync()
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .validation();
         System.out.println("validation2: " + validate2);
     }
@@ -56,7 +56,7 @@ public class ParallelClientHttpBasicTestInvalidInput extends TestBase {
         pc.prepareHttpGet(" /validateInternals.html ")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .execute(new ParallecResponseHandler() {
 
                     @Override

@@ -23,9 +23,9 @@ public class TestBase {
     public final String FILEPATH_JSON_PATH = "userdata/sample_target_hosts_json_path.json";
 
     public final String URL_TOP_100 = "http://www.restcommander.com/docs/sample_target_hosts_top100.txt";
-    public final String URL_JSON_PATH = "http://parallec.github.io/userdata/sample_target_hosts_json_path.json";
-    public final String URL_CMS_QUERY_SINGLE_PAGE = "http://parallec.github.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_single_page.json";
-    public final String URL_CMS_QUERY_MULTI_PAGE = "http://parallec.github.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_multi_page_1.json";
+    public final String URL_JSON_PATH = "http://www.parallec.io/userdata/sample_target_hosts_json_path.json";
+    public final String URL_CMS_QUERY_SINGLE_PAGE = "http://www.parallec.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_single_page.json";
+    public final String URL_CMS_QUERY_MULTI_PAGE = "http://www.parallec.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_multi_page_1.json";
 
     public final HostsSourceType SOURCE_LOCAL = HostsSourceType.LOCAL_FILE;
     public final HostsSourceType SOURCE_URL = HostsSourceType.URL;

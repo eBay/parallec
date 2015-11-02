@@ -19,7 +19,7 @@ import io.parallec.core.bean.ping.PingMode;
  * Different from those settings defined in ParallelTaskConfig, 
  * settings here are effective to all executions, and cannot be overwritten for a particular task.
  * 
- *  @author Yuanteng Jeff Pei
+ *  @author Yuanteng (Jeff) Pei
  */
 public class ParallecGlobalConfig {
 
@@ -58,10 +58,9 @@ public class ParallecGlobalConfig {
 
     /** The ssh buffer size. */
     public static int sshBufferSize = 1024;
-
     
     /** The tcp connection timeout millis default. */
-    public static int tcpConnectionTimeoutMillisDefault = 2000;
+    public static int tcpConnectTimeoutMillisDefault = 2000;
     
     /** The tcp idle timeout seconds default. */
     public static int tcpIdleTimeoutSecDefault = 5;
@@ -92,7 +91,7 @@ public class ParallecGlobalConfig {
     public static double pingFutureCheckIntervalSec = 0.1;
     
     /** The log response interval. */
-    public static int logResponseInterval = 1;
+    public static int logResponseInterval = 5;
     
     /** The log all response after percent. */
     public static double logAllResponseAfterPercent = 95.0;

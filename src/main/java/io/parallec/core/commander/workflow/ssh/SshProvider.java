@@ -38,7 +38,7 @@ import com.jcraft.jsch.Session;
  * a basic one that works with password. If needed we may replace this
  * SshProvider after defining an interface.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class SshProvider {

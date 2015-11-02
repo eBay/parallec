@@ -71,7 +71,7 @@ public class PingTest extends TestBase {
 
         ParallelTask task = pc.preparePing().setConcurrency(1500)
                  .setTargetHostsFromString(
-                 "parallec.github.io www.jeffpei.com www.restcommander.com bad.c21tom")
+                 "www.parallec.io www.jeffpei.com www.restcommander.com bad.c21tom")
                 .execute(new ParallecResponseHandler() {
                     @Override
                     public void onCompleted(ResponseOnSingleTask res,
@@ -90,7 +90,7 @@ public class PingTest extends TestBase {
 
         ParallelTask task = pc.preparePing().setConcurrency(1500)
                  .setTargetHostsFromString(
-                 "parallec.github.io www.jeffpei.com www.restcommander.com")
+                 "www.parallec.io www.jeffpei.com www.restcommander.com")
                  .setPingMode(PingMode.PROCESS)
                  .setPingNumRetries(3)
                  .setPingTimeoutMillis(500)
@@ -115,7 +115,7 @@ public class PingTest extends TestBase {
             pc.preparePing().setConcurrency(1500)
             .setHttpPollable(true)
             .setTargetHostsFromString(
-            "parallec.github.io www.jeffpei.com www.restcommander.com bad.c21tom")
+            "www.parallec.io www.jeffpei.com www.restcommander.com bad.c21tom")
            .execute(new ParallecResponseHandler() {
                @Override
                public void onCompleted(ResponseOnSingleTask res,

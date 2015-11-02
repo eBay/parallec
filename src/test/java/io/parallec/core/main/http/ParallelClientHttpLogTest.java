@@ -74,7 +74,7 @@ public class ParallelClientHttpLogTest extends TestBase {
                 .prepareHttpGet("/validateInternals.html")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
-                        "parallec.github.io www.jeffpei.com www.restcommander.com")
+                        "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .execute(new ParallecResponseHandler() {
 
                     @Override

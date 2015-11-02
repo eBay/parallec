@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.ebay.parallec</groupId>
+	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.8.11-beta</version>
+	<version>0.9.0</version>
 	<packaging>jar</packaging>
-	<name>com.ebay.parallec:parallec-core</name>
+	<name>io.parallec:parallec-core</name>
 	<url>https://github.com/eBay/parallec</url>
 	<description>
         Parallec: Parallel Async HTTP/SSH/PING/TCP Client library.
-        More at https://github.com/eBay/parallec 
+        Details at: http://www.parallec.io
     </description>
 	<licenses>
 		<license>
@@ -39,7 +39,10 @@
 			<organizationUrl>www.ebay.com</organizationUrl>
 		</developer>
 	</developers>
-
+	<organization>
+		<name>eBay</name>
+		<url>http://www.ebay.com/</url>
+	</organization>
 	<inceptionYear>2015</inceptionYear>
 
 	<properties>
@@ -203,10 +206,6 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-
-
-
-
 
 	<build>
 		<pluginManagement>

@@ -47,7 +47,7 @@ public class HttpWorkerTest extends TestBase {
             // Start new job
             
             int actorMaxOperationTimeoutSec = 15;
-            String urlComplete = "http://parallec.github.io/v**``\"..,++08alidateInternals.html";
+            String urlComplete = "http://www.parallec.io/v**``\"..,++08alidateInternals.html";
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
@@ -77,7 +77,7 @@ public class HttpWorkerTest extends TestBase {
             // Start new job
             
             int actorMaxOperationTimeoutSec = 15;
-            String urlComplete = "http://parallec.github.io/validateInternals.html";
+            String urlComplete = "http://www.parallec.io/validateInternals.html";
             pc.getHttpClientStore();
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
@@ -109,7 +109,7 @@ public class HttpWorkerTest extends TestBase {
             
 
             int actorMaxOperationTimeoutSec = 15;
-            String urlComplete = "http://parallec.github.io/validateInternals.html";
+            String urlComplete = "http://www.parallec.io/validateInternals.html";
             pc.getHttpClientStore();
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
@@ -150,7 +150,7 @@ public class HttpWorkerTest extends TestBase {
             
             int actorMaxOperationTimeoutSec = 15;
             HttpWorker.setLogger(null);
-            String urlComplete = "http://parallec.github.io/validateInternals.html";
+            String urlComplete = "http://www.parallec.io/validateInternals.html";
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
@@ -182,7 +182,7 @@ public class HttpWorkerTest extends TestBase {
             
             // made a timeout
             int actorMaxOperationTimeoutSec = 0;
-            String urlComplete = "http://parallec.github.io/validateInternals.html";
+            String urlComplete = "http://www.parallec.io/validateInternals.html";
             pc.getHttpClientStore();
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
@@ -209,7 +209,7 @@ public class HttpWorkerTest extends TestBase {
     public void testHttpWorkerBadMsgType() {
         ActorRef asyncWorker = null;
         try {
-            String urlComplete = "http://parallec.github.io/validateInternals.html";
+            String urlComplete = "http://www.parallec.io/validateInternals.html";
             pc.getHttpClientStore();
             int actorMaxOperationTimeoutSec = 0;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(

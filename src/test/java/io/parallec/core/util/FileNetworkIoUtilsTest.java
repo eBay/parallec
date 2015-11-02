@@ -17,6 +17,7 @@ public class FileNetworkIoUtilsTest extends TestBase {
     public void test() throws FileNotFoundException {
         PcFileNetworkIoUtils.isFileExist(FILEPATH_TOP_100);
         PcFileNetworkIoUtils.readFileToInputStream(FILEPATH_TOP_100);
+        PcFileNetworkIoUtils.readFileToInputStream(FILEPATH_TOP_100+"badpath");
         PcFileNetworkIoUtils.getListFromLineByLineText(FILEPATH_TOP_100,
                 SOURCE_LOCAL);
         PcFileNetworkIoUtils.getListFromLineByLineText(FILEPATH_TOP_100 + "a",

@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.GsonBuilder;
 
 
+
 /**
  * The Class MonitorProvider.
  */
@@ -93,6 +94,11 @@ public class MonitorProvider {
         return threadMxBean.dumpAllThreads(true, true);
     }
 
+    /**
+     * Gets the live thread count.
+     *
+     * @return the live thread count
+     */
     public int getLiveThreadCount() {
         return ManagementFactory.getThreadMXBean().getThreadCount(); 
     }
@@ -123,7 +129,9 @@ public class MonitorProvider {
     }
 
     /**
-     * Log health.
+     * Gets the health memory.
+     *
+     * @return the health memory
      */
     public String getHealthMemory() {
         StringBuilder sb = new StringBuilder();

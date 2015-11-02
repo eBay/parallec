@@ -14,7 +14,7 @@ package io.parallec.core.resources;
 
 
 /**
- * The Enum HCTYPE.
+ * The Enum of HttyClient Type. Default is the EMBED_FAST.
  */
 public enum HttpClientType {
 

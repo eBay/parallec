@@ -53,7 +53,7 @@ import akka.util.Timeout;
  * 
  * It has access to the waiting task queue and the currently running map of ParallelTasks.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * @author Teng Song 
  * 
  */
@@ -95,19 +95,18 @@ public class ParallelTaskManager {
         synchronized (this) {
             logger = LoggerFactory.getLogger(ParallelTaskManager.class);
         }
-
-        initTaskScheduler();
         logger.info("Initialized ParallelTaskManager...");
 
     }
 
     /**
-     * as it is daemon thread, save to use. no need to stop either.
+     * as it is daemon thread
+     * 
+     * TODO when release external resources should shutdown the scheduler.
      */
-    public void initTaskScheduler() {
+    public synchronized void initTaskSchedulerIfNot() {
 
         if (scheduler == null) {
-            // TODO
             scheduler = Executors
                     .newSingleThreadScheduledExecutor(DaemonThreadFactory
                             .getInstance());
@@ -117,13 +116,20 @@ public class ParallelTaskManager {
                     ParallecGlobalConfig.schedulerCheckInterval,
                     TimeUnit.MILLISECONDS);
             logger.info("initialized daemon task scheduler to evaluate waitQ tasks.");
+            
         }
     }
-
- 
-
-
-    // waiting queue
+    
+    /**
+     * Shutdown task scheduler.
+     */
+    public synchronized void shutdownTaskScheduler(){
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+            logger.info("shutdowned the task scheduler. No longer accepting new tasks");
+            scheduler = null;
+        }
+    }
 
     /**
      * Gets the task from in progress map.
@@ -238,10 +244,9 @@ public class ParallelTaskManager {
     }
 
     /**
-     * key function to execute a parallel task
+     * key function to execute a parallel task.
      *
-     * @param task
-     *            the parallel task
+     * @param task            the parallel task
      * @return the batch response from manager
      */
     public ResponseFromManager generateUpdateExecuteTask(ParallelTask task) {
@@ -308,6 +313,12 @@ public class ParallelTaskManager {
     public Queue<ParallelTask> getWaitQ() {
         return waitQ;
     }
+    
+    /**
+     * Gets the inprogress task map.
+     *
+     * @return the inprogress task map
+     */
     public ConcurrentHashMap<String, ParallelTask> getInprogressTaskMap() {
         return inprogressTaskMap;
     }
@@ -331,9 +342,6 @@ public class ParallelTaskManager {
                     + task.getTaskId() + " at "
                     + PcDateUtils.getNowDateTimeStr());
 
-            // Get the singleton actor system
-            // create the master
-            // command smart upgrade:
             executionManager = ActorConfig.createAndGetActorSystem().actorOf(
                     Props.create(ExecutionManager.class, task),
                     "ExecutionManager-" + task.getTaskId());

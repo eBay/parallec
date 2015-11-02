@@ -58,7 +58,7 @@ import com.ning.http.client.AsyncHttpClient;
  * The key class represents a onetime execution on multiple requests. It contains all the task 
  * and request metadata, target hosts, configs, and the responses.
  * 
- * A ParallelTask is the returned object from the {@link ParallelTaskBuilder#execute()}
+ * A ParallelTask is the returned object from the {@link ParallelTaskBuilder#execute}
  * 
  * <ul>
     <li>The metadata on this whole task, including config, running state, progress, request count, task id.&nbsp;</li>
@@ -70,7 +70,7 @@ import com.ning.http.client.AsyncHttpClient;
 </ul>
  * 
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class ParallelTask {
 
@@ -120,7 +120,12 @@ public class ParallelTask {
     /** The aggregate result map. */
     private final Map<String, LinkedHashSet<String>> aggregateResultMap = new LinkedHashMap<String, LinkedHashSet<String>>();
 
-    /** The parallel task result. */
+    /** The parallel task result: 
+     * a hashmap to store the request parameters, host name, ResponseOnSingleTask.
+     * Note that by default, the response content is not saved into the ResponseOnSingleTask.
+     * Unless the user changes the config by calling {@link ParallelTaskBuilder#setSaveResponseToTask}
+     * 
+     * */
     private Map<String, NodeReqResponse> parallelTaskResult = new ConcurrentHashMap<String, NodeReqResponse>();
 
     /** The http meta. */
@@ -189,7 +194,6 @@ public class ParallelTask {
      * @param pingMeta the ping meta
      * @param handler the handler
      * @param responseContext the response context
-     * @param asyncHttpClient the async http client
      * @param replacementVarMapNodeSpecific the replacement var map node specific
      * @param replacementVarMap the replacement var map
      * @param requestReplacementType the request replacement type
@@ -605,6 +609,9 @@ public class ParallelTask {
 
 
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "ParallelTask [config=" + config + ", submitTime=" + submitTime
@@ -822,6 +829,11 @@ public class ParallelTask {
         return summaryMap;
     }
     
+    /**
+     * Gets the aggregated result human str.
+     *
+     * @return the aggregated result human str
+     */
     public String getAggregatedResultHumanStr() {
         return PcStringUtils.getAggregatedResultHuman(aggregateResultMap);
     }

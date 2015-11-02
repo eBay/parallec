@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * TODO Testing the enabled capacity control
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class ParallelTaskCancelWholeTaskTest extends TestBase {

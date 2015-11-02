@@ -18,7 +18,7 @@ import fi.iki.elonen.NanoHTTPD.Response.Status;
  * 
  * note that the job map will never be clean up until it reaches 8192
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class ServerWithPollableJobs extends NanoHTTPD {

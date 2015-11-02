@@ -42,7 +42,7 @@ import com.ning.http.client.AsyncHttpClientConfigBean;
 /**
  * The Class HttpClientFactoryEmbed.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public final class AsyncHttpClientFactoryEmbed {
 

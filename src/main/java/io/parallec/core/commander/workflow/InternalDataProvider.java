@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 /**
  * generate the node data; make sure it is not null.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class InternalDataProvider {
@@ -56,14 +56,14 @@ public class InternalDataProvider {
     }
 
     /**
-     * Gen node data map.
+     * Generate node data map.
      *
      * @param task
      *            the job info
      */
     public void genNodeDataMap(ParallelTask task) {
 
-        TargetHostMeta nodeGroupSourceMetadata = task.getTargetHostMeta();
+        TargetHostMeta targetHostMeta = task.getTargetHostMeta();
 
         HttpMeta httpMeta = task.getHttpMeta();
 
@@ -72,11 +72,10 @@ public class InternalDataProvider {
         String requestContent = HttpMeta
                 .replaceDefaultFullRequestContent(entityBody);
 
-        // 2015 new
         Map<String, NodeReqResponse> parallelTaskResult = task
                 .getParallelTaskResult();
         try {
-            for (String fqdn : nodeGroupSourceMetadata.getHosts()) {
+            for (String fqdn : targetHostMeta.getHosts()) {
                 NodeReqResponse nodeReqResponse = new NodeReqResponse(fqdn);
                 nodeReqResponse.setDefaultReqestContent(requestContent);
                 parallelTaskResult.put(fqdn, nodeReqResponse);
@@ -90,18 +89,10 @@ public class InternalDataProvider {
     }// end func.
 
     /**
-     * Check if it will execute VarUtils.NODE_REQUEST_WILL_EXECUTE each target
-     * host is unique as in the key of the hash map.
-     * 
-     * So there will not be duplicated target hosts.
-     * 
-     * 
-     * @param nodeDataMapValidSource
-     *            the node data map valid source
-     * @param nodeDataMapValidSafe
-     *            the node data map valid safe
-     * @param commandType
-     *            the command type
+     * Filter unsafe or unnecessary request.
+     *
+     * @param nodeDataMapValidSource the node data map valid source
+     * @param nodeDataMapValidSafe the node data map valid safe
      */
     public void filterUnsafeOrUnnecessaryRequest(
             Map<String, NodeReqResponse> nodeDataMapValidSource,
@@ -114,12 +105,6 @@ public class InternalDataProvider {
             String hostName = entry.getKey();
             NodeReqResponse nrr = entry.getValue();
 
-            if (nrr == null) {
-                logger.error("NodeReqResponse is NULL "
-                        + "in filterUnsafeRequest for host {}", hostName);
-                continue;
-            }
-            // now get the content.
             Map<String, String> map = nrr.getRequestParameters();
 
             /**
@@ -127,7 +112,6 @@ public class InternalDataProvider {
              * field and this field is false
              */
             if (map.containsKey(PcConstants.NODE_REQUEST_WILL_EXECUTE)) {
-
                 Boolean willExecute = Boolean.parseBoolean(map
                         .get(PcConstants.NODE_REQUEST_WILL_EXECUTE));
 
@@ -140,9 +124,6 @@ public class InternalDataProvider {
             }
 
             // now safely to add this node in.
-
-            // note that this is shallow copy; put the pointer of the source
-            // in...
             nodeDataMapValidSafe.put(hostName, nrr);
         }// end for loop
 

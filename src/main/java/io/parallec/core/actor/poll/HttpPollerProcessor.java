@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * Poll API: assume the HTTP Method for poll: is GET / no body/ and with the
  * same header as the 1st reqwuest
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class HttpPollerProcessor {

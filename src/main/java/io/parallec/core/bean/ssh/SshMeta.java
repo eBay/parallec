@@ -16,11 +16,12 @@ import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ParallelTaskInvalidException;
 
 
+
 /**
  * all ssh metadata except for the target host name. also those timeout configs
  * and
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class SshMeta {
@@ -92,25 +93,19 @@ public class SshMeta {
         this.passphrase = passphrase;
     }
 
+
     /**
      * Instantiates a new ssh meta.
      *
-     * @param commandLine
-     *            the command line
-     * @param userName
-     *            the user name
-     * @param sshPort
-     *            the ssh port
-     * @param sshLoginType
-     *            the ssh login type
-     * @param privKeyRelativePath
-     *            the priv key relative path
-     * @param password
-     *            the password
-     * @param privKeyUsePassphrase
-     *            the priv key use passphrase
-     * @param passphrase
-     *            the passphrase
+     * @param commandLine the command line
+     * @param userName the user name
+     * @param sshPort the ssh port
+     * @param sshLoginType the ssh login type
+     * @param privKeyRelativePath the priv key relative path
+     * @param password the password
+     * @param privKeyUsePassphrase the priv key use passphrase
+     * @param passphrase the passphrase
+     * @param sshConnectionTimeoutMillis the ssh connection timeout millis
      */
     public SshMeta(String commandLine, String userName, int sshPort,
             SshLoginType sshLoginType, String privKeyRelativePath,
@@ -316,10 +311,20 @@ public class SshMeta {
         return privKeyAbsPath;
     }
 
+    /**
+     * Gets the ssh connection timeout millis.
+     *
+     * @return the ssh connection timeout millis
+     */
     public int getSshConnectionTimeoutMillis() {
         return sshConnectionTimeoutMillis;
     }
 
+    /**
+     * Sets the ssh connection timeout millis.
+     *
+     * @param sshConnectionTimeoutMillis the new ssh connection timeout millis
+     */
     public void setSshConnectionTimeoutMillis(int sshConnectionTimeoutMillis) {
         this.sshConnectionTimeoutMillis = sshConnectionTimeoutMillis;
     }

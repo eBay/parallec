@@ -33,7 +33,7 @@ public class HttpClientStoreTest extends TestBase {
             HttpClientStore.getInstance().getCustomClientSlow();
             HttpClientStore.getInstance().getEmbedClientFast();
             HttpClientStore.getInstance().getEmbedClientSlow();
-
+            HttpClientStore.getInstance().setHttpClientTypeCurrentDefault(HttpClientType.CUSTOM_FAST);
         } catch (Exception ex) {
             logger.error("Expected Exception : " + ex);
         }

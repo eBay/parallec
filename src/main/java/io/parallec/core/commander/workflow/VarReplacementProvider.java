@@ -14,9 +14,7 @@ package io.parallec.core.commander.workflow;
 
 import io.parallec.core.ParallelTask;
 import io.parallec.core.actor.message.NodeReqResponse;
-import io.parallec.core.bean.HttpMeta;
 import io.parallec.core.bean.StrStrMap;
-import io.parallec.core.bean.TargetHostMeta;
 import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcDateUtils;
 
@@ -31,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * 
  * extending from replacing only WISB based. now to also API based.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class VarReplacementProvider {
@@ -78,7 +76,6 @@ public class VarReplacementProvider {
      *            boolean: use target host specific replacement map
      * @param replacementVarMapNodeSpecific
      *            the replacement variable map node specific
-     * @return the string
      */
     public void updateRequestWithReplacement(
             ParallelTask task, boolean useReplacementVarMap,
@@ -87,15 +84,6 @@ public class VarReplacementProvider {
             Map<String, StrStrMap> replacementVarMapNodeSpecific) {
 
         try {
-
-            TargetHostMeta targetHostMeta = task.getTargetHostMeta();
-            HttpMeta cmd = task.getHttpMeta();
-            if (targetHostMeta == null || cmd == null) {
-
-                String errMessage = "nodeGroupSourceMetadata  is NULL or agentCommandType is NULL in updateRequestContentGenericHelper. EXIT!!"
-                        + PcDateUtils.getNowDateTimeStrStandard();
-                logger.error(errMessage);
-            }
 
             /**
              * 

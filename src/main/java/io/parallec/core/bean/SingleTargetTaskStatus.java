@@ -15,7 +15,7 @@ package io.parallec.core.bean;
 /**
  * The Enum SingleTargetTaskStatus.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public enum SingleTargetTaskStatus {
 

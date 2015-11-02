@@ -73,7 +73,7 @@ import com.ning.http.client.AsyncHttpClient;
  * 
  * Will create a list of operation workers to match each of the target hosts.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class ExecutionManager extends UntypedActor {

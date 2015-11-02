@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * The class used to represent the target hosts and a count when aggregation
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class SetAndCount {
 

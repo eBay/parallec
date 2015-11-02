@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * will echo back 3 lines of response that include the request string, 
  * then auto close the connection
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class TcpEchoServer {
 

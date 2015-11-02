@@ -27,25 +27,22 @@ import org.slf4j.LoggerFactory;
 
 import com.ning.http.client.AsyncHttpClient;
 
-
 /**
  * 
  * This is the starting point of starting a parallel client, which create a
  * {@link ParallelTaskBuilder} after a prepareGet functions. The Parallel
  * Task builder is to build a parallel task. 
  * 
- * 
- * 
  * This is more a wrapper class and does not hold object specific resources. You
- * may create a single or multiple instance.
+ * may create a single or multiple instances.
  * 
  * Only call {@link ParallelClient#releaseExternalResources()} before your app
- * shutdown. will mark as closed after it is closed
+ * shutdown and when you no longer need to use it. Will mark as closed after it is closed
  * {@link ParallelClient#isClosed}
  * 
- * Will auto reinitialize if is closed but will be executed again.
+ * Will auto reinitialize if is closed.
  * 
- * <h3 id="maven-import">Maven Import</h3>
+ * <h3>Maven Import</h3>
  * 
  * <pre>
  * <code class="xml">    &lt;dependency&gt;
@@ -67,11 +64,10 @@ import com.ning.http.client.AsyncHttpClient;
  * import java.util.Map;
  * 
  * ParallelClient pc= new ParallelClient();
- * pc.prepareGet(&quot;/validateInternals.html&quot;)
- *     .setMaxConcurrency(1000)
- *     .setTargetHostsFromString(&quot;parallec.github.io www.jeffpei.com www.restcommander.com&quot;)
+ * pc.prepareHttpGet(&quot;/validateInternals.html&quot;)
+ *     .setConcurrency(1000)
+ *     .setTargetHostsFromString(&quot;www.parallec.io www.jeffpei.com www.restcommander.com&quot;)
  *     .execute(new ParallecResponseHandler() {
- *         
  *         public void onCompleted(ResponseOnSingleTask res,
  *                 Map&lt;String, Object&gt; responseContext) {
  *             String cpu = new FilterRegex(&quot;.*&lt;td&gt;CPU-Usage-Percent&lt;/td&gt;\\s*&lt;td&gt;(.*?)&lt;/td&gt;.*&quot;)
@@ -83,7 +79,7 @@ import com.ning.http.client.AsyncHttpClient;
  * </code>
  * </pre>
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 
 public class ParallelClient {
@@ -99,7 +95,7 @@ public class ParallelClient {
     public HttpClientStore httpClientStore = HttpClientStore.getInstance();
 
     /** The tcp client store. */
-    public TcpSshPingResourceStore tcpClientStore = TcpSshPingResourceStore.getInstance();
+    public TcpSshPingResourceStore tcpSshPingResourceStore = TcpSshPingResourceStore.getInstance();
 
     /** The is closed is marked when all resources are released/not initialized. */
     public static AtomicBoolean isClosed = new AtomicBoolean(true);
@@ -119,7 +115,7 @@ public class ParallelClient {
             logger.info("Initialing Parallel Client Resources: actor system, HttpClientStore, Task Manager ....");
             ActorConfig.createAndGetActorSystem();
             httpClientStore.init();
-            tcpClientStore.init();
+            tcpSshPingResourceStore.init();
             ParallelTaskManager.getInstance();
             isClosed.set(false);
             logger.info("Parallel Client Resources has been initialized.");
@@ -131,7 +127,7 @@ public class ParallelClient {
     /**
      * Releases the external resources that this object depends on. You should
      * not call this method if you still want to use the external resources
-     * (e.g. akka system, sync and async http client store, thread pool for
+     * (e.g. akka system, async http client store, thread pool for
      * SSH/TCP) are in use by other objects.
      * 
      * 
@@ -144,7 +140,7 @@ public class ParallelClient {
             logger.info("Releasing all ParallelClient resources... ");
             ActorConfig.shutDownActorSystemForce();
             httpClientStore.shutdown();
-            tcpClientStore.shutdown();
+            tcpSshPingResourceStore.shutdown();
             taskManager.cleanWaitTaskQueue();
             taskManager.cleanInprogressJobMap();
             isClosed.set(true);
@@ -168,7 +164,7 @@ public class ParallelClient {
 
             ActorConfig.createAndGetActorSystem();
             httpClientStore.reinit();
-            tcpClientStore.reinit();
+            tcpSshPingResourceStore.reinit();
             try {
                 Thread.sleep(1000l);
             } catch (InterruptedException e) {

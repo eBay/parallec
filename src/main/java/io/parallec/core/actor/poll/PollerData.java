@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * the currentProgress is just for display.
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class PollerData {

@@ -44,10 +44,11 @@ import akka.actor.UntypedActor;
 import com.ning.http.client.AsyncHttpClient;
 
 
+
 /**
  * AHC based.
  *
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class OperationWorker extends UntypedActor {
 
@@ -83,6 +84,7 @@ public class OperationWorker extends UntypedActor {
     /** The timeout duration. */
     private FiniteDuration timeoutDuration = null;
 
+    /** The actor max operation timeout sec. */
     private int actorMaxOperationTimeoutSec = ParallelTaskConfigDefault.actorMaxOperationTimeoutSec;
 
     /** The start time millis. */
@@ -434,6 +436,9 @@ public class OperationWorker extends UntypedActor {
 
     }
 
+    /**
+     * Cancel.
+     */
     @SuppressWarnings("deprecation")
     private final void cancel() {
         /**
@@ -475,14 +480,11 @@ public class OperationWorker extends UntypedActor {
     /**
      * Reply.
      *
-     * @param error
-     *            the error
-     * @param errorMessage
-     *            the error message
-     * @param stackTrace
-     *            the stack trace
-     * @param statusCode
-     *            the status code
+     * @param error the error
+     * @param errorMessage the error message
+     * @param stackTrace the stack trace
+     * @param statusCode the status code
+     * @param statusCodeInt the status code int
      */
     private final void reply(final boolean error, final String errorMessage,
             final String stackTrace, final String statusCode,
@@ -495,16 +497,12 @@ public class OperationWorker extends UntypedActor {
     /**
      * Reply.
      *
-     * @param error
-     *            the error
-     * @param errorMessage
-     *            the error message
-     * @param stackTrace
-     *            the stack trace
-     * @param statusCode
-     *            the status code
-     * @param receiveTime
-     *            the receive time
+     * @param error the error
+     * @param errorMessage the error message
+     * @param stackTrace the stack trace
+     * @param statusCode the status code
+     * @param statusCodeInt the status code int
+     * @param receiveTime the receive time
      */
     @SuppressWarnings("deprecation")
     private final void reply(final boolean error, final String errorMessage,

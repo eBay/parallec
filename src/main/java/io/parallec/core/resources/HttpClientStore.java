@@ -20,15 +20,18 @@ import com.ning.http.client.AsyncHttpClient;
 
 
 /**
- * this stores a pair of default fast/slow AsyncHttpClient, and another pair of
- * customized fast/slow AsyncHttpClient the default.
+ * this stores a pair of default embedded fast/slow AsyncHttpClient, and another pair of
+ * customized fast/slow AsyncHttpClient. 
+ * By default the pair of customized ones are just references (duplicates of) the embedded ones.
  * 
  * For each Parallel Task, will by default load the Embed-fast client in AsyncHttpClientStore 
  *  unless you load your specific async http client.
  * 
- * Apache HTTP Client is only used for CMS query or load target hosts for URLs.
+ * You may call {@link #setHttpClientTypeCurrentDefault(HttpClientType)} to change the default one 
  * 
- * @author Yuanteng Jeff Pei
+ *  (default one is the embedded fast)
+ * 
+ * @author Yuanteng (Jeff) Pei
  */
 public class HttpClientStore {
 
@@ -83,7 +86,7 @@ public class HttpClientStore {
     }
 
     /**
-     * Shutdown.
+     * Shutdown each AHC client in the map.
      */
     public void shutdown() {
 

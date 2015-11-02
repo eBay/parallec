@@ -37,13 +37,14 @@ import akka.actor.ActorRef;
 import akka.actor.Cancellable;
 import akka.actor.UntypedActor;
 
+
 /**
  *
  * Using callable to start a new thread to run the Ping execution task (which
  * make take minutes). Check if future is read every 0.1 seconds. Make sure the
  * message are handled async. 
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class PingWorker extends UntypedActor {
 
@@ -51,6 +52,7 @@ public class PingWorker extends UntypedActor {
     /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(PingWorker.class);
 
+    /** The actor max operation timeout sec. */
     private int actorMaxOperationTimeoutSec;
 
     /** The sender. */
@@ -81,10 +83,11 @@ public class PingWorker extends UntypedActor {
     private Future<ResponseOnSingeRequest> responseFuture;
 
     /**
-     * Instantiates a new ssh worker.
+     * Instantiates a new ping worker.
      *
-     * @param targetHost
-     *            the target host
+     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
+     * @param pingMeta the ping meta
+     * @param targetHost the target host
      */
     public PingWorker(int actorMaxOperationTimeoutSec,PingMeta pingMeta,
             String targetHost) {
@@ -365,14 +368,23 @@ public class PingWorker extends UntypedActor {
     /**
      * thread to return the future.
      *
-     * @author Yuanteng Jeff Pei
+     * @author Yuanteng (Jeff) Pei
      */
     private static class PingTask implements Callable<ResponseOnSingeRequest> {
 
 
         /** The target host. */
         private String targetHost;
+        
+        /** The ping meta. */
         private PingMeta pingMeta;
+        
+        /**
+         * Instantiates a new ping task.
+         *
+         * @param targetHost the target host
+         * @param pingMeta the ping meta
+         */
         public PingTask( String targetHost, PingMeta pingMeta) {
             this.targetHost = targetHost;
             this.pingMeta = pingMeta;

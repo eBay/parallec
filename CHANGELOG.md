@@ -1,26 +1,32 @@
-Change Log
+Parallec Change Log
 ==========
 
+## Version 0.9.0
 
-## Version 0.8.11
+_2015-11-01_
 
-_2015-10-28_
+* Add: Late initialize CapacityAwareTaskScheduler only when it is used. Added shutdown for the scheduler.
+* Test: Update some tests on variable replacements.
+* Doc: Update javadoc.
 
-* Javadoc: refine javadoc. 
+## Version 0.8.12-beta
+
+_2015-10-29_
+
+* Javadoc: refine javadoc. Fixed errors in javadoc.  
 * Coverage: add code coverage.
 * Maven: setup with maven central deployment. Added codecov and travis CI.
 
 
-
-
-## Version 0.8.10
+## Version 0.8.11-beta 
+## Version 0.8.10 
 
 _2015-10-27_
 
 * Change: refactor and removed command director. Renamed command manager to execution manager. 
 * Change: remove duplicated functions of prepareHttp* in builder and client classes.   Refactor internal type of http method.
 * Add: ParallelTask add getAggregatedResultHumanStr() to display human readable results.
-* Change: enforce safeguard of concurrency limit for ssh as 400.
+* Change: enforce safeguard of concurrency limit for SSH as 400.
 
 ## Version 0.8.9
 

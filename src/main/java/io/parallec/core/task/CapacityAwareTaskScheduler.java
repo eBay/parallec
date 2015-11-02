@@ -20,16 +20,16 @@ import java.util.Queue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * 
- * TODO Doc: The Class EvalTaskInWaitQRunner.
+ * A task scheduler runnable to check if there are capacity to run a task 
+ * from the waitQ.
  * 
+ * Note that this scheduler is not enabled by default. 
  * 
+ * Enable it by {@link ParallelTaskBuilder#setEnableCapacityAwareTaskScheduler(true)}
  * 
- * A task scheduler runnable to check if there are capacity to run a task in
- * from the waitQ
- * 
+ *  @author Yuanteng (Jeff) Pei
  */
 public class CapacityAwareTaskScheduler implements Runnable {
 

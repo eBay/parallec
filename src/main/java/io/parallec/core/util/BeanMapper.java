@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * TODO
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class BeanMapper {

@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * all ssh metadata except for the target host name. also those timeout configs
  * and
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  *
  */
 public class TcpMeta {
@@ -92,7 +92,7 @@ public class TcpMeta {
         
         if (this.tcpConnectTimeoutMillis == null) {
             logger.info("SET DEFAULT TCP CONNECT TIMEOUT: TCP tcpConnectTimeoutMillis is set as default");
-            this.tcpConnectTimeoutMillis= ParallecGlobalConfig.tcpConnectionTimeoutMillisDefault;
+            this.tcpConnectTimeoutMillis= ParallecGlobalConfig.tcpConnectTimeoutMillisDefault;
         }
         
         if (this.tcpIdleTimeoutSec == null) {

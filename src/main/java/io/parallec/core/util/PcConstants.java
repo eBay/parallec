@@ -15,7 +15,7 @@ package io.parallec.core.util;
 /**
  * Static variable names...
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  * 
  */
 public class PcConstants {

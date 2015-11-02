@@ -94,6 +94,7 @@ public class ParallelClientSchedulerAndCancelTest extends TestBase {
         }
 
         ParallecGlobalConfig.maxCapacity = 2500;
+        ParallelTaskManager.getInstance().shutdownTaskScheduler();
     }// end func
 
     /**
@@ -105,6 +106,8 @@ public class ParallelClientSchedulerAndCancelTest extends TestBase {
     @Test(timeout = 60000)
     public void hitTop100WebsitesCapacityProtectionCancel2ndTask() {
 
+        ParallelTaskManager.getInstance().shutdownTaskScheduler();
+        
         ParallecGlobalConfig.maxCapacity = 120;
         ParallelTask pt = pc
                 .prepareHttpGet("")

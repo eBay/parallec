@@ -22,7 +22,7 @@ import java.util.UUID;
  * The metadata about the targetHost, which is mainly a list of hostnames (IP or FQDN)
  *  the primary key is the targetHostId, generated with timestamp
  * 
- * @author Yuanteng Jeff Pei
+ * @author Yuanteng (Jeff) Pei
  */
 public class TargetHostMeta {
 

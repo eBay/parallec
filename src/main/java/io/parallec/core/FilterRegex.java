@@ -22,8 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class FilterRegex.
- * @author Yuanteng Jeff Pei
+ * A simple class to apply a regular expression to .
+ * @author Yuanteng (Jeff) Pei
  */
 public class FilterRegex {
 
