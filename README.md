@@ -48,7 +48,7 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 - [**More Sample Applications**](https://github.com/ebay/parallec-samples#http).
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, cms query from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
-- - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
+- [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
 
 ###Use Cases
 
