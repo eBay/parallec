@@ -13,6 +13,7 @@ limitations under the License.
 package io.parallec.core.task;
 
 import io.parallec.core.ParallelTask;
+import io.parallec.core.ParallelTaskBuilder;
 import io.parallec.core.config.ParallecGlobalConfig;
 
 import java.util.Queue;
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * 
  * Note that this scheduler is not enabled by default. 
  * 
- * Enable it by {@link ParallelTaskBuilder#setEnableCapacityAwareTaskScheduler(true)}
+ * Enable it by {@link ParallelTaskBuilder#setEnableCapacityAwareTaskScheduler}
  * 
  *  @author Yuanteng (Jeff) Pei
  */
