@@ -4,7 +4,7 @@
 ![build status](https://img.shields.io/badge/build-info=>-green.svg) [![Build Status](https://travis-ci.org/eBay/parallec.svg?branch=master)](https://travis-ci.org/eBay/parallec) [![Coverage Status](https://img.shields.io/codecov/c/github/eBay/parallec.svg)](https://codecov.io/github/eBay/parallec) [![Apache V2.0 License](http://www.parallec.io/images/apache2.svg) ](https://github.com/eBay/parallec/blob/master/LICENSE)
 
 
-![latest 0.9.x](http://img.shields.io/badge/latest_stable-0.9.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.9.0|) 
+![latest 0.9.x](http://img.shields.io/badge/latest_stable-0.9.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.9.0|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) 
 
@@ -43,7 +43,7 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 });
 ```	
 
-- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, request templates, send to elastic search, async running, track progress.
+- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to elastic search, async running, track progress.
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
