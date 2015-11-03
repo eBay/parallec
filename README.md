@@ -47,6 +47,7 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
+- [**Ping Demo**](#demos) Ping 8000 Servers within 11.1 Seconds, performance test vs. [FPing](http://fping.org/).
 
 ###Use Cases
 
@@ -75,7 +76,7 @@ Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like". Parall
 1. **Fine-grained task progress tracking** helps you track the the progress each individual task status. Of a parallel task on 1000 target hosts, you may check status on any single host task, and percentage progress on how many are completed.
 1. **Fine-grained task cancelation** on whole/individual request level. Of a parallel task on 1000 target hosts, you may cancel a subset of target hosts or cancel the whole parallel task anytime.
 1. **Status-code-aggregation** is provided out of the box.
-1. **Parallel Ping** supports both InetAddress.reachable ICMP (requires root) and Process based ping with retries.  Performance testing shows it is ** 67% faster** than best-effort tuned FPing on pinging on 1500 targets. (2.7 vs 4.5 sec)
+1. **Parallel Ping** supports both InetAddress.reachable ICMP (requires root) and Process based ping with retries.  Performance testing shows it is ** 2x the speed of** than best-effort tuned FPing on pinging on 1500 targets. (2.2 vs 4.5 sec)
 1. **Parallel SSH** supports both key and password based login and task cancellation.
 1. **Parallel TCP** supports idle timeout based channel closes.
 
@@ -89,12 +90,16 @@ Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like". Parall
 With the feedbacks, lessons, and improvements from the past year of internal usage and open source of **[REST Commander](http://www.restcommander.com)**, we now made the core of REST Commander as an easy to use standalone library. We added [**15+ new**](#compare) features, rewritten 70%+ of the code, with [**90%+ test coverage**](https://codecov.io/github/eBay/parallec) for confident usage and contribution. This time we also structure it better so that most internal development can be directly made here.
 
 
-## Watch Parallec in Action
+## Watch Parallec in Action<a name="demos"></a>
 
 [**Watch Demo**](https://www.youtube.com/watch?v=QcavegPMDms"Parallec demo - Click to Watch!"): Parallec Aggregates 100 websites status to elastic search and visualized with [20 lines of code](https://github.com/eBay/parallec-samples/blob/master/sample-apps/src/main/java/io/parallec/sample/app/http/Http100WebAggregateToElasticSearchApp.java).
 
 <a title="Click to Watch HD version in Youtube" href="https://www.youtube.com/watch?v=QcavegPMDms"><img alt="20 lines parallec to elastic search demo" src="http://www.parallec.io/demos/elastic-web100-v3.gif" /></a>
 
+
+[**Watch Ping Demo**](https://www.youtube.com/watch?v=9m1TFuO1Mys"Parallec Ping vs FPing demo - Click to Watch!"): Parallec is **2x Speed** of best-efforted tuned [FPing](http://fping.org) with same accurate results and pings 8000 servers within 11.1 seconds, details check [here](https://github.com/eBay/parallec/wiki/Parallec-pings-8000-servers-in-11.1-seconds).
+
+<a title="Click to Watch HD version in Youtube" href="https://www.youtube.com/watch?v=9m1TFuO1Mys"><img alt="parallec pings 8000 servers in 11.1 seconds" src="http://www.parallec.io/demos/parallec-vs-fping-v1.gif" /></a>
 
 
 ## Performance
@@ -108,13 +113,9 @@ We conducted remote task execution API on 3,000 servers with response aggregated
 With another faster API, calls to 8,000 servers in the same datacenter with response aggregated in memory in 12 seconds. 
 
 #####Ping
-Parallec 2.7 seconds vs FPing 4.5 seconds on 1500 servers. Parallec is 67% faster than [FPing](http://fping.org/) (after best-effort tuning : -i 1 -r 0 v3.12)  of pinging 1500 servers while getting the same ping results.  While FPing consistently crashing (seg fault) when it pings 2000 or more servers,  Parallec pings 8000 servers within 11.8 seconds with breeze.
+Parallec 2.2 seconds vs FPing 4.5 seconds on 1500 servers. Parallec is 2x the speed of [FPing](http://fping.org/) (after best-effort tuning : -i 1 -r 0 v3.12)  of pinging 1500 servers while getting the same ping results.  Parallec pings 8000 servers within 11.1 seconds with breeze.
 
 As usual, don't rely on these numbers and perform your own benchmarks.
-
-
-
-
 
 ## Compare Parallec vs REST Commander vs ThreadPools+Async Client<a name="compare"></a>
 

@@ -466,13 +466,13 @@ public class ExecutionManager extends UntypedActor {
                         || progressPercent > ParallecGlobalConfig.logAllResponseAfterPercent
                         || responseCount % ParallecGlobalConfig.logResponseInterval==0
                         ){
-                    // percent is escaped using percent sign; 
+                    // percent is escaped using percent sign; hostName
                     logger.info(String
                             .format("\n[%d]__RESP_RECV_IN_MGR %d (+%d) / %d (%.5g%%)  "
                                     + "AFT %s S @ %s @ %s , TaskID : %s , CODE: %s, RESP_BRIEF: %s %s",
                                     responseCount, responseCount, requestCount
                                     - responseCount, requestCount,
-                                    progressPercent, secondElapsedStr, hostName,
+                                    progressPercent, secondElapsedStr, "",
                                     responseReceiveTimeStr, taskIdTrim,
                                     taskResponse.getStatusCode(), displayResponse,
                                     taskResponse.getErrorMessage()==null? "" : ", ERR: "+ taskResponse.getErrorMessage()));
