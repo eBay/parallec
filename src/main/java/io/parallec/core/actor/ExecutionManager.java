@@ -472,7 +472,7 @@ public class ExecutionManager extends UntypedActor {
                                     + "AFT %s S @ %s @ %s , TaskID : %s , CODE: %s, RESP_BRIEF: %s %s",
                                     responseCount, responseCount, requestCount
                                     - responseCount, requestCount,
-                                    progressPercent, secondElapsedStr, "",
+                                    progressPercent, secondElapsedStr, hostName,
                                     responseReceiveTimeStr, taskIdTrim,
                                     taskResponse.getStatusCode(), displayResponse,
                                     taskResponse.getErrorMessage()==null? "" : ", ERR: "+ taskResponse.getErrorMessage()));
