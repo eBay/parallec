@@ -13,6 +13,8 @@ Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalabl
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
 ### Get Started
+
+[![Join the chat at https://gitter.im/eBay/parallec](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Maven
 
 ```xml
