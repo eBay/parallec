@@ -8,12 +8,12 @@
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) 
 
-Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. Response handler with context enables you conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
+Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the response. Now you can conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
 ### Get Started
-Maven
+Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&a=parallec-core&v=LATEST) or grab from Maven:
 
 ```xml
 <dependency>
@@ -23,12 +23,17 @@ Maven
 </dependency>
 ```
 
-Gradle
+or Gradle:
 ```xml
 compile 'io.parallec:parallec-core:0.9.0'
 ```
 
+
 **6 Line Example**
+
+
+In the example below,  simply changing **prepareHttpGet()** to **prepareSsh()**, **prepareTcp()**, **preparePing()** enables you to conduct parallel SSH/TCP/Ping. Details please refer to the [Java Doc](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) and [Example Code](https://github.com/ebay/parallec-samples).
+
 
 ```java
 import io.parallec.core.*;
@@ -42,12 +47,56 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
         System.out.println( res.toString() );  }
 });
 ```	
+**20 Line Example**
+
+Now that you have learned the basics, check out how easy to pass an elastic search client using the convenient **response context** to aggregate data anywhere you like.
+
+```java
+ParallelClient pc = new ParallelClient();
+org.elasticsearch.node.Node node = nodeBuilder().node(); //elastic client initialize
+HashMap<String, Object> responseContext = new HashMap<String, Object>();
+responseContext.put("Client", node.client());
+pc.prepareHttpGet("")
+        .setConcurrency(1000).setResponseContext(responseContext)
+        .setTargetHostsFromLineByLineText("http://www.parallec.io/userdata/sample_target_hosts_top100_old.txt", HostsSourceType.URL)
+        .execute( new ParallecResponseHandler() {
+            public void onCompleted(ResponseOnSingleTask res,
+                    Map<String, Object> responseContext) {
+                Map<String, Object> metricMap = new HashMap<String, Object>();
+                metricMap.put("StatusCode", res.getStatusCode().replaceAll(" ", "_"));
+                metricMap.put("LastUpdated",PcDateUtils.getNowDateTimeStrStandard());
+                metricMap.put("NodeGroupType", "Web100");
+                Client client = (Client) responseContext.get("Client");
+                client.prepareIndex("local", "parallec", res.getHost()).setSource(metricMap).execute();
+            }
+        });
+node.close(); pc.releaseExternalResources();
+```
+
+**Different Requests to the Same Target**
+
+Now see how easy to use the request template to send multiple different requests to the same target. [Read more..](http://www.parallec.io/docs/submit-task/#apis-on-variable-replacement-for-heterogeneous-requests)
+
+```java
+pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
+    .setReplaceVarMapToSingleTargetSingleVar("ZIP",
+        Arrays.asList("95037","48824"), "www.parallec.io")
+    .setResponseContext(responseContext)
+    .execute(new ParallecResponseHandler() {...}...
+          
+```
+
+- [http://www.parallec.io/userdata/sample_weather_48824.txt](http://www.parallec.io/userdata/sample_weather_48824.txt)
+- [http://www.parallec.io/userdata/sample_weather_95037.txt](http://www.parallec.io/userdata/sample_weather_95037.txt)
+
+###More Readings
 
 - [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to elastic search, async running, auto progress polling, track progress, TCP/SSH/Ping.
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
 - [**Ping Demo**](#demos) Ping 8000 Servers within 11.1 Seconds, performance test vs. [FPing](http://fping.org/).
+
 
 ###Use Cases
 
@@ -65,7 +114,7 @@ Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The libr
 **90%+ Test coverage** assures you always find an example of each of feature.
 
 1. **Exceedingly intuitive** interface with builder pattern similar to that in [Async HTTP Client](https://github.com/AsyncHttpClient/async-http-client), but handles concurrency behind the scenes.
-1. **Generic response handler with context**. Enable total freedom of processing each response your way. Process and aggregate data **anywhere** to Kafka, Redis, Elastic Search, mongoDB, CMS and etc.  
+1. **Generic response handler with context**. Special response context enables total freedom and convenience of processing each response your way. Process and aggregate data **anywhere** to Kafka, Redis, Elastic Search, mongoDB, CMS and etc.  
 1. **Flexible on when to invoke the handler**:  before (in worker thread) or after the aggregation (in master/manager thread).
 1. **Flexible Input of target hosts**: Input target hosts from a list, string, JSON Path from local files or a remote URL
 1. **Scalable and fast**, **infinitely scalable** with built-in **Concurrency control**.
