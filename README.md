@@ -10,6 +10,8 @@
 
 [ [Get-Started](https://github.com/eBay/parallec#get-started) | [Features](https://github.com/eBay/parallec#features) | [Use Cases](https://github.com/eBay/parallec#use-cases) | [Motivation](https://github.com/eBay/parallec#motivation) | [Demos](https://github.com/eBay/parallec#demos) | [Performance](https://github.com/eBay/parallec#performance) | [Compare](https://github.com/eBay/parallec#compare) | [About](https://github.com/eBay/parallec#authors) ]
 
+[ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
+
 Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the response. Now you can conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
@@ -169,6 +171,12 @@ Parallec 2.2 seconds vs FPing 4.5 seconds on 1500 servers. Parallec is 2x the sp
 As usual, don't rely on these numbers and perform your own benchmarks.
 
 ## Compare Parallec vs REST Commander vs ThreadPools+Async Client<a name="compare"></a>
+
+- Compared with java thread pool based solution, parallec gives you worry free concurrency control without constraints on thread size. 
+- Compared with single-threaded Node.js solutions, Parallec enables parallel computation-intensive response handling with multiple-cores. 
+- Similar issues with Python's global interpreter lock, and to use multiple CPU you will need to use costly multi-process. These are more suited for I/O only but no cpu intensive response processing.  
+
+In Parallec, you may handle response either in Worker (before aggregation: in parallel) or in Manager (after aggregation: single thread). [Read More..](http://www.parallec.io/docs/submit-task/#apis-on-response-handling)
 
 
 |                                                        Features                                                       | Parallec | REST Commander | Thread Pools + Async Client |
