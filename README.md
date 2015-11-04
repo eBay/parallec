@@ -8,6 +8,8 @@
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) 
 
+[[Get-Started](https://github.com/eBay/parallec#get-started) | [Features](https://github.com/eBay/parallec#features) | [Use Cases](https://github.com/eBay/parallec#use-cases) | [Motivation](https://github.com/eBay/parallec#motivation) | [Demos](https://github.com/eBay/parallec#demos) | [Performance](https://github.com/eBay/parallec#performance) | [Compare](https://github.com/eBay/parallec#compare) | [About](https://github.com/eBay/parallec#authors)]
+
 Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the response. Now you can conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
