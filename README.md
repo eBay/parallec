@@ -28,7 +28,7 @@ Gradle
 compile 'io.parallec:parallec-core:0.9.0'
 ```
 
-10 Line Example
+**6 Line Example**
 
 ```java
 import io.parallec.core.*;
@@ -43,7 +43,7 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 });
 ```	
 
-- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to elastic search, async running, track progress.
+- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to elastic search, async running, auto progress polling, track progress, TCP/SSH/Ping.
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
