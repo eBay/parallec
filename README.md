@@ -12,7 +12,7 @@
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
 
-Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the response. Now you can conduct scalable API calls, then pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
+Parallec is a fast parallel async HTTP/SSH/TCP/Ping client java library. Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the responses. Now you can conduct scalable API calls, then effortlessly pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
@@ -79,15 +79,13 @@ node.close(); pc.releaseExternalResources();
 
 **Different Requests to the Same Target**
 
-Now see how easy to use the request template to send multiple different requests to the same target. [Read more..](http://www.parallec.io/docs/submit-task/#apis-on-variable-replacement-for-heterogeneous-requests)
+Now see **how easy** to use the request template to send multiple different requests to the same target. [Read more..](http://www.parallec.io/docs/submit-task/#apis-on-variable-replacement-for-heterogeneous-requests)
 
 ```java
 pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
     .setReplaceVarMapToSingleTargetSingleVar("ZIP",
         Arrays.asList("95037","48824"), "www.parallec.io")
-    .setResponseContext(responseContext)
     .execute(new ParallecResponseHandler() {...}...
-          
 ```
 
 - [http://www.parallec.io/userdata/sample_weather_48824.txt](http://www.parallec.io/userdata/sample_weather_48824.txt)
