@@ -1,4 +1,4 @@
-## Contributing to Eagle
+## Contributing to Parallec
 
 Contributions via GitHub pull requests are gladly accepted from their original
 author. Along with any pull requests, please state that the contribution is

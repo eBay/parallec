@@ -206,6 +206,12 @@ In Parallec, you may handle response either in Worker (before aggregation: in pa
 
 #### [SSL Client Auth Plugin](https://github.com/eBay/parallec-plugins)
 
+## [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md)
+
+
+## Contributors
+Your name here
+
 ## Authors
 
 Parallec is served to you by [Yuanteng (Jeff) Pei](https://www.linkedin.com/in/peiyuant) and [Teng Song](https://www.linkedin.com/pub/teng-song/49/763/713), [Cloud Infrastructure & Platform Services (CIPS)](https://helpusbuild.ebayc3.com/) at eBay Inc. 
