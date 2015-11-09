@@ -6,4 +6,4 @@
 
 通过过去一年内部使用和开源REST Superman/ REST Commander的开发， 反馈，经验教训，我们现在做把REST Commander的核心做成一个易于使用的独立库 （便于从Maven导入，让所有程序都写20行代码变成REST Commander）。在此基础上，我们添加超过[**15个新的功能**](https://github.com/eBay/parallec/blob/master/README.md#compare)，**改写超过70%的代码**，**以90%以上的测试覆盖率**，确保了用户和开源贡献者能够更加放心的开发和使用。与此同时，我们也把整体软件结构进行了优化，使得大部分内部开发可以直接在github开源平台上直接进行。
 
-您可以用5分钟按照[样例程序](http://www.parallec.io/#code-sample)试试Parallec去给多个服务器（网站）发送相同或者不同的请求。我们渴望收到您的意见和建议。您可以通过[提交Github Iusse](https://github.com/eBay/parallec/issues/new)进行反馈。谢谢！
+您可以用5分钟按照[样例程序](http://www.parallec.io/#code-sample)试试Parallec去给多个服务器（网站）发送相同或者不同的请求。我们渴望收到您的意见和建议。您可以通过[提交Github Issue](https://github.com/eBay/parallec/issues/new)进行反馈。谢谢！
