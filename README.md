@@ -4,11 +4,11 @@
 ![build status](https://img.shields.io/badge/build-info=>-green.svg) [![Build Status](https://travis-ci.org/eBay/parallec.svg?branch=master)](https://travis-ci.org/eBay/parallec) [![Coverage Status](https://img.shields.io/codecov/c/github/eBay/parallec.svg)](https://codecov.io/github/eBay/parallec) [![Apache V2.0 License](http://www.parallec.io/images/apache2.svg) ](https://github.com/eBay/parallec/blob/master/LICENSE)
 
 
-![latest 0.9.x](http://img.shields.io/badge/latest_stable-0.9.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.9.0|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![latest 0.9.x](http://img.shields.io/badge/latest_stable-0.9.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.9.1|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
-[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
+[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
 
@@ -23,13 +23,13 @@ Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&
 <dependency>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.9.0</version>
+	<version>0.9.1</version>
 </dependency>
 ```
 
 or Gradle:
 ```xml
-compile 'io.parallec:parallec-core:0.9.0'
+compile 'io.parallec:parallec-core:0.9.1'
 ```
 
 
@@ -209,13 +209,15 @@ In Parallec, you may handle response either in Worker (before aggregation: in pa
 ## [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md)
 
 
-## Contributors
+## [Contributors](https://github.com/eBay/parallec/blob/master/AUTHORS.txt)
+
+To Parallec, Contributors are way more important than the original authors for the community. We will try to put all the contributors here unless it goes crazy :-)
 
 - Lukasz Kryger  [http://stackoverflow.com/users/1240557/kryger](http://stackoverflow.com/users/1240557/kryger)
 
 ## Authors
 
-Parallec is served to you by [Yuanteng (Jeff) Pei](https://www.linkedin.com/in/peiyuant) and [Teng Song](https://www.linkedin.com/pub/teng-song/49/763/713), [Cloud Infrastructure & Platform Services (CIPS)](https://helpusbuild.ebayc3.com/) at eBay Inc. 
+Parallec is served to you by [Yuanteng (Jeff) Pei](https://www.linkedin.com/in/peiyuant) and [Teng Song](https://www.linkedin.com/pub/teng-song/49/763/713), [Cloud Infrastructure & Platform Services (CIPS)](https://helpusbuild.ebayc3.com/) at eBay Inc. (original authors)
 
 ## Credits & Acknowledgement
 
@@ -228,7 +230,7 @@ Parallec is served to you by [Yuanteng (Jeff) Pei](https://www.linkedin.com/in/p
 
 ##Contributions
 
-Any helpful feedback is more than welcome. This includes feature requests, bug reports, pull requests, constructive feedback, and etc.
+Any helpful feedback is more than welcome. This includes feature requests, bug reports, pull requests, constructive feedback, and etc. You must agree on [this](https://github.com/eBay/parallec/blob/master/CONTRIBUTING.md) before submitting a [pull](https://github.com/eBay/parallec/pulls) request.
 
 
 ## Licenses
