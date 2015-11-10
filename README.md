@@ -210,7 +210,8 @@ In Parallec, you may handle response either in Worker (before aggregation: in pa
 
 
 ## Contributors
-Your name here
+
+- Lukasz Kryger  [http://stackoverflow.com/users/1240557/kryger](http://stackoverflow.com/users/1240557/kryger)
 
 ## Authors
 

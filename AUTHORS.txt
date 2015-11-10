@@ -4,8 +4,9 @@ URL:   https://github.com/eBay/parallec
 
 Core developers (in order of appearance):
 
-- Yuanteng Jeff Pei (original author) <ypei@ebay.com>
+- Yuanteng (Jeff) Pei (original author) <ypei@ebay.com>
 - Teng Song <tesong@ebay.com>
 
-
 Contributors:
+
+- Lukasz Kryger  http://stackoverflow.com/users/1240557/kryger
