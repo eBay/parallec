@@ -118,7 +118,7 @@ public class ParallelTask {
     private ParallecResponseHandler handler;
 
     /** The aggregate result map. */
-    private final Map<String, LinkedHashSet<String>> aggregateResultMap = new LinkedHashMap<String, LinkedHashSet<String>>();
+    private final Map<String, LinkedHashSet<String>> aggregateResultMap = new ConcurrentHashMap<String, LinkedHashSet<String>>();
 
     /** The parallel task result: 
      * a hashmap to store the request parameters, host name, ResponseOnSingleTask.
@@ -819,7 +819,7 @@ public class ParallelTask {
      */
     public Map<String, SetAndCount> getAggregateResultFullSummary() {
 
-        Map<String, SetAndCount> summaryMap = new LinkedHashMap<String, SetAndCount>();
+        Map<String, SetAndCount> summaryMap = new ConcurrentHashMap<String, SetAndCount>();
 
         for (Entry<String, LinkedHashSet<String>> entry : aggregateResultMap
                 .entrySet()) {

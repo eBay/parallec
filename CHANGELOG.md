@@ -6,7 +6,7 @@ Parallec Change Log
 _2015-11-03_
 
 * Chnage: maven pom: maven-compiler-plugin version to 1.7.
-
+* Fix: aggregateResultMap change to concurrentHashMap: Issue #11 
 
 
 ## Version 0.9.0

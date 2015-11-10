@@ -1,5 +1,8 @@
 language: java
 
+jdk:
+  - openjdk7
+
 before_install:
   - pip install --user codecov  
 
