@@ -27,7 +27,8 @@ public class ParallelClientHttpPollerJobTest extends TestBase {
 
         serverThread = new HttpServerThread();
         serverThread.start();
-
+        
+       //add sleep to make sure the server starts first
         try {
             Thread.sleep(500L);
         } catch (Exception e) {

@@ -97,7 +97,7 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
-- [**Ping Demo**](#demos) Ping 8000 Servers within 11.1 Seconds, performance test vs. [FPing](http://fping.org/).
+- [**Ping Demo**](https://github.com/eBay/parallec/blob/master/README.md#demos) Ping 8000 Servers within 11.1 Seconds, performance test vs. [FPing](http://fping.org/).
 
 
 ###Use Cases
@@ -136,9 +136,9 @@ Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The libr
 ##Motivation
 - Flexible response handling and immediate processing embedded in other applications.
 - Handle async APIs with auto progress polling for task level concurrency control.
-- Support of other protocols, and [more](#features)..
+- Support of other protocols, and [more](https://github.com/eBay/parallec/blob/master/README.md#features)..
 
-With the feedbacks, lessons, and improvements from the past year of internal usage and open source of **[REST Commander](http://www.restcommander.com)**, we now made the core of REST Commander as an easy to use standalone library. We added [**15+ new**](#compare) features, rewritten 70%+ of the code, with [**90%+ test coverage**](https://codecov.io/github/eBay/parallec) for confident usage and contribution. This time we also structure it better so that most internal development can be directly made here.
+With the feedbacks, lessons, and improvements from the past year of internal usage and open source of **[REST Commander](http://www.restcommander.com)**, we now made the core of REST Commander as an easy to use standalone library. We added [**15+ new**](https://github.com/eBay/parallec/blob/master/README.md#compare) features, rewritten 70%+ of the code, with [**90%+ test coverage**](https://codecov.io/github/eBay/parallec) for confident usage and contribution. This time we also structure it better so that most internal development can be directly made here.
 
 
 ## Watch Parallec in Action<a name="demos"></a>

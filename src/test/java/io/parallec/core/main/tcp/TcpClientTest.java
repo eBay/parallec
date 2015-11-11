@@ -19,7 +19,8 @@ public class TcpClientTest extends TestBase {
 
         serverThread = new TcpServerThread(false);
         serverThread.start();
-
+        
+        //add sleep to make sure the server starts first
         try {
             Thread.sleep(500L);
         } catch (Exception e) {

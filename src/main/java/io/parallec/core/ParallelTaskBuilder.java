@@ -51,7 +51,7 @@ import com.ning.http.client.AsyncHttpClient;
 
 /**
  * 
- * This store all the metadata to build the ParallelTask
+ * This class stores all the metadata to build the ParallelTask. It is a Parallec key class.
  * 
  * Build the parallel task and then execute it after a validation. During the
  * validation, certain missing parameters will use the default values. execute()

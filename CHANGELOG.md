@@ -1,6 +1,14 @@
 Parallec Change Log
 ==========
 
+
+## Version 0.9.2
+
+_2015-11-?_
+
+* Test: add sleep to make sure server starts first; should fix build issue related to #7
+ 
+
 ## Version 0.9.1
 
 _2015-11-10_

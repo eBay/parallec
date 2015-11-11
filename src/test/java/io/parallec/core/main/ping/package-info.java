@@ -1,7 +1,4 @@
 /**
- * 
- */
-/**
  * @author Yuanteng (Jeff) Pei
  *
  */
