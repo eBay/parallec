@@ -184,14 +184,10 @@ public class VarReplacementProvider {
             StrStrMap replacementVarMapForThisNode = replacementVarMapNodeSpecific
                     .get(fqdn);
 
-            // 20140105: fix NPE.
-            if (replacementVarMapForThisNode == null
-                    || replacementVarMapForThisNode.getMap() == null) {
-                logger.error("replacementVarMapForThisNode is null in "
-                        + "genericUpdateRequestByAddingReplaceVarKeyValuePairHelperNodeSpecific for fqnd "
-                        + fqdn + " at "
-                        + PcDateUtils.getNowDateTimeStrStandard());
-
+            if (replacementVarMapForThisNode == null) {
+                logger.info("replacementVarMapForThisNode is null in "
+                        + " for host "
+                        + fqdn );
                 continue;
             }
 

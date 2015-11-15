@@ -33,12 +33,18 @@ public class TcpWorkerIdleTest extends TestBase {
     @BeforeClass
     public static void setUp() throws Exception {
         pc = new ParallelClient();
+        
+        try {
+            Thread.sleep(500L);
+        } catch (Exception e) {
+            ;
+        }
 
         serverThread = new TcpServerThread(true);
         serverThread.start();
 
         try {
-            Thread.sleep(500L);
+            Thread.sleep(2500L);
         } catch (Exception e) {
             ;
         }
@@ -69,7 +75,7 @@ public class TcpWorkerIdleTest extends TestBase {
     @Test
     public void testTcpWorkerTimeoutException() {
         ActorRef asyncWorker = null;
-        logger.info("IN testTcpWorkerTimeoutException");
+        logger.info("IN testTcpWorkerTimeoutException in idle");
         try {
             // Start new job
             
@@ -95,9 +101,9 @@ public class TcpWorkerIdleTest extends TestBase {
     }// end func
     
     @Test
-    public void testTcpWorkerNormalCheckComplete() {
+    public void testTcpWorkerNormalCheckCompleteForIdle() {
         ActorRef asyncWorker = null;
-        logger.info("IN testTcpWorkerNormalCheckComplete");
+        logger.info("IN testTcpWorkerNormalCheckCompleteForIdle");
         try {
             // Start new job
             

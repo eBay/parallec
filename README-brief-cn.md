@@ -7,11 +7,11 @@
 
 主要用途： 
 
-- 管理监控大量HTTP/TCP服务器，ping海量量服务器
+- 管理监控大量HTTP/TCP服务器，ping海量服务器
 - 集群机器状态、配置探索，基于HTTP(S)/TCP Agent 或者 无agent 的大量远程任务执行，软件部署. HTTP支持SSL 客户端认证
 - 海量API聚集到任意数据存储，数据流入口
 - 并行工作流，自动检测任务进度，以便支持并行处理异步API
-- 可控并行的，多个不同API请求到同一个HTTP服务器
+- 可控并行的，多个不同API请求到同一个HTTP服务器。HTTP请求模板可以在URL, HTTP Header, EntityBody不同地方进行变量替换。 
 
 Parallec内置特别的响应上下文（response context），在处理服务器回复（Response）时能方便快捷的传入，传出任何对象，比如各种客户端（比如elastic search, kafka, mongodb etc），以便汇集处理数据到任何地方。 [样例程序](http://www.parallec.io/#code-sample)**仅需20行代码**，就可以汇总10000隔API的回复以简单可控的并行速度发送汇总到Elastic Search。
 

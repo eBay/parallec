@@ -13,6 +13,8 @@ limitations under the License.
 package io.parallec.core.main.tcp.sampleserver;
 
 
+import io.parallec.core.util.PcStringUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,6 +41,8 @@ public class TcpEchoServer {
     /** The server socket. */
     private ServerSocket serverSocket;
     
+
+    
     /** The port. */
     private int port = 10081;
 
@@ -57,7 +61,8 @@ public class TcpEchoServer {
             
             setServer(new ServerSocket(port));
         } catch (Exception ex) {
-            System.err.println("Could not listen on port: " + port);
+            System.err.println("Could not listen on port: "
+                    + port + " " + PcStringUtils.printStackTrace(ex));
         }
     }
 
@@ -84,7 +89,7 @@ public class TcpEchoServer {
     public void stop() {
         try{
             
-            serverSocket.close();
+            getServerSocket().close();
         }catch(Exception e){
             logger.error("error in stop server socket ", e);
         }
@@ -104,7 +109,7 @@ public class TcpEchoServer {
                 System.out.println("TCP Echo Server Started on port " 
                         +port
                         + " . \nWaiting for connection.....");
-                clientSocket = serverSocket.accept();
+                clientSocket = getServerSocket().accept();
                 logger.info("Client Connection successful");
                 logger.info("Waiting for input.....");
 
@@ -127,15 +132,15 @@ public class TcpEchoServer {
                 }
                 //whether to close after a single request.
                 // the interrupt is critical otherwise cannot easily shutdown
-                if(!this.idle) {
+                if(!this.idle ) {
                     out.close();
                     clientSocket.close();
                     in.close();
                 }else{
-                    Thread.sleep(1000L);
+                    Thread.sleep(10L);
                 }
 
-            }
+            }//end for loop
         } catch (IOException  e) {
             logger.error("Exception in echo server. "
                     + "\nExpected when shutdown. {}", e.getLocalizedMessage());
@@ -143,8 +148,8 @@ public class TcpEchoServer {
             logger.error("Exception in echo server. "
                     + "\nExpected when shutdown. {}", e.getLocalizedMessage());
         } finally{
-            if(serverSocket!=null && !serverSocket.isClosed())
-                serverSocket.close();
+            if(getServerSocket()!=null && !getServerSocket().isClosed())
+                getServerSocket().close();
             
         }
 
@@ -156,7 +161,7 @@ public class TcpEchoServer {
      * @return the server
      */
     public ServerSocket getServer() {
-        return serverSocket;
+        return getServerSocket();
     }
 
     /**
@@ -165,6 +170,16 @@ public class TcpEchoServer {
      * @param server the new server
      */
     public void setServer(ServerSocket server) {
-        this.serverSocket = server;
+        this.setServerSocket(server);
+    }
+
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
+
+
+    public void setServerSocket(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
     }
 }

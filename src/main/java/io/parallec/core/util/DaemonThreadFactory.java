@@ -46,7 +46,7 @@ public class DaemonThreadFactory implements ThreadFactory {
      */
     @Override
     public Thread newThread(Runnable arg0) {
-        Thread t = new Thread(arg0); // NOSONAR
+        Thread t = new Thread(arg0); 
         t.setDaemon(true);
         if (t.getPriority() != Thread.NORM_PRIORITY) {
             t.setPriority(Thread.NORM_PRIORITY);

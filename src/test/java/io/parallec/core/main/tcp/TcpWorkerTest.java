@@ -51,7 +51,7 @@ public class TcpWorkerTest extends TestBase {
         serverThread.setShutdown(true);
 
         try {
-            Thread.sleep(500L);
+            Thread.sleep(2500L);
         } catch (Exception e) {
             ;
         }

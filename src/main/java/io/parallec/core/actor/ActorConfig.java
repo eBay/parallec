@@ -15,7 +15,6 @@ package io.parallec.core.actor;
 import io.parallec.core.util.PcConstants;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +37,6 @@ public final class ActorConfig {
 
     /** The actor system. */
     private static ActorSystem actorSystem = null;
-
-    private static AtomicInteger runningJobCount = new AtomicInteger(0);
 
     /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(ActorConfig.class);
@@ -64,14 +61,6 @@ public final class ActorConfig {
         return actorSystem;
     }
 
-    /**
-     * Shut down actor system when no job running.
-     */
-    public static void shutDownActorSystemWhenNoJobRunning() {
-        if (!actorSystem.isTerminated() && runningJobCount.get() == 0) {
-            actorSystem.shutdown();
-        }
-    }
 
     /** The Constant timeOutDuration. */
     // wait for 10 seconds

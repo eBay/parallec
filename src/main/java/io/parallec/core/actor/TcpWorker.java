@@ -441,8 +441,6 @@ public class TcpWorker extends UntypedActor {
         
     }
     
-    
-    
     /**
      * how to pass the idle event back to the worker.
      *

@@ -8,11 +8,15 @@ import io.parallec.core.app.ParallecAppMin;
 import io.parallec.core.bean.HttpMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
 import io.parallec.core.resources.HttpMethod;
+import io.parallec.core.task.TaskErrorMeta;
+import io.parallec.core.task.TaskErrorMeta.TaskErrorType;
 import io.parallec.core.util.BeanMapper;
 import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcDateUtils;
 import io.parallec.core.util.PcErrorMsgUtils;
+import io.parallec.core.util.PcFileNetworkIoUtils;
 import io.parallec.core.util.PcHttpUtils;
+import io.parallec.core.util.PcNumberUtils;
 import io.parallec.core.util.PcStringUtils;
 import io.parallec.core.util.PcTargetHostsUtils;
 
@@ -58,7 +62,9 @@ public class ParallecPojoStrTest extends TestBase {
         new PcHttpUtils();
         new PcStringUtils();
         new PcTargetHostsUtils();
-
+        new PcFileNetworkIoUtils();
+        new PcNumberUtils();
+        new TaskErrorMeta(TaskErrorType.COMMAND_MANAGER_ERROR, "", null);
     }
 
 }
