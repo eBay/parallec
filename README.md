@@ -12,7 +12,9 @@
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
 
-Parallec is a fast parallel async HTTP(S)/SSH/TCP/Ping client java library based on [Akka](http://akka.io). Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the responses. Now you can conduct scalable API calls, then effortlessly pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means **Paralle**l **C**lient, and is pronounced as "Para-like".
+Parallec is a fast parallel async HTTP(S)/SSH/TCP/Ping client java library based on [Akka](http://akka.io). Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the responses. Now you can conduct scalable API calls, then effortlessly pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means  **Paralle**l **C**lient, and is pronounced as "Para-like".
+
+**Demo**: **8,000** web server HTTP response aggregation [to memory in **12** seconds](https://youtu.be/Ecnpa0afO6Y) / [to ElasticSearch in **16** seconds](https://youtu.be/HetfWOHIPNI).
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
@@ -127,7 +129,7 @@ Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The libr
 1. **Fine-grained task progress tracking** helps you track the the progress each individual task status. Of a parallel task on 1000 target hosts, you may check status on any single host task, and percentage progress on how many are completed.
 1. **Fine-grained task cancelation** on whole/individual request level. Of a parallel task on 1000 target hosts, you may cancel a subset of target hosts or cancel the whole parallel task anytime.
 1. **Status-code-aggregation** is provided out of the box.
-1. **Parallel Ping** supports both InetAddress.reachable ICMP (requires root) and Process based ping with retries.  Performance testing shows it is ** 2x the speed of** than best-effort tuned FPing on pinging on 1500 targets. (2.2 vs 4.5 sec)
+1. **Parallel Ping** supports both InetAddress.reachable ICMP (requires root) and Process based ping with retries.  Performance testing shows it is **2x the speed of** than best-effort tuned FPing on pinging on 1500 targets. (2.2 vs 4.5 sec)
 1. **Parallel SSH** supports both key and password based login and task cancellation.
 1. **Parallel TCP** supports idle timeout based channel closes.
 
