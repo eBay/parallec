@@ -113,7 +113,7 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 
 ## Features<a name="features"></a>
 
-Parallec is built on Akka actors and Async HTTP Client / Netty / Jsch.  The library focuses on HTTP while also enables scalable communication over SSH/Ping/TCP.
+Parallec is built on Akka actors and [Async HTTP Client](https://github.com/AsyncHttpClient/async-http-client) / [Netty](http://netty.io/) / [Jsch](http://www.jcraft.com/jsch/).  The library focuses on HTTP while also enables scalable communication over SSH/Ping/TCP.
 
 **90%+ Test coverage** assures you always find an example of each of feature.
 
