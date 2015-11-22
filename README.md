@@ -28,6 +28,7 @@ Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&
 	<version>0.9.1</version>
 </dependency>
 ```
+Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/io/parallec/parallec-core/).
 
 or Gradle:
 ```xml
@@ -158,7 +159,7 @@ With the feedbacks, lessons, and improvements from the past year of internal usa
 
 ## Performance
 
-Note that speed varies based on network speed, API response time, the slowest servers, and concurrency settings.
+Note that speed varies based on network speed, API response time, the slowest servers, timeout, and concurrency settings.
 
 #####HTTP
 
