@@ -82,7 +82,7 @@ node.close(); pc.releaseExternalResources();
 
 **Different Requests to the Same Target**
 
-Now see **how easy** to use the request template to send multiple different requests to the same target. [Read more..](http://www.parallec.io/docs/submit-task/#apis-on-variable-replacement-for-heterogeneous-requests)
+Now see **how easy** to use the request template to send multiple different requests to the same target. Variable replacement is allowed in post body, url and headers. [Read more..](http://www.parallec.io/docs/submit-task/#apis-on-variable-replacement-for-heterogeneous-requests)
 
 ```java
 pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
@@ -109,7 +109,7 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 1. Asset / server status discovery, remote task execution in agent-less(parallel SSH) or agent based (parallel HTTP/TCP) method.
 1. Scalable API aggregation and processing with flexible destination with your favorate message queue / storage / alert engine.
 1. Orchestration and work flows on multiple web servers. 
-1. Parallel different requests with controlled concurrency to a single server: as a parallec client for REST API enabled Database / Web Server CRUD operations.
+1. Parallel different requests with controlled concurrency to a single server: as a parallec client for REST API enabled Database / Web Server CRUD operations. Variable replacement allowed in post body, url and headers.
 1. Load testing with request template. 
 
 
