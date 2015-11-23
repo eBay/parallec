@@ -109,7 +109,9 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 1. Asset / server status discovery, remote task execution in agent-less(parallel SSH) or agent based (parallel HTTP/TCP) method.
 1. Scalable API aggregation and processing with flexible destination with your favorate message queue / storage / alert engine.
 1. Orchestration and work flows on multiple web servers. 
-1. Parallel different requests with controlled concurrency to a single server. 
+1. Parallel different requests with controlled concurrency to a single server: as a parallec client for REST API enabled Database / Web Server CRUD operations.
+1. Load testing with request template. 
+
 
 
 ## Features<a name="features"></a>
