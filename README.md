@@ -12,6 +12,8 @@
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
 
+Noticed by [the Author of Akka](https://twitter.com/jboner/status/663618652063813632) Featured in [ [This Week in #Scala](http://www.cakesolutions.net/teamblogs/this-week-in-scala-16/11/2015) | [OSChina](http://www.oschina.net/p/parallec) ]
+
 Parallec is a fast parallel async HTTP(S)/SSH/TCP/Ping client java library based on [Akka](http://akka.io). Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the responses. Now you can conduct scalable API calls, then effortlessly pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means  **Paralle**l **C**lient, and is pronounced as "Para-like".
 
 **[Watch Demo](https://github.com/eBay/parallec/wiki/Parallec-Aggregates-HTTP-Responses-from-8000-Servers)**: **8,000** web server HTTP response aggregation to memory in **12** seconds / to ElasticSearch in **16** seconds.
