@@ -6,8 +6,10 @@ Parallec Change Log
 
 ## Version 0.9.2
 
-_2015-11-?_
 
+_2015-11-29_
+
+* Build/Maven/Logback: exclude logback.xml in the built jar.  
 * Test: add sleep to make sure server starts first; should fix build issue related to #7
 * Test: add coverage: updateRequestByAddingReplaceVarPairNodeSpecific() check null, add some other minor coverage
 * Test: fix TcpServerThread (tcp sample server) not closed in test, thus skip idle TCP tests. 

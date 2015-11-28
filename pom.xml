@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.9.2-SNAPSHOT</version>
+	<version>0.9.2</version>
 	<packaging>jar</packaging>
 	<name>io.parallec:parallec-core</name>
 	<url>https://github.com/eBay/parallec</url>
@@ -231,10 +231,17 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+		        <configuration>
+		                <!-- exclude logback.xml -->
+		            <excludes>
+		                <exclude>**/logback.xml</exclude>
+		            </excludes>
+		        </configuration>
+            </plugin>
 		</plugins>
-
-
 	</build>
 
 	<profiles>

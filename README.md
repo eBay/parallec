@@ -4,7 +4,7 @@
 ![build status](https://img.shields.io/badge/build-info=>-green.svg) [![Build Status](https://travis-ci.org/eBay/parallec.svg?branch=master)](https://travis-ci.org/eBay/parallec) [![Coverage Status](https://img.shields.io/codecov/c/github/eBay/parallec.svg)](https://codecov.io/github/eBay/parallec) [![Apache V2.0 License](http://www.parallec.io/images/apache2.svg) ](https://github.com/eBay/parallec/blob/master/LICENSE)
 
 
-![latest 0.9.x](http://img.shields.io/badge/latest_stable-0.9.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.9.1|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![latest 0.9.x](http://img.shields.io/badge/latest_stable-0.9.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.9.2|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
@@ -27,14 +27,14 @@ Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&
 <dependency>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.9.1</version>
+	<version>0.9.2</version>
 </dependency>
 ```
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/io/parallec/parallec-core/).
 
 or Gradle:
 ```xml
-compile 'io.parallec:parallec-core:0.9.1'
+compile 'io.parallec:parallec-core:0.9.2'
 ```
 
 
@@ -144,6 +144,7 @@ Parallec is built on Akka actors and [Async HTTP Client](https://github.com/Asyn
 - Flexible response handling and immediate processing embedded in other applications.
 - Handle async APIs with auto progress polling for task level concurrency control.
 - Support of other protocols, and [more](https://github.com/eBay/parallec/blob/master/README.md#features)..
+- Anyone can write 20 lines to make his/her application become [REST Commander](http://www.restcommander.com/).
 
 With the feedbacks, lessons, and improvements from the past year of internal usage and open source of **[REST Commander](http://www.restcommander.com)**, we now made the core of REST Commander as an easy to use standalone library. We added [**15+ new**](https://github.com/eBay/parallec/blob/master/README.md#compare) features, rewritten 70%+ of the code, with [**90%+ test coverage**](https://codecov.io/github/eBay/parallec) for confident usage and contribution. This time we also structure it better so that most internal development can be directly made here.
 
