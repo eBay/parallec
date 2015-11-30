@@ -76,7 +76,6 @@ public class TcpMeta {
         this.tcpConnectTimeoutMillis= null;
         this.tcpIdleTimeoutSec=null;
         
-        // TODO Auto-generated constructor stub
     }
 
     public boolean validation() throws ParallelTaskInvalidException {

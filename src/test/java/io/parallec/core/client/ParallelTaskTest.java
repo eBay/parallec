@@ -17,6 +17,7 @@ import io.parallec.core.ParallelTask;
 import io.parallec.core.TestBase;
 import io.parallec.core.actor.ExecutionManagerTest;
 import io.parallec.core.exception.ParallelTaskInvalidException;
+import io.parallec.core.resources.HttpClientStore;
 import io.parallec.core.task.ParallelTaskState;
 
 import org.junit.AfterClass;
@@ -79,6 +80,8 @@ public class ParallelTaskTest extends TestBase {
         ParallelTask task = ExecutionManagerTest.genParallelTask();
         logger.info(task.toString());
         task.setConfig(null);
+        task.setAsyncHttpClient( HttpClientStore.getInstance()
+                    .getCurrentDefaultClient());
         task.getHttpMeta().setHttpMethod(null);
         try {
 
