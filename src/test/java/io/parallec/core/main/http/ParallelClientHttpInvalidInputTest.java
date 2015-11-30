@@ -13,7 +13,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ParallelClientHttpBasicTestInvalidInput extends TestBase {
+public class ParallelClientHttpInvalidInputTest extends TestBase {
 
     private static ParallelClient pc;
 
@@ -52,7 +52,7 @@ public class ParallelClientHttpBasicTestInvalidInput extends TestBase {
     @Test
     public void hitWebsitesUrlEndingWSInput() {
 
-        // miss target hosts
+        // hitWebsitesUrlEndingWSInput
         pc.prepareHttpGet(" /validateInternals.html ")
                 .setConcurrency(1700)
                 .setTargetHostsFromString(
@@ -95,7 +95,7 @@ public class ParallelClientHttpBasicTestInvalidInput extends TestBase {
                     }
                 });
 
-        // space in between singel target host
+        // space in between single target host
 
         List<String> badHostList = new ArrayList<String>();
         badHostList.add("www.restco mmander.com");
