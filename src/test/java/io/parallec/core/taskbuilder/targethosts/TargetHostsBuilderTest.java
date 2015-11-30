@@ -142,6 +142,16 @@ public class TargetHostsBuilderTest extends TestBase {
         } catch (TargetHostsLoadException e) {
             logger.info("expected exception: " + e);
         }
+        
+        //  duplicate hosts
+        thb.setTargetHostsFromCmsQueryUrl(
+                "http://www.parallec.io/cms/repositories/cmsdb/branches"
+                        + "/main/query/sample_cms_query_results_single_page_duplicate.json");
+
+        //  empty hosts
+        thb.setTargetHostsFromCmsQueryUrl(
+                "http://www.parallec.io/cms/repositories/cmsdb/branches"
+                        + "/main/query/sample_cms_query_results_single_page_duplicate_empty.json");
 
         // bad query
         try {
@@ -152,7 +162,7 @@ public class TargetHostsBuilderTest extends TestBase {
             logger.info("expected exception: " + e);
         }
 
-        // with projection null/empty
+        // with projection null/empty/wrong projection
         thb.setTargetHostsFromCmsQueryUrl(
                 "http://www.parallec.io/cms/repositories/cmsdb/branches"
                         + "/main/query/sample_cms_query_results_single_page.json",
@@ -161,6 +171,10 @@ public class TargetHostsBuilderTest extends TestBase {
                 "http://www.parallec.io/cms/repositories/cmsdb/branches"
                         + "/main/query/sample_cms_query_results_single_page.json",
                 "");
+        thb.setTargetHostsFromCmsQueryUrl(
+                "http://www.parallec.io/cms/repositories/cmsdb/branches"
+                        + "/main/query/sample_cms_query_results_single_page.json",
+                "labelbad");
 
     }
 

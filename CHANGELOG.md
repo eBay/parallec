@@ -1,13 +1,18 @@
 Parallec Change Log
 ==========
 
+## Version 0.9.3
 
 
+_2015-??-??_
+
+* Test: add coverage: for get target hosts duplicate/empty for CMS.
+* Test/Build: update CI setting to enable test on process based Ping. 
 
 ## Version 0.9.2
 
 
-_2015-11-29_
+_2015-11-27_
 
 * Build/Maven/Logback: exclude logback.xml in the built jar.  
 * Test: add sleep to make sure server starts first; should fix build issue related to #7

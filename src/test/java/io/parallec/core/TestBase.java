@@ -27,6 +27,11 @@ public class TestBase {
     public final String URL_CMS_QUERY_SINGLE_PAGE = "http://www.parallec.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_single_page.json";
     public final String URL_CMS_QUERY_MULTI_PAGE = "http://www.parallec.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_multi_page_1.json";
 
+    public final String URL_CMS_QUERY_SINGLE_PAGE_DUPLICATE = "http://www.parallec.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_single_page_duplicate.json";
+    public final String URL_CMS_QUERY_SINGLE_PAGE_EMPTY = "http://www.parallec.io/cms/repositories/cmsdb/branches/main/query/sample_cms_query_results_single_page_empty.json";
+
+    
+    
     public final HostsSourceType SOURCE_LOCAL = HostsSourceType.LOCAL_FILE;
     public final HostsSourceType SOURCE_URL = HostsSourceType.URL;
 

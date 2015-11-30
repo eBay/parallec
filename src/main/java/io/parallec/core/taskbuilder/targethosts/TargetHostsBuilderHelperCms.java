@@ -66,11 +66,6 @@ public class TargetHostsBuilderHelperCms {
             String projectionStr) throws JSONException {
         final List<String> labelList = new ArrayList<String>();
 
-        // default
-        if (projectionStr == null || projectionStr.equalsIgnoreCase("NA")) {
-            projectionStr = "resourceId";
-        }
-
         if (!jObj.has("result")) {
             logger.error("!!CMS_ERROR! result key is not in jOBJ in getFQDNValueListCMS!!: \njObj:"
                     + PcStringUtils.renderJson(jObj));
