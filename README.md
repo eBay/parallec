@@ -221,7 +221,7 @@ In Parallec, you may handle response either in Worker (before aggregation: in pa
 
 ## [Contributors](https://github.com/eBay/parallec/blob/master/AUTHORS.txt)
 
-Contributors are critical. We will try to put all the contributors here unless it goes crazy.
+We deeply thank all contributors for their effort.
 
 - Lukasz Kryger  [http://stackoverflow.com/users/1240557/kryger](http://stackoverflow.com/users/1240557/kryger)
 
