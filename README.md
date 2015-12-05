@@ -187,6 +187,8 @@ As usual, don't rely on these numbers and perform your own benchmarks.
 In Parallec, you may handle response either in Worker (before aggregation: in parallel) or in Manager (after aggregation: single thread). [Read More..](http://www.parallec.io/docs/submit-task/#apis-on-response-handling)
 
 
+For more related work review, please visit [here](http://www.ebaytechblog.com/2014/03/11/rest-commander-scalable-web-server-management-and-monitoring/#relatedwork).
+
 |                                                        Features                                                       | Parallec | REST Commander | Thread Pools + Async Client |
 |:---------------------------------------------------------------------------------------------------------------------:|:--------:|:--------------:|:---------------------------:|
 |                               Embedded library with intuitive builder pattern interface                               |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >       |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
