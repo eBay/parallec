@@ -249,5 +249,5 @@ Any helpful feedback is more than welcome. This includes feature requests, bug r
 
 Code licensed under Apache License v2.0
 
-© 2015 eBay Software Foundation
+© 2015-2016 eBay Software Foundation
 
