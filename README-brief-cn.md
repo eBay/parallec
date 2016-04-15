@@ -14,7 +14,7 @@
 - 可控并行的，多个不同API请求到同一个HTTP服务器。HTTP请求模板可以在URL, HTTP Header, EntityBody不同地方进行变量替换。这样可以很方便的对那些有REST API的数据库或者网络服务器进行并行的CRUD操作。
 - 灵活的Web服务器的压力测试，并将结果传到任何地方。 
 
-Parallec内置特别的响应上下文（response context），在处理服务器回复（Response）时能方便快捷的传入，传出任何对象，比如各种客户端（比如elastic search, graphite, kafka, mongodb etc），以便汇集处理数据到任何地方。 [样例程序](http://www.parallec.io/#code-sample)**仅需20行代码**，就可以汇总10000隔API的回复以简单可控的并行速度发送汇总到Elastic Search。
+Parallec内置特别的响应上下文（response context），在处理服务器回复（Response）时能方便快捷的传入，传出任何对象，比如各种客户端（比如elastic search, graphite, kafka, mongodb etc），以便汇集处理数据到任何地方。 [样例程序](http://www.parallec.io/#code-sample)**仅需20行代码**，就可以汇总10000个API的回复以简单可控的并行速度发送汇总到Elastic Search。
 
 和REST Commander类似，Parallec非常高效并且可以处理大量响应。 比如其Ping服务器的速度是目前使用最广泛**并行Ping 软件[FPing](http://fping.org/)的2倍**，仅用12秒就可以ping 8000服务器。（[**请看Ping视频演示**](https://github.com/eBay/parallec/wiki/Parallec-pings-8000-servers-in-11.1-seconds)) 同样的对于**并行HTTP**， Parallec发送HTTP请求到8000 Web服务器 并聚集响应只需**12秒** （聚集到内存），或**16秒**（聚集到Elastic Search）（[**请看HTTP视频演示**](https://github.com/eBay/parallec/wiki/Parallec-Aggregates-HTTP-Responses-from-8000-Servers))
 
