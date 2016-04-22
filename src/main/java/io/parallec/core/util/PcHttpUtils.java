@@ -79,7 +79,7 @@ public class PcHttpUtils {
             }
         }
 
-        if (needToReplaceVarInHttpHeader == false) {
+        if (!needToReplaceVarInHttpHeader) {
             logger.debug("No need to replace. Since there are no HTTP header variables. ");
             return;
         }

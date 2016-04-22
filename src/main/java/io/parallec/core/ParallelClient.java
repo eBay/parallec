@@ -159,7 +159,7 @@ public class ParallelClient {
      * if resources have been already released.
      */
     public void reinitIfClosed() {
-        if (isClosed.get() == true) {
+        if (isClosed.get()) {
             logger.info("External Resource was released. Now Re-initializing resources ...");
 
             ActorConfig.createAndGetActorSystem();

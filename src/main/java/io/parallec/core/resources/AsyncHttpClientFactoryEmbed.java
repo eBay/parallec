@@ -164,7 +164,7 @@ public final class AsyncHttpClientFactoryEmbed {
          * @return certificate.
          */
         public X509Certificate[] getAcceptedIssuers() {
-            return (X509Certificate[]) null;
+            return null;
         }
 
         /**

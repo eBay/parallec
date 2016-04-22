@@ -115,7 +115,7 @@ public class InternalDataProvider {
                 Boolean willExecute = Boolean.parseBoolean(map
                         .get(PcConstants.NODE_REQUEST_WILL_EXECUTE));
 
-                if (willExecute == false) {
+                if (!willExecute) {
                     logger.info("NOT_EXECUTE_COMMAND "
                              + " on target: " + hostName + " at "
                             + PcDateUtils.getNowDateTimeStrStandard());

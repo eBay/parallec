@@ -194,7 +194,7 @@ public class SshProvider {
         try {
 
             in = channel.getInputStream();
-            ((ChannelExec) channel).setErrStream(outputStreamStdErr);
+            channel.setErrStream(outputStreamStdErr);
 
             byte[] tmp = new byte[ParallecGlobalConfig.sshBufferSize];
             while (true) {
