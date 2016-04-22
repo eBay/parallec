@@ -214,7 +214,7 @@ public class SshProvider {
                     // exit 0 is good
                     int exitStatus = channel.getExitStatus();
                     sshResponse.setStatusCodeInt(exitStatus);
-                    sshResponse.setStatusCode("" + exitStatus);
+                    sshResponse.setStatusCode(Integer.toString(exitStatus));
                     break;
                 }
 

@@ -119,7 +119,7 @@ public class MonitorProvider {
             ThreadInfo threadInfo = threadMxBean.getThreadInfo(tId);
             if(threadInfo==null) continue;
             threadUsage.threadData.put(
-                    Long.valueOf(tId).toString(),
+                    Long.toString(tId),
                     new ThreadData(threadInfo.getThreadName(), threadInfo
                             .getThreadState().name(), threadMxBean
                             .getThreadCpuTime(tId)));
