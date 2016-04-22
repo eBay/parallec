@@ -307,8 +307,7 @@ public class SshMeta {
     public String getPrivKeyAbsPath() {
 
         String workingDir = System.getProperty("user.dir");
-        String privKeyAbsPath = workingDir + "/" + getPrivKeyRelativePath();
-        return privKeyAbsPath;
+        return workingDir + "/" + getPrivKeyRelativePath();
     }
 
     /**

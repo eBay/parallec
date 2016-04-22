@@ -462,8 +462,7 @@ public class ParallelTask {
             this.pingMeta = null;
         }// end else
 
-        boolean isValid = true;
-        return isValid;
+        return true;
     }// end func
 
     /**

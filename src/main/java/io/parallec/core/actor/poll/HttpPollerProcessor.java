@@ -135,9 +135,7 @@ public class HttpPollerProcessor {
      * @return the poller request url
      */
     public String getPollerRequestUrl(String uuid) {
-        String pollerUrl = pollerRequestTemplate
-                .replace(jobIdPlaceHolder, uuid);
-        return pollerUrl;
+        return pollerRequestTemplate.replace(jobIdPlaceHolder, uuid);
     }
 
     /**

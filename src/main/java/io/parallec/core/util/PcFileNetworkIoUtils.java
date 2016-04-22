@@ -85,8 +85,7 @@ public class PcFileNetworkIoUtils {
 
         File f = new File(filePath);
 
-        boolean exists = f.exists() && !f.isDirectory();
-        return exists;
+        return f.exists() && !f.isDirectory();
     }
 
     /**

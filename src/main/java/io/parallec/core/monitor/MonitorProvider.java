@@ -228,7 +228,7 @@ public class MonitorProvider {
          * @return the summary
          */
         public String getSummary() {
-            String summary = PcNumberUtils
+            return PcNumberUtils
                     .getStringFromDouble(memoryUsagePercent)
                     + "% ("
                     + PcNumberUtils.getStringFromDouble(usedMemory)
@@ -237,7 +237,6 @@ public class MonitorProvider {
                     + ") Max "
                     + PcNumberUtils.getStringFromDouble(maxMemory);
 
-            return summary;
         }
 
     }

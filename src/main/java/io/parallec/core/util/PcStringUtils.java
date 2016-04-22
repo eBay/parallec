@@ -102,9 +102,7 @@ public class PcStringUtils {
 
         Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting()
                 .create();
-        String jsonOutput = gson.toJson(o);
-
-        return jsonOutput;
+        return gson.toJson(o);
     }
 
 }

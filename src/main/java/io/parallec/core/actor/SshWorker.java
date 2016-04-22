@@ -405,9 +405,7 @@ public class SshWorker extends UntypedActor {
         @Override
         public ResponseOnSingeRequest call() throws Exception {
             SshProvider sshProvider = new SshProvider(sshMeta, targetHost);
-            ResponseOnSingeRequest sshResponse = sshProvider
-                    .executeSshCommand();
-            return sshResponse;
+            return sshProvider.executeSshCommand();
         }
     }// end class
 
