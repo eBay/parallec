@@ -40,7 +40,7 @@ public class PingProvider {
                 InetAddress address = InetAddress.getByName(targetHost);
                 return address.isReachable(pingMeta.getPingTimeoutMillis());
             }else{
-                String cmd = "";
+                String cmd;
                 if (System.getProperty("os.name").startsWith("Windows")) {
                     // For Windows
                     cmd = "ping -n 1 " + targetHost;

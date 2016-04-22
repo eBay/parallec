@@ -195,7 +195,7 @@ public class TcpWorker extends UntypedActor {
                         // Wait until the connection attempt succeeds or fails.
                         channel = future.awaitUninterruptibly()
                                 .getChannel();
-                        ChannelFuture requestFuture = null;
+                        ChannelFuture requestFuture;
 
                         // Sends the line to server need. line ending
                         requestFuture = channel.write(tcpMeta.getCommand()

@@ -161,7 +161,7 @@ public class SshProvider {
      */
     public Channel sessionConnectGenerateChannel(Session session)
             throws JSchException {
-    	// set timeout
+
         session.connect(sshMeta.getSshConnectionTimeoutMillis());
         
         ChannelExec channel = (ChannelExec) session.openChannel("exec");
