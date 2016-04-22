@@ -269,7 +269,7 @@ public class ParallelTaskBuilder {
                 logger.info("Executing task {} in SYNC mode...  ",
                         task.getTaskId());
 
-                while (task != null && !task.isCompleted()) {
+                while (!task.isCompleted()) {
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException e) {
