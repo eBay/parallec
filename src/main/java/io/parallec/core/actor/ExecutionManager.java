@@ -338,9 +338,7 @@ public class ExecutionManager extends UntypedActor {
                             + " / "
                             + requestCount
                             + " after "
-                            + new Double(
-                                    (prepareRequestTime - startTime) / 1000.0)
-                                    .toString() + " secs"
+                            + Double.toString((prepareRequestTime - startTime) / 1000.0) + " secs"
                             + ":  (NOT SEND YET) " + targetHost + " at "
                             + prepareRequestTimeStr);
 
@@ -456,8 +454,7 @@ public class ExecutionManager extends UntypedActor {
                         / (double) (requestCount) * 100.0;
                 String responseReceiveTimeStr = PcDateUtils
                         .getDateTimeStrStandard(new Date(responseReceiveTime));
-                String secondElapsedStr = new Double(
-                        (responseReceiveTime - startTime) / 1000.0).toString();
+                String secondElapsedStr = Double.toString((responseReceiveTime - startTime) / 1000.0);
                 
                 // log the first/ last 5 percent; then sample the middle
                 if(requestCount < ParallecGlobalConfig.logAllResponseIfTotalLessThan

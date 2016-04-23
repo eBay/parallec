@@ -150,7 +150,7 @@ public class VarReplacementProvider {
                             + replaceVarKey, replaceVarValue);
             nodeReqResponse.getRequestParameters().put(
                     PcConstants.NODE_REQUEST_WILL_EXECUTE,
-                    new Boolean(true).toString());
+                    Boolean.toString(true));
 
         }// end for loop
 
@@ -216,7 +216,7 @@ public class VarReplacementProvider {
 
                     nodeReqResponse.getRequestParameters().put(
                             PcConstants.NODE_REQUEST_WILL_EXECUTE,
-                            new Boolean(false).toString());
+                            Boolean.toString(false));
 
                     /**
                      * 20130828: make it generic to check NULL KEY/VALUE
@@ -239,11 +239,11 @@ public class VarReplacementProvider {
                             .contains(PcConstants.NA)) {
                         nodeReqResponse.getRequestParameters().put(
                                 PcConstants.NODE_REQUEST_WILL_EXECUTE,
-                                new Boolean(false).toString());
+                                Boolean.toString(false));
                     } else {
                         nodeReqResponse.getRequestParameters().put(
                                 PcConstants.NODE_REQUEST_WILL_EXECUTE,
-                                new Boolean(true).toString());
+                                Boolean.toString(true));
                     }
 
                 }
