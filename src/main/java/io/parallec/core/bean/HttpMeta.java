@@ -130,7 +130,7 @@ public class HttpMeta {
             setRequestUrlPostfix("");
             logger.info("USE DEFAULT URL: RequestUrlPostfix is null or empty. SET as empty \"\". e.g. just want to GET http://parallec.io");
         }
-        if (this.isPollable() == true &&
+        if (this.isPollable() &&
                 this.getHttpPollerProcessor() == null) {
                 throw new ParallelTaskInvalidException(
                         "set pollable but httpPollerProcessor is null!! Invalid. please set httpPollerProcessor() ");

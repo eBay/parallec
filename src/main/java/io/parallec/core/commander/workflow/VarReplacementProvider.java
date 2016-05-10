@@ -90,7 +90,7 @@ public class VarReplacementProvider {
              * ENABLE CRETIRIA: useReplacementVarMap==true
              * 
              */
-            if (useReplacementVarMap == true && replacementVarMap != null) {
+            if (useReplacementVarMap && replacementVarMap != null) {
 
                 for (Entry<String, String> entry : replacementVarMap.entrySet()) {
 
@@ -108,7 +108,7 @@ public class VarReplacementProvider {
             /**
              * ENABLE CRETIRIA: useReplacementVarMap==true
              */
-            if (useReplacementVarMapNodeSpecific == true
+            if (useReplacementVarMapNodeSpecific 
                     && replacementVarMapNodeSpecific != null) {
                 VarReplacementProvider.getInstance()
                         .updateRequestByAddingReplaceVarPairNodeSpecific(task,

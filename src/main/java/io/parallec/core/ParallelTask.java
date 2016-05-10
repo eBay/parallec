@@ -413,7 +413,7 @@ public class ParallelTask {
                         + ParallecGlobalConfig.concurrencySshLimit);
                 this.setConcurrency(ParallecGlobalConfig.concurrencySshLimit);
             }
-            if (this.httpMeta.isPollable() == true)
+            if (this.httpMeta.isPollable())
                 throw new ParallelTaskInvalidException(
                         "Not support pollable job with SSH.");
 
@@ -425,7 +425,7 @@ public class ParallelTask {
         }else if (this.requestProtocol==
                 RequestProtocol.PING) {
 
-            if (this.httpMeta.isPollable() == true)
+            if (this.httpMeta.isPollable())
                 throw new ParallelTaskInvalidException(
                         "Not support pollable job with PING.");
             this.httpMeta.initValuesNa();
@@ -440,7 +440,7 @@ public class ParallelTask {
         //TCP
         }else if (this.requestProtocol==
                 RequestProtocol.TCP) { 
-            if (this.httpMeta.isPollable() == true)
+            if (this.httpMeta.isPollable())
                 throw new ParallelTaskInvalidException(
                         "Not support pollable job with TCP.");
             this.httpMeta.initValuesNa();

@@ -139,7 +139,7 @@ public class ParallelTaskManager {
      * @return the task from in progress map
      */
     public ParallelTask getTaskFromInProgressMap(String jobId) {
-        if (inprogressTaskMap.containsKey(jobId) == false)
+        if (!inprogressTaskMap.containsKey(jobId))
             return null;
         return inprogressTaskMap.get(jobId);
     }

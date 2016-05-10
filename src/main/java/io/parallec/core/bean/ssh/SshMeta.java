@@ -176,7 +176,7 @@ public class SshMeta {
         }
 
         if (this.sshLoginType == SshLoginType.KEY
-                && this.privKeyUsePassphrase == true && this.passphrase == null) {
+                && this.privKeyUsePassphrase && this.passphrase == null) {
             throw new ParallelTaskInvalidException(
                     "use public key and also with private key passphrase but it is null for ssh");
         }

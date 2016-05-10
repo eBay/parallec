@@ -334,7 +334,7 @@ public class ExecutionManager extends UntypedActor {
                     final PingMeta pingMeta = task.getPingMeta();
                     
                     logger.debug("REQUEST GENERATED: "
-                            + (int) (sentRequestCounter + 1)
+                            + (sentRequestCounter + 1)
                             + " / "
                             + requestCount
                             + " after "
