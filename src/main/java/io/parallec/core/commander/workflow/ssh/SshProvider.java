@@ -21,6 +21,7 @@ import io.parallec.core.util.PcFileNetworkIoUtils;
 import io.parallec.core.util.PcStringUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -160,17 +161,34 @@ public class SshProvider {
      */
     public Channel sessionConnectGenerateChannel(Session session)
             throws JSchException {
-        Channel channel = null;
-        // set timeout
+    	// set timeout
         session.connect(sshMeta.getSshConnectionTimeoutMillis());
-
-        channel = session.openChannel("exec");
-        ((ChannelExec) channel).setCommand(sshMeta.getCommandLine());
+        
+        ChannelExec channel = (ChannelExec) session.openChannel("exec");
+        channel.setCommand(sshMeta.getCommandLine());
         // X Forwarding
         // channel.setXForwarding(true);
 
-        channel.setInputStream(null);
-        channel.connect();
+        // if run as super user, assuming the input stream expecting a password
+        if (sshMeta.isRunAsSuperUser()) {
+        	try {
+                channel.setInputStream(null, true);
+
+                OutputStream out = channel.getOutputStream();
+                channel.setOutputStream(System.out, true);
+                channel.setExtOutputStream(System.err, true);
+                channel.setPty(true);
+                channel.connect();
+                
+	            out.write((sshMeta.getPassword()+"\n").getBytes());
+	            out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        } else {
+        	channel.setInputStream(null);
+        	channel.connect();
+        }
 
         return channel;
 

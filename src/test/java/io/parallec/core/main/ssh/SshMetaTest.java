@@ -13,27 +13,27 @@ public class SshMetaTest extends TestBase {
 
     public static SshMeta sshMetaPassword = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.PASSWORD, null, passwd, false,
-            null, sshConnectionTimeoutMillis);
+            null, sshConnectionTimeoutMillis, false);
     public static SshMeta sshMetaKey = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/fake-privkey.txt", null, false, null,
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
     public static SshMeta sshMetaKeyNotExist = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/noneexisting.txt", null, false, null,
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
 
     private static void resetPass() {
         sshMetaPassword = new SshMeta(commandSshLineValid, userName,
                 PORT_DEFAULT, SshLoginType.PASSWORD, null, passwd, false, null,
-                sshConnectionTimeoutMillis);
+                sshConnectionTimeoutMillis, false);
     }
 
     private static void resetKey() {
 
         sshMetaKey = new SshMeta(commandSshLineValid, userName, PORT_DEFAULT,
                 SshLoginType.KEY, "userdata/fake-privkey.txt", null, false,
-                null, sshConnectionTimeoutMillis);
+                null, sshConnectionTimeoutMillis, false);
     }
 
     private static void expectException(SshMeta meta) {

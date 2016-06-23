@@ -11,6 +11,7 @@ import io.parallec.core.commander.workflow.ssh.SshProvider;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.apache.commons.io.Charsets;
 import org.junit.BeforeClass;
@@ -26,21 +27,26 @@ public class SshProviderMockTest extends TestBase {
 
     public static SshMeta sshMetaPassword = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.PASSWORD, null, passwd, false,
-            null, sshConnectionTimeoutMillis);
+            null, sshConnectionTimeoutMillis, false);
+    
+    public static SshMeta sshMetaPasswordSuperUser = new SshMeta(commandSshLineValid,
+            userName, PORT_DEFAULT, SshLoginType.PASSWORD, null, passwd, false,
+            null, sshConnectionTimeoutMillis, true);
+    
     public static SshMeta sshMetaKey = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/fake-privkey.txt", null, false, null,
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
     
     public static SshMeta sshMetaKeyWithPassphrase = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/fake-privkey.txt", null, true, "changeit",
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
     
     public static SshMeta sshMetaKeyNotExist = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/noneexisting.txt", null, false, null,
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
 
     // @Ignore
     @BeforeClass
@@ -102,6 +108,25 @@ public class SshProviderMockTest extends TestBase {
         
 
     }
+    
+    @Test
+    public void sessionConnectGenerateChannelTestWithSuperUser() {
+
+        Session session = mock(Session.class);
+        ChannelExec channel = mock(ChannelExec.class);
+        OutputStream out = mock(OutputStream.class);
+        
+        sshProvider = new SshProvider(sshMetaPasswordSuperUser, hostIpSample);
+        try {
+
+            when(session.openChannel("exec")).thenReturn(channel);
+            when(channel.getOutputStream()).thenReturn(out);
+            sshProvider.sessionConnectGenerateChannel(session);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void sessionConnectGenerateChannelTest() {
@@ -117,7 +142,6 @@ public class SshProviderMockTest extends TestBase {
         } catch (JSchException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
