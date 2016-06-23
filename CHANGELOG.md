@@ -1,11 +1,19 @@
 Parallec Change Log
 ==========
 
+## Version 0.9.4
+
+
+_2016-??-??_
+
+* TBD
+
 ## Version 0.9.3
 
 
-_2015-??-??_
+_2016-06-23_
 
+* SSH: Allow run as super user for ssh: handle SSH commands where password is needed to sudo.  Auto apply the password. Thanks [billzwu](https://github.com/billzwu)
 * Test: add coverage: for get target hosts duplicate/empty for CMS.
 * Test/Build: update CI setting to enable test on process based Ping. 
 

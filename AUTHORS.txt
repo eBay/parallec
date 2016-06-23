@@ -10,3 +10,6 @@ Core developers (in order of appearance):
 Contributors:
 
 - Lukasz Kryger  http://stackoverflow.com/users/1240557/kryger
+- billzwu https://github.com/billzwu
+- faisal-hameed https://github.com/faisal-hameed
+- fivesmallq https://github.com/fivesmallq
