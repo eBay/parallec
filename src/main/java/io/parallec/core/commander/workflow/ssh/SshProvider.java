@@ -161,31 +161,30 @@ public class SshProvider {
      */
     public Channel sessionConnectGenerateChannel(Session session)
             throws JSchException {
-        Channel channel = null;
-        // set timeout
+    	// set timeout
         session.connect(sshMeta.getSshConnectionTimeoutMillis());
-
-        channel = session.openChannel("exec");
-        ((ChannelExec) channel).setCommand(sshMeta.getCommandLine());
+        
+        ChannelExec channel = (ChannelExec) session.openChannel("exec");
+        channel.setCommand(sshMeta.getCommandLine());
         // X Forwarding
         // channel.setXForwarding(true);
 
         // if run as super user, assuming the input stream expecting a password
         if (sshMeta.isRunAsSuperUser()) {
         	try {
-				InputStream in=channel.getInputStream();
-				OutputStream out=channel.getOutputStream();
-	            ((ChannelExec)channel).setErrStream(System.err);
+                channel.setInputStream(null, true);
 
-	            channel.connect();
-
+                OutputStream out = channel.getOutputStream();
+                channel.setOutputStream(System.out, true);
+                channel.setExtOutputStream(System.err, true);
+                channel.setPty(true);
+                channel.connect();
+                
 	            out.write((sshMeta.getPassword()+"\n").getBytes());
 	            out.flush();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
         } else {
         	channel.setInputStream(null);
         	channel.connect();
