@@ -47,6 +47,9 @@ public class SshMeta {
 
     /** The priv key use passphrase. */
     private boolean privKeyUsePassphrase;
+    
+    /** The priv key use passphrase. */
+    private boolean runAsSuperUser;
 
     /** The passphrase. */
     private String passphrase;
@@ -92,6 +95,25 @@ public class SshMeta {
     public void setPassphrase(String passphrase) {
         this.passphrase = passphrase;
     }
+    
+    /**
+     * get the runAsSuperUser.
+     *
+     * @param 
+     */
+    public boolean isRunAsSuperUser() {
+		return runAsSuperUser;
+	}
+
+    /**
+     * Sets the runAsSuperUser.
+     *
+     * @param runAsSuperUser
+     *            the new runAsSuperUser
+     */
+    public void setRunAsSuperUser(boolean runAsSuperUser) {
+		this.runAsSuperUser = runAsSuperUser;
+	}
 
 
     /**
@@ -110,7 +132,7 @@ public class SshMeta {
     public SshMeta(String commandLine, String userName, int sshPort,
             SshLoginType sshLoginType, String privKeyRelativePath,
             String password, boolean privKeyUsePassphrase, String passphrase,
-            int sshConnectionTimeoutMillis) {
+            int sshConnectionTimeoutMillis, boolean runAsSuperUser) {
         super();
         this.commandLine = commandLine;
         this.userName = userName;
@@ -121,6 +143,7 @@ public class SshMeta {
         this.privKeyUsePassphrase = privKeyUsePassphrase;
         this.passphrase = passphrase;
         this.sshConnectionTimeoutMillis = sshConnectionTimeoutMillis;
+        this.runAsSuperUser = runAsSuperUser;
     }
 
     /**
@@ -137,11 +160,12 @@ public class SshMeta {
         this.password = null;
         this.privKeyUsePassphrase = false;
         this.passphrase = null;
+        this.runAsSuperUser = false;
         this.sshConnectionTimeoutMillis = ParallecGlobalConfig.sshConnectionTimeoutMillisDefault;
 
     };
 
-    /**
+	/**
      * Validation.
      *
      * @return true, if successful

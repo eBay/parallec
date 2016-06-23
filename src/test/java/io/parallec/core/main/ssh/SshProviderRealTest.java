@@ -20,7 +20,7 @@ public class SshProviderRealTest extends TestBase {
 
         SshMeta sshMeta = new SshMeta("date; ifconfig; ds", "parallec",
                 PORT_DEFAULT, SshLoginType.PASSWORD, null, "parallec", false,
-                null, sshConnectionTimeoutMillis);
+                null, sshConnectionTimeoutMillis, false);
 
         SshProvider instance = new SshProvider(sshMeta, vmIp);
         ResponseOnSingeRequest response = instance.executeSshCommand();
@@ -33,7 +33,7 @@ public class SshProviderRealTest extends TestBase {
 
         SshMeta sshMeta = new SshMeta(" ps -ef; ds; ifconfig", "ubuntu",
                 PORT_DEFAULT, SshLoginType.KEY, "userdata/vm-keys.pem",
-                null, false, null, sshConnectionTimeoutMillis);
+                null, false, null, sshConnectionTimeoutMillis, false);
         SshProvider instance = new SshProvider(sshMeta, vmIp);
         ResponseOnSingeRequest response = instance.executeSshCommand();
         logger.info("PrivKey absolute path: " + sshMeta.getPrivKeyAbsPath());

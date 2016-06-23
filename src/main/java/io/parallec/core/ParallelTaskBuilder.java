@@ -862,6 +862,17 @@ public class ParallelTaskBuilder {
         this.sshMeta.setCommandLine(commandLine);
         return this;
     }
+    
+    /**
+     * Sets the ssh runAsSuperUser
+     * @param runAsSuperUser
+     *            the runAsSuperUser
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder setRunAsSuperUser(Boolean runAsSuperUser) {
+        this.sshMeta.setRunAsSuperUser(runAsSuperUser);
+        return this;
+    }
 
     /**
      * Sets the ssh port.

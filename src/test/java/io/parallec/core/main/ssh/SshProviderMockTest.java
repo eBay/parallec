@@ -26,21 +26,21 @@ public class SshProviderMockTest extends TestBase {
 
     public static SshMeta sshMetaPassword = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.PASSWORD, null, passwd, false,
-            null, sshConnectionTimeoutMillis);
+            null, sshConnectionTimeoutMillis, false);
     public static SshMeta sshMetaKey = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/fake-privkey.txt", null, false, null,
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
     
     public static SshMeta sshMetaKeyWithPassphrase = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/fake-privkey.txt", null, true, "changeit",
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
     
     public static SshMeta sshMetaKeyNotExist = new SshMeta(commandSshLineValid,
             userName, PORT_DEFAULT, SshLoginType.KEY,
             "userdata/noneexisting.txt", null, false, null,
-            sshConnectionTimeoutMillis);
+            sshConnectionTimeoutMillis, false);
 
     // @Ignore
     @BeforeClass
