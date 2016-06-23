@@ -48,7 +48,7 @@ public class SshMeta {
     /** The priv key use passphrase. */
     private boolean privKeyUsePassphrase;
     
-    /** The priv key use passphrase. */
+    /** The priv key for runAsSuperUser. */
     private boolean runAsSuperUser;
 
     /** The passphrase. */
@@ -128,6 +128,7 @@ public class SshMeta {
      * @param privKeyUsePassphrase the priv key use passphrase
      * @param passphrase the passphrase
      * @param sshConnectionTimeoutMillis the ssh connection timeout millis
+     * @param runAsSuperUser if the ssh will be run as superuser.
      */
     public SshMeta(String commandLine, String userName, int sshPort,
             SshLoginType sshLoginType, String privKeyRelativePath,
