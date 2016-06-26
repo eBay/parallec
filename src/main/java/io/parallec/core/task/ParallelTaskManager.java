@@ -319,7 +319,7 @@ public class ParallelTaskManager {
      *
      * @return the inprogress task map
      */
-    public ConcurrentHashMap<String, ParallelTask> getInprogressTaskMap() {
+    public Map<String, ParallelTask> getInprogressTaskMap() {
         return inprogressTaskMap;
     }
     

@@ -40,8 +40,7 @@ public class PcDateUtils {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
         // 20140315 test will problem +0000
-        String str = sdf.format(d);
-        return str;
+        return sdf.format(d);
     }
 
     /**
@@ -60,8 +59,7 @@ public class PcDateUtils {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss.SSSZ");
 
-        String str = sdf.format(d);
-        return str;
+        return sdf.format(d);
     }
 
     /**
@@ -76,8 +74,7 @@ public class PcDateUtils {
             return "";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSSZ");
-        String str = sdf.format(d);
-        return str;
+        return sdf.format(d);
     }
 
     /**
@@ -92,8 +89,7 @@ public class PcDateUtils {
             return "";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        String str = sdf.format(d);
-        return str;
+        return sdf.format(d);
     }
 
     /**
