@@ -8,6 +8,15 @@ _2016-??-??_
 
 * TBD
 
+
+## Version 0.9.4-beta
+
+
+_2016-07-22_
+
+* Fix Issue [#25](https://github.com/eBay/parallec/issues/25), Enabled different ports replacements with different target hosts. Passed tests. Example check [here](https://github.com/eBay/parallec/issues/25). Key is ` .setHttpPortReplaceable("$PORT")`
+* Minor log refinement for ssh sudo user. 
+
 ## Version 0.9.3
 
 

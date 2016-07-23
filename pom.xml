@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.9.4-SNAPSHOT</version>
+	<version>0.9.4-beta</version>
 	<packaging>jar</packaging>
 	<name>io.parallec:parallec-core</name>
 	<url>https://github.com/eBay/parallec</url>

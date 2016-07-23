@@ -31,10 +31,10 @@ public class PcErrorMsgUtils {
     }
 
     /** The Constant errorMapOrig. */
-    public static final Map<ERROR_TYPE, String> errorMapOrig = new EnumMap<>(ERROR_TYPE.class);
+    public static final Map<ERROR_TYPE, String> errorMapOrig = new EnumMap<ERROR_TYPE, String>(ERROR_TYPE.class);
 
     /** The Constant errorMapReplace. */
-    public static final Map<ERROR_TYPE, String> errorMapReplace = new EnumMap<>(ERROR_TYPE.class);
+    public static final Map<ERROR_TYPE, String> errorMapReplace = new EnumMap<ERROR_TYPE, String>(ERROR_TYPE.class);
 
     static {
         errorMapOrig.put(ERROR_TYPE.CONNECTION_EXCEPTION,
