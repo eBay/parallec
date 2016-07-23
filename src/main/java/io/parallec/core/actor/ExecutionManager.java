@@ -173,8 +173,11 @@ public class ExecutionManager extends UntypedActor {
                 final String requestUrlPrefixOrig = httpMeta
                         .getRequestUrlPostfix();
                 final HttpMethod httpMethod = httpMeta.getHttpMethod();
-                final int requestPort = Integer.parseInt(httpMeta
-                        .getRequestPort());
+                
+                String requestPortStrOrig = httpMeta
+                        .getRequestPort();
+                
+                
                 final boolean pollable = httpMeta.isPollable();
 
                 final int maxConcurrency = task.getConcurrency();
@@ -241,7 +244,18 @@ public class ExecutionManager extends UntypedActor {
                             .replaceStrByMap(
                                     nodeReqResponse.getRequestParameters(),
                                     requestUrlPrefixOrig);
-
+                    //add support for port replacement
+                    final String requestPortStr = NodeReqResponse
+                            .replaceStrByMap(
+                                    nodeReqResponse.getRequestParameters(),
+                                    requestPortStrOrig);
+                    int requestPort = 80;
+                    try{
+                        requestPort = Integer.parseInt(requestPortStr);
+                    }catch(NumberFormatException nfe){
+                        logger.error("Error parsing replacable port with NumberFormatException. "
+                                + "No valid port for host {}. Now use default port 80", targetHost);
+                    }
                     //only pass when it is not in manager
                     final ParallecResponseHandler handler = 
                             task.getConfig().getHandlerExecutionLocation()==HandlerExecutionLocation.MANAGER

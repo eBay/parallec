@@ -13,7 +13,6 @@ limitations under the License.
 package io.parallec.core.util;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 

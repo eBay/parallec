@@ -166,8 +166,6 @@ public class SshProvider {
         
         ChannelExec channel = (ChannelExec) session.openChannel("exec");
         channel.setCommand(sshMeta.getCommandLine());
-        // X Forwarding
-        // channel.setXForwarding(true);
 
         // if run as super user, assuming the input stream expecting a password
         if (sshMeta.isRunAsSuperUser()) {
@@ -183,7 +181,7 @@ public class SshProvider {
 	            out.write((sshMeta.getPassword()+"\n").getBytes());
 	            out.flush();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("error in sessionConnectGenerateChannel for super user", e);
 			}
         } else {
         	channel.setInputStream(null);

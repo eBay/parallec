@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.apache.http.util.Asserts;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,6 +36,73 @@ public class ParallelClientVarReplacementHostSpecificTest extends TestBase {
         pc.releaseExternalResources();
     }
 
+    /**
+     * TODO 20160721 git issue #25
+     * different requests to different ports  
+     * http://www.jeffpei.com:80/job_b.html http://www.portquiz.com:8080/job_b.html
+     */
+    @Test
+    public void hitWebsitesMinTargetHostSpecificPortReplacement() {
+
+        Map<String, StrStrMap> replacementVarMapNodeSpecific = new HashMap<String, StrStrMap>();
+        replacementVarMapNodeSpecific.put("portquiz.net",
+                new StrStrMap().addPair("PORT", "8080"));
+        replacementVarMapNodeSpecific.put("www.jeffpei.com",
+                new StrStrMap().addPair("PORT", "80"));
+
+        pc.prepareHttpGet("/job_b.html")
+                .setHttpPortReplaceable("$PORT")
+                .setConcurrency(1700)
+                .setTargetHostsFromString(
+                        "portquiz.net www.jeffpei.com")
+                .setReplacementVarMapNodeSpecific(replacementVarMapNodeSpecific)
+                .execute(new ParallecResponseHandler() {
+                    @Override
+                    public void onCompleted(ResponseOnSingleTask res,
+                            Map<String, Object> responseContext) {
+                        if(res.getRequest().getHost()=="portquiz.net"){
+                            Assert.assertTrue( 
+                                    res.getStatusCodeInt()==404);
+                        }else if(res.getRequest().getHost()=="www.jeffpei.com"){
+                            Assert.assertTrue(
+                                    res.getStatusCodeInt()==200);
+                        }
+                        logger.info(res.toString());
+                    }
+                });
+
+    }
+    
+    /**
+     * trigger the NumberFormatException in execution manager. 
+     */
+    @Test
+    public void hitWebsitesMinTargetHostSpecificPortReplacementErrorCase() {
+
+        Map<String, StrStrMap> replacementVarMapNodeSpecific = new HashMap<String, StrStrMap>();
+        replacementVarMapNodeSpecific.put("portquiz.net",
+                new StrStrMap().addPair("PORT", "8080"));
+        replacementVarMapNodeSpecific.put("www.jeffpei.com",
+                new StrStrMap().addPair("PORT", "80"));
+
+        pc.prepareHttpGet("/job_b.html")
+                .setHttpPortReplaceable("$PORT")
+                .setConcurrency(1700)
+                .setTargetHostsFromString(
+                        "localhost www.jeffpei.com")
+                .setReplacementVarMapNodeSpecific(replacementVarMapNodeSpecific)
+                .execute(new ParallecResponseHandler() {
+                    @Override
+                    public void onCompleted(ResponseOnSingleTask res,
+                            Map<String, Object> responseContext) {
+                        logger.info(""+res.isError());
+                    }
+                });
+
+    }
+    
+    
+    
     /**
      * different requests to different target URLs
      * http://www.jeffpei.com/job_b.html http://www.restsuperman.com/job_c.html

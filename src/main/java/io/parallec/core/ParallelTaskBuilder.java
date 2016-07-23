@@ -400,6 +400,19 @@ public class ParallelTaskBuilder {
 
     }
 
+    
+    /**
+     * Sets the port variable name such as $PORT
+     *
+     * @param port
+     *            the port
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder setHttpPortReplaceable(String portVar) {
+        this.httpMeta.setRequestPort(portVar);
+        return this;
+
+    }
 
  
 
