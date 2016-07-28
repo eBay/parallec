@@ -1,34 +1,15 @@
-/*  
-Copyright [2013-2015] eBay Software Foundation
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- */
 package io.parallec.core.bean.ssh;
 
 import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ParallelTaskInvalidException;
 
-
-
 /**
- * all ssh metadata except for the target host name. also those timeout configs
- * and
- * 
- * @author Yuanteng (Jeff) Pei
+ * Another ssh metadata for jump host.
+ *
+ * @author Lucien Chan
  *
  */
-public class SshMeta {
-
-    /** The command line. */
-    private String commandLine;
-
+public class SshJumpHostMeta {
     /** The user name. */
     private String userName;
 
@@ -47,21 +28,9 @@ public class SshMeta {
 
     /** The priv key use passphrase. */
     private boolean privKeyUsePassphrase;
-    
-    /** The priv key for runAsSuperUser. */
-    private boolean runAsSuperUser;
 
     /** The passphrase. */
     private String passphrase;
-
-    /** The ssh connection timeout millis. */
-    private int sshConnectionTimeoutMillis;
-
-    /** The ssh jump hostname */
-    private String sshJumpHost;
-
-    /** The ssh jump host meta */
-    private SshJumpHostMeta sshJumpHostMeta;
 
     /**
      * Checks if is priv key use passphrase.
@@ -100,31 +69,10 @@ public class SshMeta {
     public void setPassphrase(String passphrase) {
         this.passphrase = passphrase;
     }
-    
-    /**
-     * get the runAsSuperUser.
-     *
-     * @param 
-     */
-    public boolean isRunAsSuperUser() {
-		return runAsSuperUser;
-	}
-
-    /**
-     * Sets the runAsSuperUser.
-     *
-     * @param runAsSuperUser
-     *            the new runAsSuperUser
-     */
-    public void setRunAsSuperUser(boolean runAsSuperUser) {
-		this.runAsSuperUser = runAsSuperUser;
-	}
-
 
     /**
      * Instantiates a new ssh meta.
      *
-     * @param commandLine the command line
      * @param userName the user name
      * @param sshPort the ssh port
      * @param sshLoginType the ssh login type
@@ -133,14 +81,12 @@ public class SshMeta {
      * @param privKeyUsePassphrase the priv key use passphrase
      * @param passphrase the passphrase
      * @param sshConnectionTimeoutMillis the ssh connection timeout millis
-     * @param runAsSuperUser if the ssh will be run as superuser.
      */
-    public SshMeta(String commandLine, String userName, int sshPort,
-            SshLoginType sshLoginType, String privKeyRelativePath,
-            String password, boolean privKeyUsePassphrase, String passphrase,
-            int sshConnectionTimeoutMillis, boolean runAsSuperUser) {
+    public SshJumpHostMeta(String userName, int sshPort,
+                   SshLoginType sshLoginType, String privKeyRelativePath,
+                   String password, boolean privKeyUsePassphrase, String passphrase,
+                   int sshConnectionTimeoutMillis, boolean runAsSuperUser) {
         super();
-        this.commandLine = commandLine;
         this.userName = userName;
         this.sshPort = sshPort;
         this.sshLoginType = sshLoginType;
@@ -148,17 +94,13 @@ public class SshMeta {
         this.password = password;
         this.privKeyUsePassphrase = privKeyUsePassphrase;
         this.passphrase = passphrase;
-        this.sshConnectionTimeoutMillis = sshConnectionTimeoutMillis;
-        this.runAsSuperUser = runAsSuperUser;
     }
 
     /**
      * Instantiates a new ssh meta. timeout using the default one:
      * sshConnectionTimeoutMillis
      */
-    public SshMeta() {
-
-        this.commandLine = null;
+    public SshJumpHostMeta() {
         this.userName = null;
         this.sshPort = 22;
         this.sshLoginType = null;
@@ -166,14 +108,9 @@ public class SshMeta {
         this.password = null;
         this.privKeyUsePassphrase = false;
         this.passphrase = null;
-        this.runAsSuperUser = false;
-        this.sshConnectionTimeoutMillis = ParallecGlobalConfig.sshConnectionTimeoutMillisDefault;
-        this.sshJumpHost = null;
-        this.sshJumpHostMeta = null;
-
     };
 
-	/**
+    /**
      * Validation.
      *
      * @return true, if successful
@@ -181,11 +118,6 @@ public class SshMeta {
      *             the parallel task invalid exception
      */
     public boolean validation() throws ParallelTaskInvalidException {
-
-        if (this.commandLine == null) {
-            throw new ParallelTaskInvalidException(
-                    "commandSshLine is null for ssh");
-        }
         if (this.sshLoginType == null) {
             throw new ParallelTaskInvalidException(
                     "sshLoginType is null for ssh");
@@ -216,26 +148,7 @@ public class SshMeta {
         return true;
 
     }
-
-    /**
-     * Gets the command line.
-     *
-     * @return the command line
-     */
-    public String getCommandLine() {
-        return commandLine;
-    }
-
-    /**
-     * Sets the command line.
-     *
-     * @param commandLine
-     *            the new command line
-     */
-    public void setCommandLine(String commandLine) {
-        this.commandLine = commandLine;
-    }
-
+    
     /**
      * Gets the password.
      *
@@ -341,59 +254,5 @@ public class SshMeta {
         String workingDir = System.getProperty("user.dir");
         String privKeyAbsPath = workingDir + "/" + getPrivKeyRelativePath();
         return privKeyAbsPath;
-    }
-
-    /**
-     * Gets the ssh connection timeout millis.
-     *
-     * @return the ssh connection timeout millis
-     */
-    public int getSshConnectionTimeoutMillis() {
-        return sshConnectionTimeoutMillis;
-    }
-
-    /**
-     * Sets the ssh connection timeout millis.
-     *
-     * @param sshConnectionTimeoutMillis the new ssh connection timeout millis
-     */
-    public void setSshConnectionTimeoutMillis(int sshConnectionTimeoutMillis) {
-        this.sshConnectionTimeoutMillis = sshConnectionTimeoutMillis;
-    }
-
-    /**
-     * Gets the ssh jump host name
-     *
-     * @return the ssh jump host name
-     */
-    public String getSshJumpHost() {
-        return sshJumpHost;
-    }
-
-    /**
-     * Sets the ssh jump host name
-     *
-     * @param sshJumpHost the new ssh jump host name
-     */
-    public void setSshJumpHost(String sshJumpHost) {
-        this.sshJumpHost = sshJumpHost;
-    }
-
-    /**
-     * Gets the ssh jump host meta
-     *
-     * @return the ssh jump host meta
-     */
-    public SshJumpHostMeta getSshJumpHostMeta() {
-        return sshJumpHostMeta;
-    }
-
-    /**
-     * Sets the ssh jump host meta
-     *
-     * @param sshJumpHostMeta the new ssh jump host meta
-     */
-    public void setSshJumpHostMeta(SshJumpHostMeta sshJumpHostMeta) {
-        this.sshJumpHostMeta = sshJumpHostMeta;
     }
 }
