@@ -98,7 +98,7 @@ public class ParallelClient {
     public TcpSshPingResourceStore tcpSshPingResourceStore = TcpSshPingResourceStore.getInstance();
 
     /** The is closed is marked when all resources are released/not initialized. */
-    public static AtomicBoolean isClosed = new AtomicBoolean(true);
+    public static final AtomicBoolean isClosed = new AtomicBoolean(true);
 
     /**
      * Instantiates a new parallel client. call initialize();

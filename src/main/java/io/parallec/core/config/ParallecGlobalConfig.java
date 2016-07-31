@@ -27,87 +27,87 @@ public class ParallecGlobalConfig {
     public static int maxCapacity = 2500;
 
     /** The concurrency for each task. default 1000 */
-    public static int concurrencyDefault = 1000;
+    public static final int concurrencyDefault = 1000;
     
     /** The max concurrency for SSH task. default 400. */
-    public static int concurrencySshLimit= 400;
+    public static final int concurrencySshLimit= 400;
 
     /** The scheduler check interval. default 500ms */
-    public static long schedulerCheckInterval = 500L;
+    public static final long schedulerCheckInterval = 500L;
 
     /** The scheduler init delay. default 500 ms */
-    public static long schedulerInitDelay = 500L;
+    public static final long schedulerInitDelay = 500L;
 
     /** The ning slow client request timeout millis. */
-    public static int ningSlowClientRequestTimeoutMillis = 60000;
+    public static final int ningSlowClientRequestTimeoutMillis = 60000;
 
     /** The ning slow client connection timeout millis. */
-    public static int ningSlowClientConnectionTimeoutMillis = 15000;
+    public static final int ningSlowClientConnectionTimeoutMillis = 15000;
 
     /** The ning fast client request timeout millis. */
-    public static int ningFastClientRequestTimeoutMillis = 14000;
+    public static final int ningFastClientRequestTimeoutMillis = 14000;
 
     /** The ning fast client connection timeout millis. */
-    public static int ningFastClientConnectionTimeoutMillis = 4000;
+    public static final int ningFastClientConnectionTimeoutMillis = 4000;
 
     /** The ssh connection timeout millis default. */
-    public static int sshConnectionTimeoutMillisDefault = 5000;
+    public static final int sshConnectionTimeoutMillisDefault = 5000;
 
     /** The ssh sleep millis btw read buffer. */
-    public static int sshSleepMIllisBtwReadBuffer = 100;
+    public static final int sshSleepMIllisBtwReadBuffer = 100;
 
     /** The ssh buffer size. */
-    public static int sshBufferSize = 1024;
+    public static final int sshBufferSize = 1024;
     
     /** The tcp connection timeout millis default. */
-    public static int tcpConnectTimeoutMillisDefault = 2000;
+    public static final int tcpConnectTimeoutMillisDefault = 2000;
     
     /** The tcp idle timeout seconds default. */
-    public static int tcpIdleTimeoutSecDefault = 5;
+    public static final int tcpIdleTimeoutSecDefault = 5;
     
     /** The ping timeout millis default. */
-    public static int pingTimeoutMillisDefault = 500;
+    public static final int pingTimeoutMillisDefault = 500;
     
     /** The ping mode default. */
-    public static PingMode pingModeDefault = PingMode.INET_ADDRESS_REACHABLE_NEED_ROOT;
+    public static final PingMode pingModeDefault = PingMode.INET_ADDRESS_REACHABLE_NEED_ROOT;
     
     /** The ping num retries default. */
-    public static int pingNumRetriesDefault = 1;
+    public static final int pingNumRetriesDefault = 1;
     
     /** The Constant USERDATA_FOLDER_WITH_SLASH. */
-    public static String userDataFolderWithSlash = "userdata/";
+    public static final String userDataFolderWithSlash = "userdata/";
 
     /** The task log folder with slash. */
-    public static String taskLogFolderWithSlash = userDataFolderWithSlash
+    public static final String taskLogFolderWithSlash = userDataFolderWithSlash
             + "tasklogs/";
 
     /** The task log postfix. */
-    public static String taskLogPostfix = ".jsonlog.txt";
+    public static final String taskLogPostfix = ".jsonlog.txt";
 
     /** The ssh future check interval sec. */
-    public static double sshFutureCheckIntervalSec = 0.5;
+    public static final double sshFutureCheckIntervalSec = 0.5;
     
     /** The ping future check interval sec. */
-    public static double pingFutureCheckIntervalSec = 0.1;
+    public static final double pingFutureCheckIntervalSec = 0.1;
     
     /** The log response interval. */
-    public static int logResponseInterval = 5;
+    public static final int logResponseInterval = 5;
     
     /** The log all response after percent. */
-    public static double logAllResponseAfterPercent = 95.0;
+    public static final double logAllResponseAfterPercent = 95.0;
     
     /** The log all response before percent. */
-    public static double logAllResponseBeforePercent = 5.0;
+    public static final double logAllResponseBeforePercent = 5.0;
     
     /** The log all response before init count. */
-    public static int logAllResponseBeforeInitCount = 2;
+    public static final int logAllResponseBeforeInitCount = 2;
     
     /** The log all response if total less than. */
-    public static int logAllResponseIfTotalLessThan = 11;
+    public static final int logAllResponseIfTotalLessThan = 11;
     
     /** The url connection connect timeout millis. Used when load target host from URL/CMS*/
-    public static int urlConnectionConnectTimeoutMillis = 6000;
+    public static final int urlConnectionConnectTimeoutMillis = 6000;
     
     /** The url connection read timeout millis. Used when load target host from URL/CMS*/
-    public static int urlConnectionReadTimeoutMillis = 15000;
+    public static final int urlConnectionReadTimeoutMillis = 15000;
 }

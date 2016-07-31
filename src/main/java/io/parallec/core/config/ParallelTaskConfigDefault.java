@@ -20,37 +20,37 @@ package io.parallec.core.config;
 public class ParallelTaskConfigDefault {
 
     /** The asst manager retry interval millis. */
-    public static long asstManagerRetryIntervalMillis = 250L;
+    public static final long asstManagerRetryIntervalMillis = 250L;
 
     /** The actor max operation timeout sec. */
-    public static int actorMaxOperationTimeoutSec = 15;
+    public static final int actorMaxOperationTimeoutSec = 15;
 
     /**
      * The command manager internal timeout and cancel itself time in seconds
      * Note this may need to be adjusted for long polling jobs.
      */
-    public static long timeoutInManagerSec = 600;
+    public static final long timeoutInManagerSec = 600;
 
     /** The timeout the director send to the manager to cancel it from outside. */
-    public static long timeoutAskManagerSec = timeoutInManagerSec + 10;
+    public static final long timeoutAskManagerSec = timeoutInManagerSec + 10;
 
     /** The print http true header map. */
-    public static boolean printHttpTrueHeaderMap = true;
+    public static final boolean printHttpTrueHeaderMap = true;
 
     /** The print poller. */
-    public static boolean printPoller = true;
+    public static final boolean printPoller = true;
 
     /** The save response to task. */
-    public static boolean saveResponseToTask = false;
+    public static final boolean saveResponseToTask = false;
 
     /** The auto save log to local. */
-    public static boolean autoSaveLogToLocal = false;
+    public static final boolean autoSaveLogToLocal = false;
 
     /** The enable capacity aware task scheduler. */
-    public static boolean enableCapacityAwareTaskScheduler = false;
+    public static final boolean enableCapacityAwareTaskScheduler = false;
 
     /** The handler execution location default as in Manager after aggregation. */
-    public static  HandlerExecutionLocation handlerExecutionLocationDefault = HandlerExecutionLocation.MANAGER;
+    public static  final HandlerExecutionLocation handlerExecutionLocationDefault = HandlerExecutionLocation.MANAGER;
     /**
      * Instantiates a new parallel task config.
      */

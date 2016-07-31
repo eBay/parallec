@@ -67,10 +67,10 @@ public class PcConstants {
             + UNIFORM_TARGET_HOST_VAR;
 
     /** The request parameter http header prefix. */
-    public static String REQUEST_PARAMETER_HTTP_HEADER_PREFIX = "TRUE_HEADER_";
+    public static final String REQUEST_PARAMETER_HTTP_HEADER_PREFIX = "TRUE_HEADER_";
 
     /** The var name apivarreplace httpheader auth token. */
-    public static String VAR_NAME_APIVARREPLACE_HTTPHEADER_AUTH_TOKEN = "APIVARREPLACE_HTTPHEADER_AUTH_TOKEN";
+    public static final String VAR_NAME_APIVARREPLACE_HTTPHEADER_AUTH_TOKEN = "APIVARREPLACE_HTTPHEADER_AUTH_TOKEN";
 
     /** The Constant SYSTEM_FAIL_MATCH_REGEX. */
     public static final String SYSTEM_FAIL_MATCH_REGEX = "SYSTEM_FAIL_MATCH_REGEX";
@@ -120,10 +120,10 @@ public class PcConstants {
      * The Constant AGNET_RESPONSE_MAX_RESPONSE_DISPLAY_BYTE. this will record
      * in log
      */
-    public static int AGNET_RESPONSE_MAX_RESPONSE_DISPLAY_BYTE = 32;
+    public static final int AGNET_RESPONSE_MAX_RESPONSE_DISPLAY_BYTE = 32;
 
     /** to get the errorSummary */
-    public static String REGEX_ERROR_SUMMARY = "(.*?)\\sDetails.*";
+    public static final String REGEX_ERROR_SUMMARY = "(.*?)\\sDetails.*";
     
 
 }
