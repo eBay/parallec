@@ -110,4 +110,7 @@ public class ParallecGlobalConfig {
     
     /** The url connection read timeout millis. Used when load target host from URL/CMS*/
     public static int urlConnectionReadTimeoutMillis = 15000;
+
+    /** The ssh localhost */
+    public static String sshLocalHost = "127.0.0.1";
 }

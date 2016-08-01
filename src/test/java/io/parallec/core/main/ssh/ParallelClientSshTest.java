@@ -8,6 +8,9 @@ import io.parallec.core.TestBase;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.parallec.core.bean.ssh.SshJumpHostMeta;
+import io.parallec.core.bean.ssh.SshLoginType;
+import io.parallec.core.bean.ssh.SshMeta;
 import org.apache.http.util.Asserts;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -25,6 +28,35 @@ public class ParallelClientSshTest extends TestBase {
 
     @AfterClass
     public static void shutdown() throws Exception {
+        pc.releaseExternalResources();
+    }
+
+    @Test
+    public void sshWorkerJumpHostTest(){
+        Map<String, Object> responseContext = new HashMap<String, Object>();
+
+        SshJumpHostMeta jumpMeta = new SshJumpHostMeta();
+        jumpMeta.setUserName(userName);
+        jumpMeta.setSshLoginType(SshLoginType.PASSWORD);
+        jumpMeta.setPassword(passwd);
+        pc.prepareSsh().setConcurrency(150)
+                .setTargetHostsFromString(LOCALHOST)
+                .setSshLoginType(SshLoginType.PASSWORD)
+                .setSshUserName(userName)
+                .setSshPassword(passwd)
+                .setSshCommandLine("df -h; ds; ")
+                .setSshJumpHost(hostIpSample)
+                .setSshJumpHostMeta(jumpMeta)
+                .setResponseContext(responseContext)
+                .execute(new ParallecResponseHandler() {
+                    @Override
+                    public void onCompleted(ResponseOnSingleTask res, Map<String, Object> responseContext){
+                        responseContext.put("response", res.toString());
+                        responseContext.put("host", res.getHost());
+                        responseContext.put("errmsg", res.getErrorMessage());
+                    }
+                });
+        logger.info(responseContext.get("response").toString());
         pc.releaseExternalResources();
     }
 

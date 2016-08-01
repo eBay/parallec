@@ -13,6 +13,7 @@ limitations under the License.
 package io.parallec.core.commander.workflow.ssh;
 
 import io.parallec.core.actor.message.ResponseOnSingeRequest;
+import io.parallec.core.bean.ssh.SshJumpHostMeta;
 import io.parallec.core.bean.ssh.SshLoginType;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.config.ParallecGlobalConfig;
@@ -106,48 +107,75 @@ public class SshProvider {
 
     }
 
+    private JSch addKeyToJsch(JSch jsch, String path, boolean usePassphase, String passphase) 
+            throws JSchException {
+        String workingDir = System.getProperty("user.dir");
+
+        String privKeyAbsPath = workingDir + "/"  +  path;
+        logger.debug("use privkey: path: " + privKeyAbsPath);
+
+        if (!PcFileNetworkIoUtils.isFileExist(privKeyAbsPath)) {
+            throw new RuntimeException("file not found at " + privKeyAbsPath);
+        }
+
+        if (usePassphase && passphase!= null) {
+            jsch.addIdentity(privKeyAbsPath, passphase);
+        } else {
+            jsch.addIdentity(privKeyAbsPath);
+        }
+
+        return jsch;
+    }
+
     /**
      * Start ssh session and obtain session.
      *
      * @return the session
      */
     public Session startSshSessionAndObtainSession() {
-
         Session session = null;
+        Session forwarded = null;
+        String hostName = targetHost;
+        int port = sshMeta.getSshPort();
+        SshJumpHostMeta sshJumpHostMeta = sshMeta.getSshJumpHostMeta();
         try {
-
             JSch jsch = new JSch();
+            if (sshMeta.getSshJumpHost()!=null) {
+                if (sshJumpHostMeta.getSshLoginType() == SshLoginType.KEY) {
+                    jsch = addKeyToJsch(jsch, sshJumpHostMeta.getPrivKeyRelativePath(),
+                            sshJumpHostMeta.isPrivKeyUsePassphrase(), sshJumpHostMeta.getPassphrase());
+                }
+
+                session = jsch.getSession(sshJumpHostMeta.getUserName(), sshMeta.getSshJumpHost(),
+                        sshJumpHostMeta.getSshPort());
+
+                if (sshJumpHostMeta.getSshLoginType() == SshLoginType.PASSWORD) {
+                    session.setPassword(sshJumpHostMeta.getPassword());
+                }
+
+                session.setConfig("StrictHostKeyChecking", "no");
+
+                port = session.setPortForwardingL(0, targetHost, sshMeta.getSshPort());
+                hostName = ParallecGlobalConfig.sshLocalHost;
+            }
+
             if (sshMeta.getSshLoginType() == SshLoginType.KEY) {
-
-                String workingDir = System.getProperty("user.dir");
-                String privKeyAbsPath = workingDir + "/"
-                        + sshMeta.getPrivKeyRelativePath();
-                logger.debug("use privkey: path: " + privKeyAbsPath);
-
-                if (!PcFileNetworkIoUtils.isFileExist(privKeyAbsPath)) {
-                    throw new RuntimeException("file not found at "
-                            + privKeyAbsPath);
-                }
-
-                if (sshMeta.isPrivKeyUsePassphrase()
-                        && sshMeta.getPassphrase() != null) {
-                    jsch.addIdentity(privKeyAbsPath, sshMeta.getPassphrase());
-                } else {
-                    jsch.addIdentity(privKeyAbsPath);
-                }
+                jsch = addKeyToJsch(jsch, sshMeta.getPrivKeyRelativePath(),
+                        sshMeta.isPrivKeyUsePassphrase(), sshMeta.getPassphrase());
             }
 
-            session = jsch.getSession(sshMeta.getUserName(), targetHost,
-                    sshMeta.getSshPort());
+            forwarded = jsch.getSession(sshMeta.getUserName(), hostName, port);
+
             if (sshMeta.getSshLoginType() == SshLoginType.PASSWORD) {
-                session.setPassword(sshMeta.getPassword());
+                forwarded.setPassword(sshMeta.getPassword());
             }
 
-            session.setConfig("StrictHostKeyChecking", "no");
+            forwarded.setConfig("StrictHostKeyChecking", "no");
+
         } catch (Exception t) {
             throw new RuntimeException(t);
         }
-        return session;
+        return forwarded;
     }
 
     /**
@@ -163,7 +191,7 @@ public class SshProvider {
             throws JSchException {
     	// set timeout
         session.connect(sshMeta.getSshConnectionTimeoutMillis());
-        
+
         ChannelExec channel = (ChannelExec) session.openChannel("exec");
         channel.setCommand(sshMeta.getCommandLine());
 

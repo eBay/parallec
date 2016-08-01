@@ -19,6 +19,7 @@ import io.parallec.core.bean.TargetHostMeta;
 import io.parallec.core.bean.TaskRunMode;
 import io.parallec.core.bean.ping.PingMeta;
 import io.parallec.core.bean.ping.PingMode;
+import io.parallec.core.bean.ssh.SshJumpHostMeta;
 import io.parallec.core.bean.ssh.SshLoginType;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
@@ -1174,7 +1175,26 @@ public class ParallelTaskBuilder {
         this.pingMeta.setNumRetries(numRetries);
         return this;
     }
-    
 
-    
+    /**
+     * Sets the ssh jump host name
+     *
+     * @param sshJumpHost the name of jump host
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder setSshJumpHost(String sshJumpHost){
+        this.sshMeta.setSshJumpHost(sshJumpHost);
+        return this;
+    }
+
+    /**
+     * Sets the ssh jump host meta
+     *
+     * @param sshJumpHostMeta the meta of jump host
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder setSshJumpHostMeta(SshJumpHostMeta sshJumpHostMeta){
+        this.sshMeta.setSshJumpHostMeta(sshJumpHostMeta);
+        return this;
+    }
 }
