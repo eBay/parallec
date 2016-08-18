@@ -17,6 +17,7 @@ import io.parallec.core.exception.ParallelTaskInvalidException;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
  * all ssh metadata except for the target host name. also those timeout configs
  * and
@@ -97,9 +98,9 @@ public class SshMeta {
     }
     
     /**
-     * get the runAsSuperUser.
+     * Checks if is run as super user.
      *
-     * @param 
+     * @return true, if is run as super user
      */
     public boolean isRunAsSuperUser() {
 		return runAsSuperUser;

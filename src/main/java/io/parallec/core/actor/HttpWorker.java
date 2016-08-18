@@ -331,8 +331,9 @@ public class HttpWorker extends UntypedActor {
             if (!getContext().system().deadLetters().equals(sender)) {
                 sender.tell(res, getSelf());
             }
-            
-            getContext().stop(getSelf());
+            if (getContext() != null) {
+                getContext().stop(getSelf());
+            }
         }
 
     }

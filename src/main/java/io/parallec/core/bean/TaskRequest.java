@@ -17,6 +17,7 @@ import io.parallec.core.RequestProtocol;
 import io.parallec.core.bean.ping.PingMeta;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.resources.HttpMethod;
 
 import java.util.HashMap;
@@ -73,6 +74,9 @@ public class TaskRequest {
     /** The tcp meta. */
     private final TcpMeta tcpMeta;
 
+    /** The tcp meta. */
+    private final UdpMeta udpMeta;
+    
     /** The ping meta. */
     private final PingMeta pingMeta;
     
@@ -90,7 +94,7 @@ public class TaskRequest {
             Map<String, String> httpHeaderMap, 
             ParallecResponseHandler handler, 
             Map<String, Object> responseContext,
-            SshMeta sshMeta, TcpMeta tcpMeta, PingMeta pingMeta
+            SshMeta sshMeta, TcpMeta tcpMeta, UdpMeta udpMeta, PingMeta pingMeta
 
     ) {
         this.actorMaxOperationTimeoutSec = actorMaxOperationTimeoutSec;
@@ -110,6 +114,7 @@ public class TaskRequest {
         this.responseContext = responseContext;
         this.sshMeta = sshMeta;
         this.tcpMeta = tcpMeta;
+        this.udpMeta = udpMeta;
         this.pingMeta = pingMeta;
 
     }
@@ -242,6 +247,10 @@ public class TaskRequest {
 
     public Map<String, Object> getResponseContext() {
         return responseContext;
+    }
+
+    public UdpMeta getUdpMeta() {
+        return udpMeta;
     }
 
 }

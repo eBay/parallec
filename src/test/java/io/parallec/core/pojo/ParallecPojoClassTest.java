@@ -35,16 +35,17 @@ import io.parallec.core.bean.TaskRequest;
 import io.parallec.core.bean.ping.PingMeta;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.commander.workflow.InternalDataProvider;
 import io.parallec.core.commander.workflow.VarReplacementProvider;
 import io.parallec.core.commander.workflow.ssh.SshProvider;
 import io.parallec.core.config.ParallelTaskConfig;
 import io.parallec.core.exception.ExecutionManagerExecutionException;
-import io.parallec.core.exception.TcpRequestCreateException;
+import io.parallec.core.exception.TcpUdpRequestCreateException;
 import io.parallec.core.main.http.pollable.sampleserver.HttpServerThread;
 import io.parallec.core.main.http.pollable.sampleserver.ServerWithPollableJobs.NanoJob;
 import io.parallec.core.resources.HttpClientStore;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.task.ParallelTaskBean;
 import io.parallec.core.task.TaskErrorMeta;
 
@@ -151,12 +152,16 @@ public class ParallecPojoClassTest {
         pojoClasses.add(TcpMeta.class);
         pojoClasses.add(SshMeta.class);
         pojoClasses.add(PingMeta.class);
+        pojoClasses.add(UdpMeta.class);
         
         pojoClasses.add(SetAndCount.class);
         
         pojoClasses.add(ExecutionManagerExecutionException.class);
-        pojoClasses.add(TcpRequestCreateException.class);
-        pojoClasses.add(TcpSshPingResourceStore.class);
+        pojoClasses.add(TcpUdpRequestCreateException.class);
+        pojoClasses.add(TcpUdpSshPingResourceStore.class);
+        
+        
+        
         pojoClasses.add(HttpClientStore.class);
         
         return pojoClasses;

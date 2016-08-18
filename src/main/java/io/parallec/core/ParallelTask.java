@@ -22,6 +22,7 @@ import io.parallec.core.bean.TargetHostMeta;
 import io.parallec.core.bean.ping.PingMeta;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.config.ParallelTaskConfig;
 import io.parallec.core.exception.ParallelTaskInvalidException;
@@ -139,6 +140,9 @@ public class ParallelTask {
 
     /** The TCP meta. */
     private TcpMeta tcpMeta;
+
+    /** The UDP meta. */
+    private UdpMeta udpMeta;
     
     /** The ping meta. */
     private PingMeta pingMeta;
@@ -191,6 +195,7 @@ public class ParallelTask {
      * @param targetHostMeta the target host meta
      * @param sshMeta the ssh meta
      * @param tcpMeta the tcp meta
+     * @param udpMeta the udp meta
      * @param pingMeta the ping meta
      * @param handler the handler
      * @param responseContext the response context
@@ -200,7 +205,7 @@ public class ParallelTask {
      * @param config the config
      */
     public ParallelTask(RequestProtocol requestProtocol, int concurrency, HttpMeta httpMeta, TargetHostMeta targetHostMeta,
-            SshMeta sshMeta, TcpMeta tcpMeta, PingMeta pingMeta, ParallecResponseHandler handler,
+            SshMeta sshMeta, TcpMeta tcpMeta, UdpMeta udpMeta, PingMeta pingMeta, ParallecResponseHandler handler,
             Map<String, Object> responseContext,
             Map<String, StrStrMap> replacementVarMapNodeSpecific,
             Map<String, String> replacementVarMap,
@@ -219,6 +224,7 @@ public class ParallelTask {
 
         this.httpMeta = httpMeta;
         this.tcpMeta = tcpMeta;
+        this.udpMeta = udpMeta;
         this.sshMeta = sshMeta;
         this.pingMeta = pingMeta;
         this.handler = handler;
@@ -422,6 +428,8 @@ public class ParallelTask {
             this.tcpMeta = null;
             // remove ping object
             this.pingMeta = null;
+            // remove udp object
+            this.udpMeta = null;
         }else if (this.requestProtocol==
                 RequestProtocol.PING) {
 
@@ -435,6 +443,8 @@ public class ParallelTask {
             this.sshMeta = null;
             // remove tcp object
             this.tcpMeta = null;
+            // remove udp object
+            this.udpMeta = null;            
 
             
         //TCP
@@ -450,6 +460,23 @@ public class ParallelTask {
             this.sshMeta = null;
             // remove ping object
             this.pingMeta = null;            
+            // remove udp object
+            this.udpMeta = null;            
+        //UDP
+        }else if (this.requestProtocol==
+                RequestProtocol.UDP) { 
+            if (this.httpMeta.isPollable())
+                throw new ParallelTaskInvalidException(
+                        "Not support pollable job with UDP.");
+            this.httpMeta.initValuesNa();
+            
+            this.udpMeta.validation();
+            // remove tcp object
+            this.tcpMeta = null;
+            // remove ssh object
+            this.sshMeta = null;
+            // remove ping object
+            this.pingMeta = null;
         //HTTP/HTTPS
         } else {
             
@@ -460,6 +487,8 @@ public class ParallelTask {
             this.tcpMeta = null;
             // remove ping object
             this.pingMeta = null;
+            // remove udp object
+            this.udpMeta = null;
         }// end else
 
         return true;
@@ -1090,6 +1119,16 @@ public class ParallelTask {
      */
     public void setPingMeta(PingMeta pingMeta) {
         this.pingMeta = pingMeta;
+    }
+
+
+    public UdpMeta getUdpMeta() {
+        return udpMeta;
+    }
+
+
+    public void setUdpMeta(UdpMeta udpMeta) {
+        this.udpMeta = udpMeta;
     }
 
 }

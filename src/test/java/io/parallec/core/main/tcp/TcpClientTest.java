@@ -57,10 +57,5 @@ public class TcpClientTest extends TestBase {
        
     }
 
-    //@Test(timeout = 20000)
-    public void asyncPollerWrongJobIdRegexTest() {
-
-
-    }
 
 }

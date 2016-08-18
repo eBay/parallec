@@ -31,6 +31,7 @@ import io.parallec.core.bean.TaskRequest;
 import io.parallec.core.bean.ping.PingMeta;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.commander.workflow.InternalDataProvider;
 import io.parallec.core.config.HandlerExecutionLocation;
 import io.parallec.core.config.ParallecGlobalConfig;
@@ -345,6 +346,8 @@ public class ExecutionManager extends UntypedActor {
 
                     final SshMeta sshMeta = task.getSshMeta();
                     final TcpMeta tcpMeta = task.getTcpMeta();
+                    final UdpMeta udpMeta = task.getUdpMeta();
+                    
                     final PingMeta pingMeta = task.getPingMeta();
                     
                     logger.debug("REQUEST GENERATED: "
@@ -368,7 +371,7 @@ public class ExecutionManager extends UntypedActor {
                                                     , pollable,
                                             httpHeaderMapLocal, 
                                             handler,responseContext,
-                                            sshMeta, tcpMeta, pingMeta),
+                                            sshMeta, tcpMeta, udpMeta, pingMeta),
                                     asyncHttpClient, task.getHttpMeta()
                                             .getHttpPollerProcessor()
 

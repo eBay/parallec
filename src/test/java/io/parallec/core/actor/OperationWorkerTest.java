@@ -53,7 +53,7 @@ public class OperationWorkerTest extends TestBase {
                                     HttpMethod.GET, false, null, 
                                     null,
                                     new HashMap<String, Object>(),
-                                    null,null, null), HttpClientStore
+                                    null,null, null,null), HttpClientStore
                                     .getInstance().getEmbedClientFast(), null
 
                     ));

@@ -18,7 +18,7 @@ import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.commander.workflow.ssh.SshProvider;
 import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ActorMessageTypeInvalidException;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcDateUtils;
 import io.parallec.core.util.PcErrorMsgUtils;
@@ -128,7 +128,7 @@ public class SshWorker extends UntypedActor {
                                         getSelf());
 
                         SshTask sshTask = new SshTask(sshMeta, targetHost);
-                        setResponseFuture(TcpSshPingResourceStore.getInstance()
+                        setResponseFuture(TcpUdpSshPingResourceStore.getInstance()
                                 .getThreadPoolForSshPing().submit(sshTask));
 
                         getContext()
@@ -309,8 +309,9 @@ public class SshWorker extends UntypedActor {
             getLogger().debug(
                     "DEBUG: real response: " + response + " err: "
                             + errorMessage);
-
-            getContext().stop(getSelf());
+            if (getContext() != null) {
+                getContext().stop(getSelf());
+            }
         }
     }
 

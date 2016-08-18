@@ -8,7 +8,7 @@
 主要用途： 
 
 - 管理监控大量HTTP/TCP服务器，ping海量服务器
-- 集群机器状态、配置探索，基于HTTP(S)/TCP Agent 或者 无agent 的大量远程任务执行，软件部署. HTTP支持SSL 客户端认证
+- 集群机器状态、配置探索，基于HTTP(S)/TCP/UDP Agent 或者 无agent 的大量远程任务执行，软件部署, 网络监控. HTTP支持SSL 客户端认证
 - 海量API聚集到任意数据存储，数据流入口
 - 并行工作流，自动检测任务进度，以便支持并行处理异步API
 - 可控并行的，多个不同API请求到同一个HTTP服务器。HTTP请求模板可以在URL, HTTP Header, EntityBody不同地方进行变量替换。这样可以很方便的对那些有REST API的数据库或者网络服务器进行并行的CRUD操作。

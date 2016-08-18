@@ -14,7 +14,7 @@ package io.parallec.core.bean.tcp;
 
 import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ParallelTaskInvalidException;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 
 import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelHandler;
@@ -101,7 +101,7 @@ public class TcpMeta {
         
         if (this.channelFactory == null) {
             logger.info("SET DEFAULT TCP NETTY CHANNEL FACTORY: TCP channelFactory is set as default");
-            this.channelFactory=TcpSshPingResourceStore.getInstance().getChannelFactory();
+            this.channelFactory=TcpUdpSshPingResourceStore.getInstance().getChannelFactory();
         }
 
         return true;

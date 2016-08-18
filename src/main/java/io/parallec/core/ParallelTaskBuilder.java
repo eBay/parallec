@@ -22,6 +22,7 @@ import io.parallec.core.bean.ping.PingMode;
 import io.parallec.core.bean.ssh.SshLoginType;
 import io.parallec.core.bean.ssh.SshMeta;
 import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.config.HandlerExecutionLocation;
 import io.parallec.core.config.ParallelTaskConfig;
 import io.parallec.core.exception.ParallelTaskInvalidException;
@@ -73,7 +74,10 @@ public class ParallelTaskBuilder {
 
     /** The TCP request meta data. */
     private TcpMeta tcpMeta = new TcpMeta();
-
+    
+    /** The UDP request meta data. */
+    private UdpMeta udpMeta = new UdpMeta();
+    
     /** The ping meta data. */
     private PingMeta pingMeta = new PingMeta();
     
@@ -223,7 +227,7 @@ public class ParallelTaskBuilder {
             targetHostMeta = new TargetHostMeta(targetHosts);
 
             final ParallelTask taskReal = new ParallelTask(requestProtocol,
-                    concurrency, httpMeta, targetHostMeta, sshMeta, tcpMeta, pingMeta,
+                    concurrency, httpMeta, targetHostMeta, sshMeta, tcpMeta, udpMeta, pingMeta,
                     handler, responseContext, 
                     replacementVarMapNodeSpecific, replacementVarMap,
                     requestReplacementType, 
@@ -318,7 +322,7 @@ public class ParallelTaskBuilder {
         targetHostMeta = new TargetHostMeta(targetHosts);
 
         task = new ParallelTask(requestProtocol, concurrency, httpMeta,
-                targetHostMeta, sshMeta, tcpMeta, pingMeta, null, responseContext,
+                targetHostMeta, sshMeta, tcpMeta, udpMeta, pingMeta, null, responseContext,
                  replacementVarMapNodeSpecific,
                 replacementVarMap, requestReplacementType, config);
         boolean valid = false;
@@ -404,7 +408,7 @@ public class ParallelTaskBuilder {
     /**
      * Sets the port variable name such as $PORT
      *
-     * @param port
+     * @param portVar
      *            the port
      * @return the parallel task builder
      */
@@ -1035,6 +1039,32 @@ public class ParallelTaskBuilder {
         this.tcpMeta.setChannelFactory(channelFactory);
         return this;
     }
+    
+    
+    /**
+     * Sets the udp port.
+     *
+     * @param udpPort
+     *            the udp port
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder setUdpPort(int udpPort) {
+        this.udpMeta.setUdpPort(udpPort);
+        return this;
+    }
+
+    /**
+     * Sets the udp read(idle) timeout millis.
+     *
+     * @param udpIdleTimeoutSec
+     *            the udp read timeout millis
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder setUdpIdleTimeoutSec(
+            int udpIdleTimeoutSec) {
+        this.udpMeta.setUdpIdleTimeoutSec(udpIdleTimeoutSec);
+        return this;
+    }
 
     /**
      * Sets the config.
@@ -1173,6 +1203,14 @@ public class ParallelTaskBuilder {
     public ParallelTaskBuilder setPingNumRetries(int numRetries) {
         this.pingMeta.setNumRetries(numRetries);
         return this;
+    }
+
+    public UdpMeta getUdpMeta() {
+        return udpMeta;
+    }
+
+    public void setUdpMeta(UdpMeta udpMeta) {
+        this.udpMeta = udpMeta;
     }
     
 

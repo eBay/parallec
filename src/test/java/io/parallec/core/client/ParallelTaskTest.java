@@ -59,7 +59,7 @@ public class ParallelTaskTest extends TestBase {
     public static void shutdown() throws Exception {
         pc.releaseExternalResources();
     }
-
+    
     @Test
     public void testCancelException() {
         ParallelTask task = ExecutionManagerTest.genParallelTask();

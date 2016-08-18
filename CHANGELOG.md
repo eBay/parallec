@@ -1,13 +1,22 @@
 Parallec Change Log
 ==========
 
-## Version 0.9.4
+## Version 0.10.1
 
 
 _2016-??-??_
 
 * TBD
 
+
+## Version 0.10.0
+
+
+_2016-08-18_
+
+* Added main feature of parallel UDP based on async Netty, with `prepareUdp(String command)` API. Use `setUdpPort()` and `setUdpIdleTimeoutSec()` to set the port and read timeout.  Added tests. 
+* In udp/tcp/udp/http/ping/ssh worker, to check context before kill itself, as sometimes the msg is passed faster to the Op Worker which send msg to kill the worker already.  
+* Improve test coverage. 
 
 ## Version 0.9.4-beta
 

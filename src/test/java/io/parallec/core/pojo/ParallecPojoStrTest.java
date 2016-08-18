@@ -9,9 +9,10 @@ import io.parallec.core.bean.HttpMeta;
 import io.parallec.core.bean.SetAndCount;
 import io.parallec.core.bean.StrStrMap;
 import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.exception.ParallelTaskInvalidException;
 import io.parallec.core.resources.HttpMethod;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.task.TaskErrorMeta;
 import io.parallec.core.task.TaskErrorMeta.TaskErrorType;
 import io.parallec.core.util.BeanMapper;
@@ -32,7 +33,7 @@ import org.junit.Test;
 public class ParallecPojoStrTest extends TestBase {
 
     @Test
-    public void testToString() {
+    public void testMetaValidationToString() {
 
         PollerData pollerData = new PollerData();
         logger.info(pollerData.toString());
@@ -55,7 +56,7 @@ public class ParallecPojoStrTest extends TestBase {
         //empty and all pass validation: test validation
         TcpMeta tcpMeta2 = new TcpMeta();
         TcpMeta tcpMeta3 = new TcpMeta("", 80, 1000, 5,
-                TcpSshPingResourceStore.getInstance().getChannelFactory());
+                TcpUdpSshPingResourceStore.getInstance().getChannelFactory());
         
         try{
             
@@ -76,6 +77,42 @@ public class ParallecPojoStrTest extends TestBase {
         SetAndCount sc = new SetAndCount( new HashSet<String>());
         sc.toString();
 
+        
+        //udp meta validation
+        UdpMeta udpMeta = new UdpMeta("", 80, 5, null);
+        udpMeta.toString();
+        
+        //empty and all pass validation: test validation
+        UdpMeta udpMeta2 = new UdpMeta();
+        UdpMeta udpMeta3 = new UdpMeta("", 80, 5,
+                TcpUdpSshPingResourceStore.getInstance().getDatagramChannelFactory());
+
+        //null command
+        try{
+            
+            udpMeta2.validation();
+        }catch(ParallelTaskInvalidException e){
+            logger.info("expected exception {}", e.getLocalizedMessage());
+        }
+        //now null port
+        udpMeta2.setCommand("");
+        try{
+            
+            udpMeta2.validation();
+        }catch(ParallelTaskInvalidException e){
+            logger.info("expected exception {}", e.getLocalizedMessage());
+        }
+        //now with null idle
+        udpMeta2.setUdpPort(40);
+        try{
+            udpMeta2.validation();
+        }catch(ParallelTaskInvalidException e){
+            logger.info("expected exception {}", e.getLocalizedMessage());
+        }
+        
+        udpMeta3.validation();
+        
+        
     }
 
     @Test

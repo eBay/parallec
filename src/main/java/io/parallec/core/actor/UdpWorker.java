@@ -14,7 +14,7 @@ package io.parallec.core.actor;
 
 import io.parallec.core.actor.message.ResponseOnSingeRequest;
 import io.parallec.core.actor.message.type.RequestWorkerMsgType;
-import io.parallec.core.bean.tcp.TcpMeta;
+import io.parallec.core.bean.udp.UdpMeta;
 import io.parallec.core.exception.ActorMessageTypeInvalidException;
 import io.parallec.core.exception.HttpRequestCreateException;
 import io.parallec.core.exception.TcpUdpRequestCreateException;
@@ -27,20 +27,17 @@ import io.parallec.core.util.PcStringUtils;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
-import org.jboss.netty.bootstrap.ClientBootstrap;
+import org.jboss.netty.bootstrap.ConnectionlessBootstrap;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelHandler;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
-import org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder;
-import org.jboss.netty.handler.codec.frame.Delimiters;
+import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.handler.timeout.IdleState;
 import org.jboss.netty.handler.timeout.IdleStateAwareChannelHandler;
 import org.jboss.netty.handler.timeout.IdleStateEvent;
@@ -57,23 +54,23 @@ import akka.actor.Cancellable;
 import akka.actor.UntypedActor;
 
 /**
- * A worker for single TCP request class 
+ * A worker for single UDP request class
  *
  * @author Yuanteng (Jeff) Pei
  */
-public class TcpWorker extends UntypedActor {
+public class UdpWorker extends UntypedActor {
 
     /** The actor max operation timeout sec. */
     private int actorMaxOperationTimeoutSec;
 
-    /** The tcp meta. */
-    private final TcpMeta tcpMeta;
-    
+    /** The udp meta. */
+    private final UdpMeta udpMeta;
+
     /** The target host. */
     private String targetHost;
 
     /** The logger. */
-    private static Logger logger = LoggerFactory.getLogger(TcpWorker.class);
+    private static Logger logger = LoggerFactory.getLogger(UdpWorker.class);
 
     /** The sender. */
     private ActorRef sender = null;
@@ -97,59 +94,55 @@ public class TcpWorker extends UntypedActor {
 
     /** The channel. */
     private Channel channel = null;
-    
+
     /** The response sb. */
     private StringBuilder responseSb = new StringBuilder();
-    
-    
+
     /**
-     * Instantiates a new tcp worker.
+     * Instantiates a new udp worker.
      *
-     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
-     * @param tcpMeta the tcp meta
-     * @param targetHost the target host
+     * @param actorMaxOperationTimeoutSec
+     *            the actor max operation timeout sec
+     * @param udpMeta
+     *            the udp meta
+     * @param targetHost
+     *            the target host
      */
-    public TcpWorker(final int actorMaxOperationTimeoutSec,
-            final TcpMeta tcpMeta, final String targetHost) {
+    public UdpWorker(final int actorMaxOperationTimeoutSec,
+            final UdpMeta udpMeta, final String targetHost) {
         super();
         this.actorMaxOperationTimeoutSec = actorMaxOperationTimeoutSec;
-        this.tcpMeta = tcpMeta;
+        this.udpMeta = udpMeta;
         this.targetHost = targetHost;
     }
 
     /**
-     * Creates the tcpClient with proper handler.
+     * Creates the udpClient with proper handler.
      *
      * @return the bound request builder
      * @throws HttpRequestCreateException
      *             the http request create exception
      */
-    public ClientBootstrap bootStrapTcpClient()
+    public ConnectionlessBootstrap bootStrapUdpClient()
             throws HttpRequestCreateException {
 
-        ClientBootstrap tcpClient = null;
+        ConnectionlessBootstrap udpClient = null;
         try {
 
             // Configure the client.
-            tcpClient = new ClientBootstrap(tcpMeta.getChannelFactory());
+            udpClient = new ConnectionlessBootstrap(udpMeta.getChannelFactory());
 
-            // Configure the pipeline factory.
-            tcpClient.setPipelineFactory(new MyPipelineFactory(TcpUdpSshPingResourceStore.getInstance().getTimer(),
-                    this, tcpMeta.getTcpIdleTimeoutSec())
-            );
-
-            tcpClient.setOption("connectTimeoutMillis",
-                    tcpMeta.getTcpConnectTimeoutMillis());
-            tcpClient.setOption("tcpNoDelay", true);
-          // tcpClient.setOption("keepAlive", true);
+            udpClient.setPipeline(new UdpPipelineFactory(
+                    TcpUdpSshPingResourceStore.getInstance().getTimer(), this)
+                    .getPipeline());
 
         } catch (Exception t) {
             throw new TcpUdpRequestCreateException(
-                    "Error in creating request in Tcpworker. "
-                            + " If tcpClient is null. Then fail to create.", t);
+                    "Error in creating request in udp worker. "
+                            + " If udpClient is null. Then fail to create.", t);
         }
 
-        return tcpClient;
+        return udpClient;
 
     }
 
@@ -169,15 +162,14 @@ public class TcpWorker extends UntypedActor {
                     if (tryCount == 1) {
                         sender = getSender();
 
-                        ClientBootstrap tcpClient = bootStrapTcpClient();
+                        ConnectionlessBootstrap udpClient = bootStrapUdpClient();
 
                         // Start the connection attempt.
-                        ChannelFuture future = tcpClient
+                        ChannelFuture future = udpClient
                                 .connect(new InetSocketAddress(targetHost,
-                                        tcpMeta.getTcpPort()));
+                                        udpMeta.getUdpPort()));
 
-
-                        //first schedule timeout before the sync wait
+                        // first schedule timeout before the sync wait
                         timeoutDuration = Duration.create(
                                 actorMaxOperationTimeoutSec, TimeUnit.SECONDS);
 
@@ -190,14 +182,13 @@ public class TcpWorker extends UntypedActor {
                                         RequestWorkerMsgType.PROCESS_ON_TIMEOUT,
                                         getContext().system().dispatcher(),
                                         getSelf());
-                        
+
                         // Wait until the connection attempt succeeds or fails.
-                        channel = future.awaitUninterruptibly()
-                                .getChannel();
+                        channel = future.awaitUninterruptibly().getChannel();
                         ChannelFuture requestFuture = null;
 
                         // Sends the line to server need. line ending
-                        requestFuture = channel.write(tcpMeta.getCommand()
+                        requestFuture = channel.write(udpMeta.getCommand()
                                 + "\r\n");
 
                         // Wait until all messages are flushed before closing
@@ -215,7 +206,7 @@ public class TcpWorker extends UntypedActor {
                     if (sender == null)
                         sender = getSender();
                     getLogger().info(
-                            "TCP Request was CANCELLED.................{}",
+                            "UDP Request was CANCELLED.................{}",
                             targetHost);
                     cancelCancellable();
                     reply(null, true, PcConstants.REQUEST_CANCELED,
@@ -241,7 +232,7 @@ public class TcpWorker extends UntypedActor {
                     cancelCancellable();
 
                     String errorMsg = String
-                            .format("TcpWorker Timedout after %d SEC (no response but no exception catched). Check URL: may be very slow or stuck.",
+                            .format("UdpWorker Timedout after %d SEC (no response but no exception catched). Check URL: may be very slow or stuck.",
                                     actorMaxOperationTimeoutSec);
 
                     reply(null, true, errorMsg, errorMsg, PcConstants.NA,
@@ -262,7 +253,7 @@ public class TcpWorker extends UntypedActor {
                 unhandled(message);
                 sender = getSender();
                 this.cause = new ActorMessageTypeInvalidException(
-                        "ActorMessageTypeInvalidException error for TCP on "
+                        "ActorMessageTypeInvalidException error for UDP on "
                                 + this.targetHost);
                 getSelf().tell(RequestWorkerMsgType.PROCESS_ON_EXCEPTION,
                         getSelf());
@@ -305,21 +296,23 @@ public class TcpWorker extends UntypedActor {
             final String errorMessage, final String stackTrace,
             final String statusCode, final int statusCodeInt) {
 
-        
         if (!sentReply) {
-            
-            //must update sentReply first to avoid duplicated msg.
+
+            // must update sentReply first to avoid duplicated msg.
             sentReply = true;
             // Close the connection. Make sure the close operation ends because
             // all I/O operations are asynchronous in Netty.
-            if(channel!=null && channel.isOpen())
+            if (channel != null && channel.isOpen())
                 channel.close().awaitUninterruptibly();
             final ResponseOnSingeRequest res = new ResponseOnSingeRequest(
                     response, error, errorMessage, stackTrace, statusCode,
                     statusCodeInt, PcDateUtils.getNowDateTimeStrStandard());
             if (!getContext().system().deadLetters().equals(sender)) {
+//                logger.debug("SEND_MSG {} from host {}", res.toString(),
+//                        this.targetHost);
                 sender.tell(res, getSelf());
             }
+            //sometimes msg already to Op; logger.debug("ERR_ALREADY_KILLED_{}",this.targetHost);
             if (getContext() != null) {
                 getContext().stop(getSelf());
             }
@@ -330,19 +323,24 @@ public class TcpWorker extends UntypedActor {
     /**
      * On complete.
      *
-     * @param response the response
-     * @param error the error
-     * @param errorMessage the error message
-     * @param stackTrace the stack trace
-     * @param statusCode the status code
-     * @param statusCodeInt the status code int
+     * @param response
+     *            the response
+     * @param error
+     *            the error
+     * @param errorMessage
+     *            the error message
+     * @param stackTrace
+     *            the stack trace
+     * @param statusCode
+     *            the status code
+     * @param statusCodeInt
+     *            the status code int
      */
-    public void onComplete(String response, boolean error,
-            String errorMessage, final String stackTrace,
-            String statusCode,  int statusCodeInt
-            ) {
+    public void onComplete(String response, boolean error, String errorMessage,
+            final String stackTrace, String statusCode, int statusCodeInt) {
         cancelCancellable();
-        reply(response, error, errorMessage, stackTrace, statusCode, statusCodeInt);
+        reply(response, error, errorMessage, stackTrace, statusCode,
+                statusCodeInt);
     }
 
     /**
@@ -361,59 +359,63 @@ public class TcpWorker extends UntypedActor {
      *            the new logger
      */
     public static void setLogger(Logger logger) {
-        TcpWorker.logger = logger;
+        UdpWorker.logger = logger;
     }
-
 
     /**
      * define the list of handlers for this channel.
      *
      * @author Yuanteng (Jeff) Pei
      */
-    public static class MyPipelineFactory implements ChannelPipelineFactory{
-        
+    public static class UdpPipelineFactory implements ChannelPipelineFactory {
+
         /** The idle state handler. */
         private final ChannelHandler idleStateHandler;
-        
-        /** The tcp worker. */
-        private final TcpWorker tcpWorker;
-        
+
+        /** The udp worker. */
+        private final UdpWorker udpWorker;
+
         /** The my idle handler. */
         private final MyIdleHandler myIdleHandler;
-        
+
         /**
          * Instantiates a new my pipeline factory.
          *
-         * @param timer the timer
-         * @param tcpWorker the tcp worker
-         * @param idleTimeoutSec the idle timeout sec
+         * @param timer
+         *            the timer
+         * @param udpWorker
+         *            the udp worker
          */
-        public MyPipelineFactory(Timer timer, TcpWorker tcpWorker, int idleTimeoutSec) {
-            this.tcpWorker = tcpWorker;
-            this.idleStateHandler = new IdleStateHandler(timer, 0, 0, idleTimeoutSec); 
-            this.myIdleHandler = new MyIdleHandler(tcpWorker);
+        public UdpPipelineFactory(Timer timer, UdpWorker udpWorker) {
+            this.udpWorker = udpWorker;
+            this.idleStateHandler = new IdleStateHandler(timer, 0, 0,
+                    udpWorker.udpMeta.getUdpIdleTimeoutSec());
+            this.myIdleHandler = new MyIdleHandler(udpWorker);
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.jboss.netty.channel.ChannelPipelineFactory#getPipeline()
          */
+        @Override
         public ChannelPipeline getPipeline() {
-            
-            ChannelPipeline pipeline = Channels.pipeline();
-            pipeline.addLast("idleTimer",idleStateHandler);
-            pipeline.addLast("idleHandler",myIdleHandler);
-            pipeline.addLast("framer", new DelimiterBasedFrameDecoder(
-                    1024, Delimiters.lineDelimiter()));
-            pipeline.addLast("stringDecoder", TcpMeta.stringDecoder);
-            pipeline.addLast("stringEncoder", TcpMeta.stringEncoder);
-            pipeline.addLast("handler",
-                    new TcpChannelHandler(tcpWorker));
 
+            // cannot have the DelimiterBasedFrameDecoder! does not work with
+            // UDP; make packet missing.
+            ChannelPipeline pipeline = Channels.pipeline();
+            // ORDER matters!!! put the channdler first
+            pipeline.addLast("idleTimer", idleStateHandler);
+            pipeline.addLast("idleHandler", myIdleHandler);
+            pipeline.addLast("stringDecoder", UdpMeta.stringDecoder);
+            pipeline.addLast("stringEncoder", UdpMeta.stringEncoder);
+            pipeline.addLast("UDPUpstreamHandler", new UdpChannelHandler(
+                    udpWorker));
             return pipeline;
         }
-        
+
     }
-    
+
     /**
      * how to pass the idle event back to the worker.
      *
@@ -421,122 +423,129 @@ public class TcpWorker extends UntypedActor {
      */
     public static class MyIdleHandler extends IdleStateAwareChannelHandler {
 
-        /** The tcp worker. */
-        private final TcpWorker tcpWorker;
-        
+        /** The udp worker. */
+        private final UdpWorker udpWorker;
+
         /**
          * Instantiates a new my idle handler.
          *
-         * @param tcpWorker the tcp worker
+         * @param udpWorker
+         *            the UdpWorker worker
          */
-        public MyIdleHandler(TcpWorker tcpWorker) {
+        public MyIdleHandler(UdpWorker udpWorker) {
             super();
-            this.tcpWorker = tcpWorker;
-            
+            this.udpWorker = udpWorker;
+
         }
-        
-        /* (non-Javadoc)
-         * @see org.jboss.netty.handler.timeout.IdleStateAwareChannelHandler#channelIdle(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.handler.timeout.IdleStateEvent)
+
+        /**
+         * this case is like a read timeout where did not get anything from the
+         * server for a long time.
+         * 
+         * For UDP need to mark as error
+         * 
+         * @see org.jboss.netty.handler.timeout.IdleStateAwareChannelHandler#channelIdle
+         *      (org.jboss.netty.channel.ChannelHandlerContext,
+         *      org.jboss.netty.handler.timeout.IdleStateEvent)
          */
         @Override
         public void channelIdle(ChannelHandlerContext ctx, IdleStateEvent e) {
-            logger.info("In IDLE event handler for TCP...");
-            
-            //there are 3 states. READER/WRITER/ALL
-            if (e.getState() == IdleState.ALL_IDLE){
-                int statusCodeInt = 0;
-                String statusCode = statusCodeInt + " SUCCESSFUL";
-                String errMsg="idleTimeout to finish";
-                
-                tcpWorker.onComplete(tcpWorker.responseSb.toString(), false, 
+            logger.debug("In IDLE event handler for UDP..timeout.");
+
+            // there are 3 states. READER/WRITER/ALL
+            if (e.getState() == IdleState.ALL_IDLE) {
+                int statusCodeInt = 1;
+                String statusCode = statusCodeInt + " FAILURE";
+                String errMsg = "UDP idle (read) timeout";
+
+                udpWorker.onComplete(udpWorker.responseSb.toString(), true,
                         errMsg, errMsg, statusCode, statusCodeInt);
             }
         }
     }
-    
 
     /**
      * The Netty response/channel handler.
      *
      * @author Yuanteng (Jeff) Pei
      */
-    public static class TcpChannelHandler extends SimpleChannelHandler {
+    public static class UdpChannelHandler extends SimpleChannelUpstreamHandler {
 
         /** The has caught exception. */
         public boolean hasCaughtException = false;
-        
-        /** The tcp worker. */
-        private final TcpWorker tcpWorker;
+
+        /** The udp worker. */
+        private final UdpWorker udpWorker;
 
         /**
-         * Instantiates a new tcp channel handler.
+         * Instantiates a new udp channel handler.
          *
-         * @param tcpWorker the tcp worker
+         * @param udpWorker
+         *            the udp worker
          */
-        public TcpChannelHandler(TcpWorker tcpWorker) {
+        public UdpChannelHandler(UdpWorker udpWorker) {
             super();
-            this.tcpWorker = tcpWorker;
+            this.udpWorker = udpWorker;
 
         }
 
         /** The msg recv count. */
         private int msgRecvCount = 0;
 
-        
-
-        /* (non-Javadoc)
-         * @see org.jboss.netty.channel.SimpleChannelHandler#messageReceived(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.MessageEvent)
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.jboss.netty.channel.SimpleChannelHandler#messageReceived(org.
+         * jboss.netty.channel.ChannelHandlerContext,
+         * org.jboss.netty.channel.MessageEvent)
          */
         @Override
         public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
-            //add \n to the end
-            tcpWorker.responseSb.append(e.getMessage().toString()+"\n");
+            // add \n to the end
+            udpWorker.responseSb.append(e.getMessage().toString() + "\n");
             logger.debug("DONE." + ++msgRecvCount);
-            logger.debug("MSG_RECEIVED_AT_TCP_CLIENT: {}", e.getMessage().toString());
-        }
+            logger.debug("MSG_RECEIVED_AT_UDP_CLIENT: {}", e.getMessage()
+                    .toString());
 
-        /**
-         * Why not use channelClosed: if fail to establish a channel 
-         * (e.g. connection refused). will also call channelClosed. 
-         *
-         * @param ctx the ctx
-         * @param e the e
-         * @throws Exception the exception
-         */
-        @Override
-        public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e)
-                throws Exception {
-            logger.debug("channel is closed. ");
-            
+            /**
+             * Assuming a single request. when receiving the response.
+             * immediately return.
+             */
             int statusCodeInt = 0;
             String statusCode = statusCodeInt + " SUCCESSFUL";
-            
-            tcpWorker.onComplete(tcpWorker.responseSb.toString(), false, 
-                    null, null, statusCode, statusCodeInt);
+
+            udpWorker.onComplete(udpWorker.responseSb.toString(), false, null,
+                    null, statusCode, statusCodeInt);
 
         }
-        
 
-        /* (non-Javadoc)
-         * @see org.jboss.netty.channel.SimpleChannelHandler#exceptionCaught(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ExceptionEvent)
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.jboss.netty.channel.SimpleChannelHandler#exceptionCaught(org.
+         * jboss.netty.channel.ChannelHandlerContext,
+         * org.jboss.netty.channel.ExceptionEvent)
          */
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-            
-            if(!hasCaughtException){
-                hasCaughtException=true;
+
+            if (!hasCaughtException) {
+                hasCaughtException = true;
+
+                String errMsg = e.getCause().toString();
+                logger.debug("UDP Handler exceptionCaught: {} . ", errMsg);
                 e.getChannel().close();
-                String errMsg = e.getCause().getLocalizedMessage();
-                logger.debug("TCP Handler exceptionCaught: {} . ", errMsg);
-                
+
                 int statusCodeInt = 1;
                 String statusCode = statusCodeInt + " FAILURE";
-                
-                tcpWorker.onComplete(tcpWorker.responseSb.toString(), true, 
+
+                udpWorker.onComplete(udpWorker.responseSb.toString(), true,
                         errMsg, errMsg, statusCode, statusCodeInt);
-                
             }
         }
+
     }// end handler class
 
 }

@@ -15,7 +15,7 @@
 
 [Tweeted](https://twitter.com/jboner/status/663618652063813632) by the Creator of Akka & Featured in [ [This Week in #Scala](http://www.cakesolutions.net/teamblogs/this-week-in-scala-16/11/2015) | [OSChina](http://www.oschina.net/p/parallec) - [2015 Top 100](http://www.oschina.net/news/69808/2015-annual-ranking-top-100-new-open-source-software) ]
 
-Parallec is a fast parallel async HTTP(S)/SSH/TCP/Ping client java library based on [Akka](http://akka.io). Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the responses. Now you can conduct scalable API calls, then effortlessly pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means  **Paralle**l **C**lient, and is pronounced as "Para-like". Visit [www.parallec.io](http://www.parallec.io)
+Parallec is a fast parallel async HTTP(S)/SSH/TCP/UDP/Ping client java library based on [Akka](http://akka.io). Scalably aggregate and handle API responses **anyway** and send it **anywhere** by writing [20 lines](https://www.youtube.com/watch?v=QcavegPMDms) of code. A special super convenient **response context** let you pass in/out any object when handling the responses. Now you can conduct scalable API calls, then effortlessly pass aggregated data anywhere to elastic search, kafka, MongoDB, graphite, memcached, etc. Parallec means  **Paralle**l **C**lient, and is pronounced as "Para-like". Visit [www.parallec.io](http://www.parallec.io)
 
 **[Watch Demo](https://github.com/eBay/parallec/wiki/Parallec-Aggregates-HTTP-Responses-from-8000-Servers)**: **8,000** web server HTTP response aggregation to memory in **12** seconds / to ElasticSearch in **16** seconds.
 
@@ -28,21 +28,21 @@ Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&
 <dependency>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.9.3</version>
+	<version>0.10.0</version>
 </dependency>
 ```
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/io/parallec/parallec-core/).
 
 or Gradle:
 ```xml
-compile 'io.parallec:parallec-core:0.9.3'
+compile 'io.parallec:parallec-core:0.10.0'
 ```
 
 
 **6 Line Example**
 
 
-In the example below,  simply changing **prepareHttpGet()** to **prepareSsh()**, **prepareTcp()**, **preparePing()** enables you to conduct parallel SSH/TCP/Ping. Details please refer to the [Java Doc](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) and [Example Code](https://github.com/ebay/parallec-samples).
+In the example below,  simply changing **prepareHttpGet()** to **prepareSsh()**, **prepareTcp()**, **prepareUdp()**, **preparePing()** enables you to conduct parallel SSH/TCP/Ping. Details please refer to the [Java Doc](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) and [Example Code](https://github.com/ebay/parallec-samples).
 
 
 ```java
@@ -99,7 +99,7 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 
 ###More Readings
 
-- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.
+- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example will be added soon. 
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)

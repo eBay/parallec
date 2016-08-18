@@ -374,6 +374,10 @@ public class OperationWorker extends UntypedActor {
             asyncWorker = getContext().actorOf(
                     Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
                             request.getTcpMeta(), trueTargetNode));            
+        } else if (request.getProtocol() == RequestProtocol.UDP ){
+            asyncWorker = getContext().actorOf(
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            request.getUdpMeta(), trueTargetNode));                        
         } else if (request.getProtocol() == RequestProtocol.PING ){
             asyncWorker = getContext().actorOf(
                     Props.create(PingWorker.class, actorMaxOperationTimeoutSec, request.getPingMeta(),

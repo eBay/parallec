@@ -61,6 +61,9 @@ public class ParallecGlobalConfig {
     
     /** The tcp connection timeout millis default. */
     public static int tcpConnectTimeoutMillisDefault = 2000;
+
+    /** The udp connection timeout millis default. */
+    public static int udpIdleTimeoutSecDefault = 2;
     
     /** The tcp idle timeout seconds default. */
     public static int tcpIdleTimeoutSecDefault = 5;

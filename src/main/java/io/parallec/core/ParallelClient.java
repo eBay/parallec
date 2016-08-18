@@ -17,7 +17,7 @@ import io.parallec.core.monitor.MonitorProvider;
 import io.parallec.core.resources.HttpClientStore;
 import io.parallec.core.resources.HttpClientType;
 import io.parallec.core.resources.HttpMethod;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.task.ParallelTaskManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -95,7 +95,7 @@ public class ParallelClient {
     public HttpClientStore httpClientStore = HttpClientStore.getInstance();
 
     /** The tcp client store. */
-    public TcpSshPingResourceStore tcpSshPingResourceStore = TcpSshPingResourceStore.getInstance();
+    public TcpUdpSshPingResourceStore tcpSshPingResourceStore = TcpUdpSshPingResourceStore.getInstance();
 
     /** The is closed is marked when all resources are released/not initialized. */
     public static AtomicBoolean isClosed = new AtomicBoolean(true);
@@ -213,6 +213,21 @@ public class ParallelClient {
         ParallelTaskBuilder cb = new ParallelTaskBuilder();
         cb.setProtocol(RequestProtocol.TCP);
         cb.getTcpMeta().setCommand(command);
+        return cb;
+    }
+    
+    /**
+     * Prepare a parallel UDP Task.
+     *
+     * @param command
+     *            the command
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareUdp(String command) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.setProtocol(RequestProtocol.UDP);
+        cb.getUdpMeta().setCommand(command);
         return cb;
     }
 

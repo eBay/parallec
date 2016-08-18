@@ -18,7 +18,7 @@ import io.parallec.core.bean.ping.PingMeta;
 import io.parallec.core.commander.workflow.ping.PingProvider;
 import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ActorMessageTypeInvalidException;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcDateUtils;
 import io.parallec.core.util.PcErrorMsgUtils;
@@ -125,7 +125,7 @@ public class PingWorker extends UntypedActor {
                                         getSelf());
 
                         PingTask pingTask = new PingTask(targetHost, pingMeta);
-                        setResponseFuture(TcpSshPingResourceStore.getInstance()
+                        setResponseFuture(TcpUdpSshPingResourceStore.getInstance()
                                 .getThreadPoolForSshPing().submit(pingTask));
 
                         getContext()
@@ -303,8 +303,9 @@ public class PingWorker extends UntypedActor {
             if (!getContext().system().deadLetters().equals(sender)) {
                 sender.tell(res, getSelf());
             }
-
-            getContext().stop(getSelf());
+            if (getContext() != null) {
+                getContext().stop(getSelf());
+            }
         }
     }
 

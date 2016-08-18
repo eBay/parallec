@@ -16,20 +16,20 @@ package io.parallec.core.exception;
 /**
  * The Class HttpRequestCreateException.
  */
-public class TcpRequestCreateException extends RuntimeException {
+public class TcpUdpRequestCreateException extends RuntimeException {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Instantiates a new TCP request create exception.
+     * Instantiates a new TCP / UDP request create exception.
      *
      * @param error
      *            the error
      * @param t
      *            the t
      */
-    public TcpRequestCreateException(String error, Exception t) {
+    public TcpUdpRequestCreateException(String error, Exception t) {
         super(error, t);
     }
 

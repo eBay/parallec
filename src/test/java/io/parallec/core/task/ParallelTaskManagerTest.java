@@ -22,7 +22,6 @@ public class ParallelTaskManagerTest extends TestBase {
     }
     
 
-
     @Test
     public void testDirectorForException() {
         try {

@@ -31,8 +31,9 @@ public enum RequestProtocol {
     /** The PING (ICMP). */
     PING,
     /** The TCP. */
-    TCP;
-    
+    TCP,
+    /** The UDP. */
+    UDP;    
     /*
      * (non-Javadoc)
      * 

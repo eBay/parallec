@@ -1,13 +1,13 @@
-package io.parallec.core.main.tcp;
+package io.parallec.core.main.udp;
 
 import io.parallec.core.ParallelClient;
 import io.parallec.core.TestBase;
 import io.parallec.core.actor.ActorConfig;
-import io.parallec.core.actor.TcpWorker;
+import io.parallec.core.actor.UdpWorker;
 import io.parallec.core.actor.message.ResponseOnSingeRequest;
 import io.parallec.core.actor.message.type.RequestWorkerMsgType;
-import io.parallec.core.bean.tcp.TcpMeta;
-import io.parallec.core.main.tcp.sampleserver.TcpServerThread;
+import io.parallec.core.bean.udp.UdpMeta;
+import io.parallec.core.main.udp.sampleserver.UdpServerThread;
 import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 
 import java.util.concurrent.TimeUnit;
@@ -26,16 +26,16 @@ import akka.actor.Props;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 
-public class TcpWorkerTest extends TestBase {
+public class UdpWorkerTest extends TestBase {
 
     private static ParallelClient pc;
-    private static TcpServerThread serverThread;
+    private static UdpServerThread serverThread;
     
     @BeforeClass
     public static void setUp() throws Exception {
         pc = new ParallelClient();
 
-        serverThread = new TcpServerThread(false);
+        serverThread = new UdpServerThread(false);
         serverThread.start();
 
         try {
@@ -57,25 +57,56 @@ public class TcpWorkerTest extends TestBase {
         }
     }
 
-    public TcpMeta getTcpMetaSample(){
-        TcpMeta tcpMeta = new TcpMeta("hadoop", 10081,1000, 2 
-                , TcpUdpSshPingResourceStore.getInstance().getChannelFactory() );
-        return tcpMeta;
+    public UdpMeta getUdpMetaSample(){
+        UdpMeta udpMeta = new UdpMeta("hadoop", 10091,1000,  
+                TcpUdpSshPingResourceStore.getInstance().getDatagramChannelFactory() );
+        return udpMeta;
     }
     
+    
     @Test
-    public void testTcpWorkerNormalCheckComplete() {
+    public void testUdpWorkerNormalCheckComplete() {
         ActorRef asyncWorker = null;
-        logger.info("IN testTcpWorkerNormalCheckComplete");
+        logger.info("IN testUdpWorkerNormalCheckComplete");
         try {
             // Start new job
             
 
             int actorMaxOperationTimeoutSec = 15;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
-                    Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
-                            getTcpMetaSample(), LOCALHOST));
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            getUdpMetaSample(), LOCALHOST));
 
+            final FiniteDuration duration = Duration.create(20,
+                    TimeUnit.SECONDS);
+            Future<Object> future = Patterns
+                    .ask(asyncWorker, RequestWorkerMsgType.PROCESS_REQUEST,
+                            new Timeout(duration));
+
+            ResponseOnSingeRequest response = (ResponseOnSingeRequest) Await
+                    .result(future, duration);
+
+            logger.info("\nWorker response:" + response.toString());
+        } catch (Throwable ex) {
+
+            logger.error("Exception in test : " + ex);
+        }
+    }// end func
+    
+    
+    
+    @Test
+    public void testUdpWorkerActorTimeout() {
+        ActorRef asyncWorker = null;
+        logger.info("IN testUdpWorkerConnectionTimeout");
+        try {
+            // Start new job
+
+            int actorMaxOperationTimeoutSec = 0;
+            asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            getUdpMetaSample(), LOCALHOST));
+            
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
             Future<Object> future = Patterns
@@ -93,9 +124,9 @@ public class TcpWorkerTest extends TestBase {
     }// end func
 
     @Test
-    public void testTcpWorkerDupAndCancel() {
+    public void testUdpWorkerDupAndCancel() {
         ActorRef asyncWorker = null;
-        logger.info("IN testTcpWorkerDupAndCancel");
+        logger.info("IN testUdpWorkerDupAndCancel");
         try {
             
             // Start new job
@@ -103,8 +134,8 @@ public class TcpWorkerTest extends TestBase {
 
             int actorMaxOperationTimeoutSec = 15;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
-                    Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
-                            getTcpMetaSample(), LOCALHOST));
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            getUdpMetaSample(), LOCALHOST));
 
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
@@ -120,7 +151,6 @@ public class TcpWorkerTest extends TestBase {
                     .result(future, duration);
 
             
-            
             logger.info("\nWorker response:" + response.toString());
             
         } catch (Throwable ex) {
@@ -133,17 +163,17 @@ public class TcpWorkerTest extends TestBase {
      * fake a NPE of logger; do not forget to reset it or other tests will fail.
      */
     @Test
-    public void testTcpWorkerException() {
-        logger.info("IN testTcpWorkerException");
+    public void testUdpWorkerException() {
+        logger.info("IN testUdpWorkerException");
         ActorRef asyncWorker = null;
         try {
-            TcpWorker.setLogger(null);
+            UdpWorker.setLogger(null);
             
             // Start new job
             int actorMaxOperationTimeoutSec = 15;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
-                    Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
-                            getTcpMetaSample(), LOCALHOST));
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            getUdpMetaSample(), LOCALHOST));
             
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
@@ -159,25 +189,24 @@ public class TcpWorkerTest extends TestBase {
         } catch (Throwable ex) {
             logger.error("Exception in test : " + ex);
         }
-        TcpWorker.setLogger(LoggerFactory.getLogger(TcpWorker.class));
+        UdpWorker.setLogger(LoggerFactory.getLogger(UdpWorker.class));
     }// end func
-    
-    
+
     /**
      * fake a NPE in bootStrapTcpClient
      */
     @Test
-    public void testBootStrapTcpClient() {
+    public void testBootStrapUdpClient() {
         logger.info("IN testTcpWorkerException");
         ActorRef asyncWorker = null;
         try {
             
             // Start new job
-            TcpMeta meta = getTcpMetaSample();
+            UdpMeta meta = getUdpMetaSample();
             meta.setChannelFactory(null);
             int actorMaxOperationTimeoutSec = 15;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
-                    Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
                             meta, LOCALHOST));
             
             final FiniteDuration duration = Duration.create(20,
@@ -195,9 +224,9 @@ public class TcpWorkerTest extends TestBase {
         }
     }// end func
 
-
+    
     @Test
-    public void testTcpWorkerBadMsgTypeDefaultType() {
+    public void testUdpWorkerBadMsgTypeDefaultType() {
         
         logger.info("IN testUdpWorkerBadMsgTypeDefaultType");
         ActorRef asyncWorker = null;
@@ -205,8 +234,8 @@ public class TcpWorkerTest extends TestBase {
             // made a timeout
             int actorMaxOperationTimeoutSec = 15;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
-                    Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
-                            getTcpMetaSample(), LOCALHOST));
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            getUdpMetaSample(), LOCALHOST));
             
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
@@ -223,18 +252,17 @@ public class TcpWorkerTest extends TestBase {
         }
     }// end func
     
-
     @Test
-    public void testTcpWorkerBadMsgType() {
+    public void testUdpWorkerBadMsgType() {
         
-        logger.info("IN testTcpWorkerBadMsgType");
+        logger.info("IN testUdpWorkerBadMsgType");
         ActorRef asyncWorker = null;
         try {
             // made a timeout
             int actorMaxOperationTimeoutSec = 15;
             asyncWorker = ActorConfig.createAndGetActorSystem().actorOf(
-                    Props.create(TcpWorker.class, actorMaxOperationTimeoutSec,
-                            getTcpMetaSample(), LOCALHOST));
+                    Props.create(UdpWorker.class, actorMaxOperationTimeoutSec,
+                            getUdpMetaSample(), LOCALHOST));
             
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);

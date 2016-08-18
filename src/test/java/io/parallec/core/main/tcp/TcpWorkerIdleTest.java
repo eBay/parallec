@@ -8,7 +8,7 @@ import io.parallec.core.actor.message.ResponseOnSingeRequest;
 import io.parallec.core.actor.message.type.RequestWorkerMsgType;
 import io.parallec.core.bean.tcp.TcpMeta;
 import io.parallec.core.main.tcp.sampleserver.TcpServerThread;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +65,7 @@ public class TcpWorkerIdleTest extends TestBase {
 
     public TcpMeta getTcpMetaSample(){
         TcpMeta tcpMeta = new TcpMeta("hadoop", 10081,1000, 2 
-                , TcpSshPingResourceStore.getInstance().getChannelFactory() );
+                , TcpUdpSshPingResourceStore.getInstance().getChannelFactory() );
         return tcpMeta;
     }
     
