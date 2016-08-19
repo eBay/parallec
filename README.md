@@ -21,6 +21,8 @@ Parallec is a fast parallel async HTTP(S)/SSH/TCP/UDP/Ping client java library b
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
+
+
 ### Get Started
 Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&a=parallec-core&v=LATEST) or grab from Maven:
 
@@ -97,9 +99,18 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 - [http://www.parallec.io/userdata/sample_weather_48824.txt](http://www.parallec.io/userdata/sample_weather_48824.txt)
 - [http://www.parallec.io/userdata/sample_weather_95037.txt](http://www.parallec.io/userdata/sample_weather_95037.txt)
 
+
+###What's New
+
+* 08/2016 Support Parallel async UDP (via Netty).
+* 07/2016 Support replacing different ports in different requests. 
+* 06/2016 Parallel SSH add run sudo with password for commands.
+
+More details please check the [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md).
+
 ###More Readings
 
-- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example are . 
+- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example is [here](https://github.com/eBay/parallec/blob/master/src/test/java/io/parallec/core/main/udp/ParallelClientUdpBasicTest.java), with more to come. 
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
