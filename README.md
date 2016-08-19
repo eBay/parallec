@@ -8,7 +8,7 @@
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
-[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Samples](https://github.com/eBay/parallec-samples) | [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [News](http://www.parallec.io/blog/) | [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
+[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Samples](https://github.com/eBay/parallec-samples) | [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md) |  [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [News](http://www.parallec.io/blog/) | [Plugin](https://github.com/eBay/parallec-plugins) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
 
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
@@ -99,7 +99,7 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 
 ###More Readings
 
-- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example will be added soon. 
+- [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example are . 
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
 - [**Full Documentation**](http://www.parallec.io/docs/)
 - [**Javadoc**](http://www.parallec.io/javadoc/index.html?io/parallec/core/package-summary.html)
@@ -137,7 +137,7 @@ Parallec is built on Akka actors and [Async HTTP Client](https://github.com/Asyn
 1. **Status-code-aggregation** is provided out of the box.
 1. **Parallel Ping** supports both InetAddress.reachable ICMP (requires root) and Process based ping with retries.  Performance testing shows it is **2x the speed of** than best-effort tuned FPing on pinging on 1500 targets. (2.2 vs 4.5 sec)
 1. **Parallel SSH** supports both key and password based login and task cancellation.
-1. **Parallel TCP** supports idle timeout based channel closes.
+1. **Parallel TCP/UDP** supports idle timeout based channel closes.
 
 
 
@@ -207,7 +207,7 @@ For more related work review, please visit [here](http://www.ebaytechblog.com/20
 |                    Proven scalability and speed on 100,000+ target hosts in Production environment                    |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
 |   Generic request template with variable replacement for sending different requests to same/different target hosts    |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
 |   Scalable Ping with Retries    |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
-|   Scalable TCP with idle timeout    |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
+|   Scalable TCP/UDP with idle timeout    |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
 |   Flexible handler location at either worker (in parallel) or manager thread    |    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
 |   Out-of-the-box two-level response aggregation on status code|    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
 |  Configurable response log trimming on intervals|    <img alt="Parallec-logo" src="http://www.parallec.io/images/yes.png" >   |       <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >      |              <img alt="Parallec-logo" src="http://www.parallec.io/images/no.png" >             |
