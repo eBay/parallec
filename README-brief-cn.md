@@ -3,11 +3,11 @@
 
 ##Parallec 中文介绍
 
-[Parallec](http://www.parallec.io/) 是一个基于[Akka](http://akka.io)的快速并行异步HTTP(S)/SSH/TCP/Ping 客户端的Java库。它是eBay云计算部门开发并在[REST Commander](http://www.restcommander.com/)基础上开源的。Parallec的寓意是**"并行客户端"**： **Paralle**l **C**lient, 发音如 "Para-like". 更多说明请见[这里](http://www.parallec.io/)。
+[Parallec](http://www.parallec.io/) 是一个基于[Akka](http://akka.io)的快速并行异步HTTP(S)/SSH/TCP/UDP/Ping 客户端的Java库。它是eBay云计算部门开发并在[REST Commander](http://www.restcommander.com/)基础上开源的。Parallec的寓意是**"并行客户端"**： **Paralle**l **C**lient, 发音如 "Para-like". 更多说明请见[这里](http://www.parallec.io/)。
 
 主要用途： 
 
-- 管理监控大量HTTP/TCP服务器，ping海量服务器
+- 管理监控大量HTTP/TCP/UDP服务器，ping海量服务器
 - 集群机器状态、配置探索，基于HTTP(S)/TCP/UDP Agent 或者 无agent 的大量远程任务执行，软件部署, 网络监控. HTTP支持SSL 客户端认证
 - 海量API聚集到任意数据存储，数据流入口
 - 并行工作流，自动检测任务进度，以便支持并行处理异步API
