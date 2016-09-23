@@ -63,7 +63,7 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 ```	
 **20 Line Example**
 
-Now that you have learned the basics, check out how easy to pass an elastic search client using the convenient **response context** to aggregate data anywhere you like.
+Now that you have learned the basics, check out how easy to pass an elastic search client using the convenient **response context** to aggregate data anywhere you like. You can also pass a hash map to the `responseContext`, save the processed results to the map during `onCompleted`, and use the map outside for further work. 
 
 ```java
 ParallelClient pc = new ParallelClient();
