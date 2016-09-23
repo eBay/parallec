@@ -19,7 +19,7 @@ Parallec is a fast parallel async HTTP(S)/SSH/TCP/UDP/Ping client java library b
 
 **[Watch Demo](https://github.com/eBay/parallec/wiki/Parallec-Aggregates-HTTP-Responses-from-8000-Servers)**: **8,000** web server HTTP response aggregation to memory in **12** seconds / to ElasticSearch in **16** seconds.
 
-**Aggregated error messages - Debug friendly with full visibility**: Having trouble debugging in concurrent environment? Not any more! All exceptions, timeout, stack traces, request sent and response received time are **captured and aggregated** in the [response](http://www.parallec.io/javadoc/index.html?io/parallec/core/ResponseOnSingleTask.html) map. It is available in [ParallelTask](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelTask.html) for polling right after you execute a task asynchronously.  Multi-level (worker/manager) timeout guarantee tasks return even for 100,000s requests.  
+**Aggregated error messages - Debug friendly with full visibility**: Having trouble debugging in concurrent environment? Not any more! All exceptions, timeout, stack traces, request sent and response received time are **captured and aggregated** in the [response](http://www.parallec.io/javadoc/index.html?io/parallec/core/ResponseOnSingleTask.html) map. It is available in [ParallelTask](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelTask.html) for polling right after you execute a task asynchronously.  Multi-level (worker/manager) timeout guarantees tasks return even for 100,000s of requests.  
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
