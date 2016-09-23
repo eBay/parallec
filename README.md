@@ -191,7 +191,7 @@ As usual, don't rely on these numbers and perform your own benchmarks.
 
 ## Compare Parallec vs REST Commander vs ThreadPools+Async Client<a name="compare"></a>
 
-- Compared with java thread pool based solution, parallec gives you worry free concurrency control without constraints on thread size. 
+- Compared with java thread pool based solution, parallec gives you worry free concurrency control without constraints on thread size. Thread pools do not fit well when need to have a concurrency of 1000 (1000 threads..)  or need a different concurrency setting for each request.
 - Compared with single-threaded Node.js solutions, Parallec enables parallel computation-intensive response handling with multiple-cores. 
 - Similar issues with Python's global interpreter lock, and to use multiple CPU you will need to use costly multi-process. These are more suited for I/O only but no cpu intensive response processing.  
 
