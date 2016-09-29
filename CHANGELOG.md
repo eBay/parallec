@@ -6,11 +6,18 @@ Parallec Change Log
 
 _2016-09-30_
 
-* Issue [#24](https://github.com/eBay/parallec/issues/24). Examples are [here](https://github.com/eBay/parallec/blob/master/src/test/java/io/parallec/core/main/http/ParallelClientHttpResponseHeaderTest.java). Save Response Headers into the ResponseOnSingleTask. Note that the key set provided in  esponseHeaderMeta in request can be case insensitive. However in the response headers map returned in the ResponseOnSingleTask, all keys have been lower case for easy access. The key line is as below to enable the save response headers.
+* Issue [#24](https://github.com/eBay/parallec/issues/24). Examples are [here](https://github.com/eBay/parallec/blob/master/src/test/java/io/parallec/core/main/http/ParallelClientHttpResponseHeaderTest.java). Save Response Headers into the ResponseOnSingleTask. Note that the key set provided in  esponseHeaderMeta in request can be case insensitive. However in the response headers map returned in the ResponseOnSingleTask, all keys have been **lower case for easy access**. The key line is as below to enable the save response headers.
 * Erased the response headers in the ResponseOnSingleTask if `task.getConfig().isSaveResponseToTask()` is false (default).
 * Minor refactored multiple places.
+* Fixed javadoc.
 
 ```java
+
+//save all the keys. 
+ .saveResponseHeaders(new ResponseHeaderMeta(null, true))
+ 
+ 
+//save a subset of keys
  .saveResponseHeaders(
                         new ResponseHeaderMeta(Arrays.asList("Content-Type",
                                 "server", "x-github-request-id"), false))
@@ -24,7 +31,7 @@ _2016-09-30_
 
 _2016-08-18_
 
-* Added main feature of parallel UDP based on async Netty, with `prepareUdp(String command)` API. Use `setUdpPort()` and `setUdpIdleTimeoutSec()` to set the port and read timeout.  Added tests. 
+* Issue [#41](https://github.com/eBay/parallec/issues/41). Added main feature of parallel UDP based on async Netty, with `prepareUdp(String command)` API. Use `setUdpPort()` and `setUdpIdleTimeoutSec()` to set the port and read timeout.  Added tests. 
 * In udp/tcp/udp/http/ping/ssh worker, to check context before kill itself, as sometimes the msg is passed faster to the Op Worker which send msg to kill the worker already.  
 * Improved test coverage. 
 

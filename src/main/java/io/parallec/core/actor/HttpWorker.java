@@ -49,6 +49,7 @@ import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
 import com.ning.http.client.ListenableFuture;
 import com.ning.http.client.Response;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is an akka actor with async http client.
  *
@@ -109,18 +110,13 @@ public class HttpWorker extends UntypedActor {
     /**
      * Instantiates a new http worker.
      *
-     * @param actorMaxOperationTimeoutSec
-     *            the actor max operation timeout sec
-     * @param client
-     *            the client
-     * @param requestUrl
-     *            the request url
-     * @param httpMethod
-     *            the http method
-     * @param postData
-     *            the post data
-     * @param httpHeaderMap
-     *            the http header map
+     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
+     * @param client the client
+     * @param requestUrl the request url
+     * @param httpMethod the http method
+     * @param postData the post data
+     * @param httpHeaderMap the http header map
+     * @param responseHeaderMeta the response header meta
      */
     public HttpWorker(final int actorMaxOperationTimeoutSec,
             final AsyncHttpClient client, final String requestUrl,

@@ -486,7 +486,6 @@ public class OperationWorker extends UntypedActor {
     /**
      * Reply used in error cases. set the response header as null.
      *
-     * @param error the error
      * @param errorMessage the error message
      * @param stackTrace the stack trace
      * @param statusCode the status code

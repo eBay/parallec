@@ -51,6 +51,7 @@ import com.google.common.base.Strings;
 import com.ning.http.client.AsyncHttpClient;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * This class stores all the metadata to build the ParallelTask. It is a Parallec key class.
@@ -407,10 +408,9 @@ public class ParallelTaskBuilder {
 
     
     /**
-     * Sets the port variable name such as $PORT
+     * Sets the port variable name such as $PORT.
      *
-     * @param portVar
-     *            the port
+     * @param portVar            the port
      * @return the parallel task builder
      */
     public ParallelTaskBuilder setHttpPortReplaceable(String portVar) {
@@ -841,13 +841,13 @@ public class ParallelTaskBuilder {
     }
     
     
+
     /**
      * Sets the HTTP response header meta data.
      * Can define a list of keys would like to retrieve from the response headers. 
      * Or when getAll is true: will get all the key value pair, regardless of the keys list provided.
      * 
-     * @param isPollable
-     *            the is pollable
+     * @param responseHeaderMeta the response header meta
      * @return the parallel task builder
      */
     public ParallelTaskBuilder saveResponseHeaders(ResponseHeaderMeta responseHeaderMeta) {
@@ -900,9 +900,9 @@ public class ParallelTaskBuilder {
     }
     
     /**
-     * Sets the ssh runAsSuperUser
-     * @param runAsSuperUser
-     *            the runAsSuperUser
+     * Sets the ssh runAsSuperUser.
+     *
+     * @param runAsSuperUser            the runAsSuperUser
      * @return the parallel task builder
      */
     public ParallelTaskBuilder setRunAsSuperUser(Boolean runAsSuperUser) {
@@ -1224,10 +1224,20 @@ public class ParallelTaskBuilder {
         return this;
     }
 
+    /**
+     * Gets the udp meta.
+     *
+     * @return the udp meta
+     */
     public UdpMeta getUdpMeta() {
         return udpMeta;
     }
 
+    /**
+     * Sets the udp meta.
+     *
+     * @param udpMeta the new udp meta
+     */
     public void setUdpMeta(UdpMeta udpMeta) {
         this.udpMeta = udpMeta;
     }

@@ -4,7 +4,7 @@
 ![build status](https://img.shields.io/badge/build-info=>-green.svg) [![Build Status](https://travis-ci.org/eBay/parallec.svg?branch=master)](https://travis-ci.org/eBay/parallec) [![Coverage Status](https://img.shields.io/codecov/c/github/eBay/parallec.svg)](https://codecov.io/github/eBay/parallec) [![Apache V2.0 License](http://www.parallec.io/images/apache2.svg) ](https://github.com/eBay/parallec/blob/master/LICENSE)
 
 
-![latest 0.10.x](http://img.shields.io/badge/latest_stable-0.10.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.10.0|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![latest 0.10.x](http://img.shields.io/badge/latest_stable-0.10.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.10.1-beta|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
@@ -39,7 +39,7 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 
 or Gradle:
 ```xml
-compile 'io.parallec:parallec-core:0.10.0'
+compile 'io.parallec:parallec-core:0.10.1-beta'
 ```
 
 
@@ -104,7 +104,8 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 
 ###What's New
 
-* 08/2016 Support Parallel async UDP (via Netty).
+* 09/2016 Add option to save response headers in HTTP [#24](https://github.com/eBay/parallec/issues/24).
+* 08/2016 Support Parallel async UDP (via Netty) [#41](https://github.com/eBay/parallec/issues/41).
 * 07/2016 Support replacing different ports in different requests. 
 * 06/2016 Parallel SSH add run sudo with password for commands.
 

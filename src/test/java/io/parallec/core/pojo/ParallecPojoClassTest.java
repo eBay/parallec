@@ -25,6 +25,7 @@ import io.parallec.core.actor.message.NodeReqResponse;
 import io.parallec.core.actor.message.RequestToBatchSenderAsstManager;
 import io.parallec.core.actor.message.ResponseCountToBatchSenderAsstManager;
 import io.parallec.core.actor.message.ResponseFromManager;
+import io.parallec.core.actor.message.ResponseOnSingeRequest;
 import io.parallec.core.actor.poll.HttpPollerProcessor;
 import io.parallec.core.actor.poll.PollerData;
 import io.parallec.core.bean.HttpMeta;
@@ -164,6 +165,7 @@ public class ParallecPojoClassTest {
         pojoClasses.add(ResponseHeaderMeta.class);
         
         pojoClasses.add(HttpClientStore.class);
+        pojoClasses.add(ResponseOnSingeRequest.class);
         
         return pojoClasses;
     }

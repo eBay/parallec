@@ -124,20 +124,14 @@ public class ResponseOnSingeRequest {
     /**
      * Instantiates a new response on singe request.
      *
-     * @param responseBody
-     *            the response body
-     * @param failObtainResponse
-     *            the fail obtain response
-     * @param errorMessage
-     *            the error message
-     * @param stackTrace
-     *            the stack trace
-     * @param statusCode
-     *            the status code
-     * @param statusCodeInt
-     *            the status code int
-     * @param receiveTime
-     *            the receive time
+     * @param responseBody the response body
+     * @param failObtainResponse the fail obtain response
+     * @param errorMessage the error message
+     * @param stackTrace the stack trace
+     * @param statusCode the status code
+     * @param statusCodeInt the status code int
+     * @param receiveTime the receive time
+     * @param responseHeaders the response headers
      */
     public ResponseOnSingeRequest(String responseBody,
             boolean failObtainResponse, String errorMessage, String stackTrace,
