@@ -15,7 +15,11 @@ package io.parallec.core.actor.message;
 import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcDateUtils;
 
+import java.util.List;
+import java.util.Map;
 
+
+// TODO: Auto-generated Javadoc
 /**
  * A single HTTP response for each http request
  * 
@@ -50,6 +54,11 @@ public class ResponseOnSingeRequest {
     /** The status code. */
     private String statusCode;
 
+    
+    /** The response headers: keys are lower cased. */
+    private Map<String, List<String>> responseHeaders;
+    
+    
     /**
      * Checks if is fail obtain response.
      *
@@ -132,7 +141,7 @@ public class ResponseOnSingeRequest {
      */
     public ResponseOnSingeRequest(String responseBody,
             boolean failObtainResponse, String errorMessage, String stackTrace,
-            String statusCode, int statusCodeInt, String receiveTime) {
+            String statusCode, int statusCodeInt, String receiveTime,  Map<String, List<String>> responseHeaders) {
         super();
 
         this.responseBody = responseBody;
@@ -142,6 +151,7 @@ public class ResponseOnSingeRequest {
         this.statusCode = statusCode;
         this.setStatusCodeInt(statusCodeInt);
         this.setReceiveTime(receiveTime);
+        this.responseHeaders = responseHeaders;
     }
 
     /**
@@ -251,6 +261,24 @@ public class ResponseOnSingeRequest {
                 + stackTrace + ", statusCodeInt=" + statusCodeInt
                 + ", statusCode=" + statusCode + ", receiveTime=" + receiveTime
                 + "]";
+    }
+
+    /**
+     * Gets the response headers.
+     *
+     * @return the response headers
+     */
+    public Map<String, List<String>> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    /**
+     * Sets the response headers.
+     *
+     * @param responseHeaders the response headers
+     */
+    public void setResponseHeaders(Map<String, List<String>> responseHeaders) {
+        this.responseHeaders = responseHeaders;
     }
 
 }// end subclass

@@ -10,6 +10,7 @@ import io.parallec.core.bean.SetAndCount;
 import io.parallec.core.bean.StrStrMap;
 import io.parallec.core.bean.tcp.TcpMeta;
 import io.parallec.core.bean.udp.UdpMeta;
+import io.parallec.core.exception.HttpRequestCreateException;
 import io.parallec.core.exception.ParallelTaskInvalidException;
 import io.parallec.core.resources.HttpMethod;
 import io.parallec.core.resources.TcpUdpSshPingResourceStore;
@@ -111,8 +112,6 @@ public class ParallecPojoStrTest extends TestBase {
         }
         
         udpMeta3.validation();
-        
-        
     }
 
     @Test
@@ -135,8 +134,15 @@ public class ParallecPojoStrTest extends TestBase {
         ssm.addPair(null, "");
         ssm.addPair("", null);
         ssm.addPair("k", "v");
+        new HttpRequestCreateException("", new RuntimeException());
+        new ParallelTaskInvalidException("", new RuntimeException());
         
-       
+        boolean removeDuplicate = false;
+        PcTargetHostsUtils
+                .getNodeListFromStringLineSeperateOrSpaceSeperate(
+                        "a b", removeDuplicate);
+        
+        PcStringUtils.printStackTrace(null);
     }
 
 }

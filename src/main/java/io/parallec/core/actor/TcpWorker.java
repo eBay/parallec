@@ -316,7 +316,7 @@ public class TcpWorker extends UntypedActor {
                 channel.close().awaitUninterruptibly();
             final ResponseOnSingeRequest res = new ResponseOnSingeRequest(
                     response, error, errorMessage, stackTrace, statusCode,
-                    statusCodeInt, PcDateUtils.getNowDateTimeStrStandard());
+                    statusCodeInt, PcDateUtils.getNowDateTimeStrStandard(), null);
             if (!getContext().system().deadLetters().equals(sender)) {
                 sender.tell(res, getSelf());
             }

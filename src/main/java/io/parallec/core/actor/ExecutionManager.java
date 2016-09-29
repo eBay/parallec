@@ -25,6 +25,7 @@ import io.parallec.core.actor.message.ResponseFromManager;
 import io.parallec.core.actor.message.type.ExecutionManagerMsgType;
 import io.parallec.core.actor.message.type.OperationWorkerMsgType;
 import io.parallec.core.bean.HttpMeta;
+import io.parallec.core.bean.ResponseHeaderMeta;
 import io.parallec.core.bean.SingleTargetTaskStatus;
 import io.parallec.core.bean.TargetHostMeta;
 import io.parallec.core.bean.TaskRequest;
@@ -349,6 +350,8 @@ public class ExecutionManager extends UntypedActor {
                     final UdpMeta udpMeta = task.getUdpMeta();
                     
                     final PingMeta pingMeta = task.getPingMeta();
+                    final ResponseHeaderMeta responseHeaderMeta = task.getHttpMeta().getResponseHeaderMeta();
+                    
                     
                     logger.debug("REQUEST GENERATED: "
                             + (sentRequestCounter + 1)
@@ -371,7 +374,7 @@ public class ExecutionManager extends UntypedActor {
                                                     , pollable,
                                             httpHeaderMapLocal, 
                                             handler,responseContext,
-                                            sshMeta, tcpMeta, udpMeta, pingMeta),
+                                            sshMeta, tcpMeta, udpMeta, pingMeta, responseHeaderMeta),
                                     asyncHttpClient, task.getHttpMeta()
                                             .getHttpPollerProcessor()
 
@@ -509,7 +512,8 @@ public class ExecutionManager extends UntypedActor {
 
                 if (!task.getConfig().isSaveResponseToTask()) {
                     taskResponse.setResponseContent(PcConstants.NOT_SAVED);
-                    logger.debug("Set single task response content as Not Saved to save space.");
+                    taskResponse.setResponseHeaders(null);
+                    logger.debug("Erased single task response content and response headers to save space.");
                 }
 
                 if (this.responseCount == this.requestCount) {

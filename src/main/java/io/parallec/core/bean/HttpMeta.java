@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ning.http.client.AsyncHttpClient;
 
+// TODO: Auto-generated Javadoc
 /**
  * The metadata about the HTTP request (url/port/header/concurrency etc) It does
  * not include the target hosts information.
@@ -39,7 +40,7 @@ public class HttpMeta {
     /** The request url postfix. */
     private String requestUrlPostfix;
 
-    /** The request entityBody */
+    /**  The request entityBody. */
     private String entityBody;
 
     /** The request port. */
@@ -51,14 +52,15 @@ public class HttpMeta {
     /** The http poller processor. */
     private HttpPollerProcessor httpPollerProcessor = null;
 
-    // 0910
     /** The is pollable. */
-    // pollable
     private boolean isPollable = false;
 
     /** The async http client. */
     private AsyncHttpClient asyncHttpClient;
 
+    /** The response header meta: which keys are needed to get from response header. */
+    private ResponseHeaderMeta responseHeaderMeta;
+    
     /**
      * Instantiates a new command meta.
      */
@@ -72,6 +74,7 @@ public class HttpMeta {
         this.httpPollerProcessor = null;
         this.isPollable = false;
         this.asyncHttpClient = null;
+        this.responseHeaderMeta = null;
     };
 
     /**
@@ -87,6 +90,7 @@ public class HttpMeta {
         this.httpPollerProcessor = null;
         this.isPollable = false;
         this.asyncHttpClient = null;
+        this.responseHeaderMeta = null;
     }
 
 
@@ -107,7 +111,6 @@ public class HttpMeta {
             this.asyncHttpClient = HttpClientStore.getInstance()
                     .getCurrentDefaultClient();
         }
-
         
         if (this.getHttpMethod() == null)
             throw new ParallelTaskInvalidException("Missing getHttpMethod!");
@@ -210,17 +213,28 @@ public class HttpMeta {
         return entityBody;
     }
 
+    /**
+     * Sets the entity body.
+     *
+     * @param entityBody the new entity body
+     */
     public void setEntityBody(String entityBody) {
         this.entityBody = entityBody;
     }
 
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "HttpMeta [httpMethod=" + httpMethod + ", requestUrlPostfix="
-                + requestUrlPostfix + ", entityBody="
-                + entityBody + ", requestPort=" + requestPort
-                + ", parallecHeader=" + parallecHeader + "]";
+                + requestUrlPostfix + ", entityBody=" + entityBody
+                + ", requestPort=" + requestPort + ", parallecHeader="
+                + parallecHeader + ", httpPollerProcessor="
+                + httpPollerProcessor + ", isPollable=" + isPollable
+                + ", asyncHttpClient=" + asyncHttpClient
+                + ", responseHeaderMeta=" + responseHeaderMeta + "]";
     }
 
     /**
@@ -271,6 +285,15 @@ public class HttpMeta {
         this.parallecHeader = parallecHeader;
     }
 
+    /**
+     * Instantiates a new http meta.
+     *
+     * @param httpMethod the http method
+     * @param requestUrlPostfix the request url postfix
+     * @param entityBody the entity body
+     * @param requestPort the request port
+     * @param parallecHeader the parallec header
+     */
     public HttpMeta(HttpMethod httpMethod, String requestUrlPostfix,
             String entityBody, String requestPort, ParallecHeader parallecHeader) {
         super();
@@ -281,28 +304,76 @@ public class HttpMeta {
         this.parallecHeader = parallecHeader;
     }
 
+    /**
+     * Gets the http poller processor.
+     *
+     * @return the http poller processor
+     */
     public HttpPollerProcessor getHttpPollerProcessor() {
         return httpPollerProcessor;
     }
 
+    /**
+     * Sets the http poller processor.
+     *
+     * @param httpPollerProcessor the new http poller processor
+     */
     public void setHttpPollerProcessor(HttpPollerProcessor httpPollerProcessor) {
         this.httpPollerProcessor = httpPollerProcessor;
     }
 
+    /**
+     * Checks if is pollable.
+     *
+     * @return true, if is pollable
+     */
     public boolean isPollable() {
         return isPollable;
     }
 
+    /**
+     * Sets the pollable.
+     *
+     * @param isPollable the new pollable
+     */
     public void setPollable(boolean isPollable) {
         this.isPollable = isPollable;
     }
 
+    /**
+     * Gets the async http client.
+     *
+     * @return the async http client
+     */
     public AsyncHttpClient getAsyncHttpClient() {
         return asyncHttpClient;
     }
 
+    /**
+     * Sets the async http client.
+     *
+     * @param asyncHttpClient the new async http client
+     */
     public void setAsyncHttpClient(AsyncHttpClient asyncHttpClient) {
         this.asyncHttpClient = asyncHttpClient;
+    }
+
+    /**
+     * Gets the response header meta.
+     *
+     * @return the response header meta
+     */
+    public ResponseHeaderMeta getResponseHeaderMeta() {
+        return responseHeaderMeta;
+    }
+
+    /**
+     * Sets the response header meta.
+     *
+     * @param responseHeaderMeta the new response header meta
+     */
+    public void setResponseHeaderMeta(ResponseHeaderMeta responseHeaderMeta) {
+        this.responseHeaderMeta = responseHeaderMeta;
     }
 
 }

@@ -26,6 +26,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is the request send to the operation worker. 
  * It contains the actual request that has been replaced if there are variables defined.
@@ -38,6 +39,7 @@ public class TaskRequest {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(TaskRequest.class);
 
+    /** The actor max operation timeout sec. */
     private final int actorMaxOperationTimeoutSec;
 
     /** The resource path. */
@@ -80,10 +82,36 @@ public class TaskRequest {
     /** The ping meta. */
     private final PingMeta pingMeta;
     
+    /** The handler. */
     private final ParallecResponseHandler handler;
     
+    /** The response context. */
     private final Map<String, Object> responseContext;
+    
+    /** The response header meta. */
+    private final ResponseHeaderMeta responseHeaderMeta;
 
+    /**
+     * Instantiates a new task request.
+     *
+     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
+     * @param protocol the protocol
+     * @param host the host
+     * @param hostUniform the host uniform
+     * @param port the port
+     * @param resourcePath the resource path
+     * @param requestContent the request content
+     * @param httpMethod the http method
+     * @param pollable the pollable
+     * @param httpHeaderMap the http header map
+     * @param handler the handler
+     * @param responseContext the response context
+     * @param sshMeta the ssh meta
+     * @param tcpMeta the tcp meta
+     * @param udpMeta the udp meta
+     * @param pingMeta the ping meta
+     * @param responseHeaderMeta the response header meta
+     */
     public TaskRequest(
 
             // add for config
@@ -94,7 +122,7 @@ public class TaskRequest {
             Map<String, String> httpHeaderMap, 
             ParallecResponseHandler handler, 
             Map<String, Object> responseContext,
-            SshMeta sshMeta, TcpMeta tcpMeta, UdpMeta udpMeta, PingMeta pingMeta
+            SshMeta sshMeta, TcpMeta tcpMeta, UdpMeta udpMeta, PingMeta pingMeta, ResponseHeaderMeta responseHeaderMeta
 
     ) {
         this.actorMaxOperationTimeoutSec = actorMaxOperationTimeoutSec;
@@ -116,6 +144,7 @@ public class TaskRequest {
         this.tcpMeta = tcpMeta;
         this.udpMeta = udpMeta;
         this.pingMeta = pingMeta;
+        this.responseHeaderMeta = responseHeaderMeta;
 
     }
 
@@ -164,6 +193,10 @@ public class TaskRequest {
         return pollable;
     }
 
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "TaskRequest [actorMaxOperationTimeoutSec="
@@ -172,7 +205,11 @@ public class TaskRequest {
                 + ", httpMethod=" + httpMethod + ", pollable=" + pollable
                 + ", httpHeaderMap=" + httpHeaderMap + ", protocol=" + protocol
                 + ", host=" + host + ", hostUniform=" + hostUniform + ", port="
-                + port + ", sshMeta=" + sshMeta + "]";
+                + port + ", sshMeta=" + sshMeta + ", tcpMeta=" + tcpMeta
+                + ", udpMeta=" + udpMeta + ", pingMeta=" + pingMeta
+                + ", handler=" + handler + ", responseContext="
+                + responseContext + ", responseHeaderMeta="
+                + responseHeaderMeta + "]";
     }
 
     /**
@@ -229,28 +266,67 @@ public class TaskRequest {
         return sshMeta;
     }
 
+    /**
+     * Gets the actor max operation timeout sec.
+     *
+     * @return the actor max operation timeout sec
+     */
     public int getActorMaxOperationTimeoutSec() {
         return actorMaxOperationTimeoutSec;
     }
 
+    /**
+     * Gets the tcp meta.
+     *
+     * @return the tcp meta
+     */
     public TcpMeta getTcpMeta() {
         return tcpMeta;
     }
 
+    /**
+     * Gets the ping meta.
+     *
+     * @return the ping meta
+     */
     public PingMeta getPingMeta() {
         return pingMeta;
     }
 
+    /**
+     * Gets the handler.
+     *
+     * @return the handler
+     */
     public ParallecResponseHandler getHandler() {
         return handler;
     }
 
+    /**
+     * Gets the response context.
+     *
+     * @return the response context
+     */
     public Map<String, Object> getResponseContext() {
         return responseContext;
     }
 
+    /**
+     * Gets the udp meta.
+     *
+     * @return the udp meta
+     */
     public UdpMeta getUdpMeta() {
         return udpMeta;
+    }
+
+    /**
+     * Gets the response header meta.
+     *
+     * @return the response header meta
+     */
+    public ResponseHeaderMeta getResponseHeaderMeta() {
+        return responseHeaderMeta;
     }
 
 }

@@ -14,6 +14,7 @@ package io.parallec.core;
 
 import io.parallec.core.actor.poll.HttpPollerProcessor;
 import io.parallec.core.bean.HttpMeta;
+import io.parallec.core.bean.ResponseHeaderMeta;
 import io.parallec.core.bean.StrStrMap;
 import io.parallec.core.bean.TargetHostMeta;
 import io.parallec.core.bean.TaskRunMode;
@@ -838,6 +839,24 @@ public class ParallelTaskBuilder {
 
         return this;
     }
+    
+    
+    /**
+     * Sets the HTTP response header meta data.
+     * Can define a list of keys would like to retrieve from the response headers. 
+     * Or when getAll is true: will get all the key value pair, regardless of the keys list provided.
+     * 
+     * @param isPollable
+     *            the is pollable
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder saveResponseHeaders(ResponseHeaderMeta responseHeaderMeta) {
+        this.httpMeta.setResponseHeaderMeta(responseHeaderMeta);
+        return this;
+    }
+
+    
+    
 
     /**
      * Sets the HTTP poller processor to handle Async API.

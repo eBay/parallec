@@ -306,7 +306,7 @@ public class UdpWorker extends UntypedActor {
                 channel.close().awaitUninterruptibly();
             final ResponseOnSingeRequest res = new ResponseOnSingeRequest(
                     response, error, errorMessage, stackTrace, statusCode,
-                    statusCodeInt, PcDateUtils.getNowDateTimeStrStandard());
+                    statusCodeInt, PcDateUtils.getNowDateTimeStrStandard(), null);
             if (!getContext().system().deadLetters().equals(sender)) {
 //                logger.debug("SEND_MSG {} from host {}", res.toString(),
 //                        this.targetHost);

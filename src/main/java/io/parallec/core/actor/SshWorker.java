@@ -300,7 +300,7 @@ public class SshWorker extends UntypedActor {
             final ResponseOnSingeRequest res = new ResponseOnSingeRequest(
                     response, failObtainResponse, errorMessage, stackTrace,
                     statusCode, statusCodeInt,
-                    PcDateUtils.getNowDateTimeStrStandard());
+                    PcDateUtils.getNowDateTimeStrStandard(), null);
 
             if (!getContext().system().deadLetters().equals(sender)) {
                 sender.tell(res, getSelf());

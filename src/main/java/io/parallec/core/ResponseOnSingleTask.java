@@ -17,8 +17,10 @@ import io.parallec.core.util.PcConstants;
 import io.parallec.core.util.PcStringUtils;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * this includes the request each target host will have one.
  * 
@@ -71,9 +73,11 @@ public class ResponseOnSingleTask {
     private long operationTimeMillis;
 
     /** The polling history map. */
-    // for polling history 201412
     final private Map<String, String> pollingHistoryMap = new LinkedHashMap<String, String>();
 
+    /** The response headers. */
+    private Map<String, List<String>> responseHeaders;
+    
     /**
      * Gets the polling history map.
      *
@@ -279,28 +283,76 @@ public class ResponseOnSingleTask {
         this.errorMessage = errorMessage;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "SingleTaskResponse [request=" + request + ", responseContent="
-                + responseContent + ", receiveTime=" + receiveTime
-                + ", receiveTimeInManager=" + receiveTimeInManager + ", error="
-                + error + ", errorMessage=" + errorMessage + ", stackTrace="
-                + stackTrace + ", statusCode=" + statusCode
-                + ", operationTimeMillis=" + operationTimeMillis
-                + ", pollingHistoryMap=" + pollingHistoryMap + "]";
-    }
 
+    /**
+     * Gets the status code int.
+     *
+     * @return the status code int
+     */
     public int getStatusCodeInt() {
         return statusCodeInt;
     }
 
+    /**
+     * Sets the status code int.
+     *
+     * @param statusCodeInt the new status code int
+     */
     public void setStatusCodeInt(int statusCodeInt) {
         this.statusCodeInt = statusCodeInt;
     }
+
+    /**
+     * Gets the error.
+     *
+     * @return the error
+     */
+    public Boolean getError() {
+        return error;
+    }
+
+    /**
+     * Sets the error.
+     *
+     * @param error the new error
+     */
+    public void setError(Boolean error) {
+        this.error = error;
+    }
+
+    /**
+     * Gets the response headers.
+     *
+     * @return the response headers
+     */
+    public Map<String, List<String>> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    /**
+     * Sets the response headers.
+     *
+     * @param responseHeaders the response headers
+     */
+    public void setResponseHeaders(Map<String, List<String>> responseHeaders) {
+        this.responseHeaders = responseHeaders;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ResponseOnSingleTask [request=" + request
+                + ", responseContent=" + responseContent + ", receiveTime="
+                + receiveTime + ", receiveTimeInManager="
+                + receiveTimeInManager + ", error=" + error + ", errorMessage="
+                + errorMessage + ", stackTrace=" + stackTrace + ", statusCode="
+                + statusCode + ", statusCodeInt=" + statusCodeInt
+                + ", operationTimeMillis=" + operationTimeMillis
+                + ", pollingHistoryMap=" + pollingHistoryMap
+                + ", responseHeaders=" + responseHeaders + "]";
+    }
+    
 
 }

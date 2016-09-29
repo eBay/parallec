@@ -14,6 +14,7 @@ package io.parallec.core.actor;
 
 import io.parallec.core.actor.message.ResponseOnSingeRequest;
 import io.parallec.core.actor.message.type.RequestWorkerMsgType;
+import io.parallec.core.bean.ResponseHeaderMeta;
 import io.parallec.core.exception.ActorMessageTypeInvalidException;
 import io.parallec.core.exception.HttpRequestCreateException;
 import io.parallec.core.resources.HttpMethod;
@@ -25,6 +26,9 @@ import io.parallec.core.util.PcStringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -44,8 +48,6 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
 import com.ning.http.client.ListenableFuture;
 import com.ning.http.client.Response;
-
-
 
 /**
  * This is an akka actor with async http client.
@@ -73,8 +75,13 @@ public class HttpWorker extends UntypedActor {
     private static Logger logger = LoggerFactory.getLogger(HttpWorker.class);
 
     /** The http header map. */
-    // 20140310
     private final Map<String, String> httpHeaderMap = new HashMap<String, String>();
+
+    /**
+     * The response header meta: which keys are needed to get from response
+     * header.
+     */
+    private final ResponseHeaderMeta responseHeaderMeta;
 
     /** The sender. */
     private ActorRef sender = null;
@@ -98,21 +105,28 @@ public class HttpWorker extends UntypedActor {
 
     /** The response future. */
     ListenableFuture<ResponseOnSingeRequest> responseFuture = null;
-    
+
     /**
      * Instantiates a new http worker.
      *
-     * @param actorMaxOperationTimeoutSec the actor max operation timeout sec
-     * @param client the client
-     * @param requestUrl the request url
-     * @param httpMethod the http method
-     * @param postData the post data
-     * @param httpHeaderMap the http header map
+     * @param actorMaxOperationTimeoutSec
+     *            the actor max operation timeout sec
+     * @param client
+     *            the client
+     * @param requestUrl
+     *            the request url
+     * @param httpMethod
+     *            the http method
+     * @param postData
+     *            the post data
+     * @param httpHeaderMap
+     *            the http header map
      */
     public HttpWorker(final int actorMaxOperationTimeoutSec,
             final AsyncHttpClient client, final String requestUrl,
             final HttpMethod httpMethod, final String postData,
-            final Map<String, String> httpHeaderMap
+            final Map<String, String> httpHeaderMap,
+            final ResponseHeaderMeta responseHeaderMeta
 
     ) {
         this.actorMaxOperationTimeoutSec = actorMaxOperationTimeoutSec;
@@ -122,6 +136,7 @@ public class HttpWorker extends UntypedActor {
         this.postData = postData;
         if (httpHeaderMap != null)
             this.httpHeaderMap.putAll(httpHeaderMap);
+        this.responseHeaderMeta = responseHeaderMeta;
 
     }
 
@@ -233,7 +248,7 @@ public class HttpWorker extends UntypedActor {
                         sender = getSender();
                     reply(null, true, PcConstants.REQUEST_CANCELED,
                             PcConstants.REQUEST_CANCELED, PcConstants.NA,
-                            PcConstants.NA_INT);
+                            PcConstants.NA_INT, null);
                     break;
 
                 case PROCESS_ON_EXCEPTION:
@@ -243,7 +258,7 @@ public class HttpWorker extends UntypedActor {
                     String stackTrace = PcStringUtils.printStackTrace(cause);
                     cancelCancellable();
                     reply(null, true, errorSummary, stackTrace, PcConstants.NA,
-                            PcConstants.NA_INT);
+                            PcConstants.NA_INT, null);
 
                     break;
 
@@ -258,7 +273,7 @@ public class HttpWorker extends UntypedActor {
                                     actorMaxOperationTimeoutSec);
 
                     reply(null, true, errorMsg, errorMsg, PcConstants.NA,
-                            PcConstants.NA_INT);
+                            PcConstants.NA_INT, null);
                     break;
 
                 case CHECK_FUTURE_STATE:
@@ -317,17 +332,22 @@ public class HttpWorker extends UntypedActor {
      *            the status code
      * @param statusCodeInt
      *            the status code int
+     * @param responseHeaders
+     *            the response headers
      */
     private void reply(final String response, final boolean error,
             final String errorMessage, final String stackTrace,
-            final String statusCode, final int statusCodeInt) {
+            final String statusCode, final int statusCodeInt,
+            Map<String, List<String>> responseHeaders) {
 
         if (!sentReply) {
-            //must update sentReply first to avoid duplicated msg.
+            // must update sentReply first to avoid duplicated msg.
             sentReply = true;
+
             final ResponseOnSingeRequest res = new ResponseOnSingeRequest(
                     response, error, errorMessage, stackTrace, statusCode,
-                    statusCodeInt, PcDateUtils.getNowDateTimeStrStandard());
+                    statusCodeInt, PcDateUtils.getNowDateTimeStrStandard(),
+                    responseHeaders);
             if (!getContext().system().deadLetters().equals(sender)) {
                 sender.tell(res, getSelf());
             }
@@ -340,21 +360,39 @@ public class HttpWorker extends UntypedActor {
 
     /**
      * On complete.
+     * Save response headers when needed.
      *
      * @param response
      *            the response
-     * @return the response on singe request
+     * @return the response on single request
      */
     public ResponseOnSingeRequest onComplete(Response response) {
 
         cancelCancellable();
         try {
+            Map<String, List<String>> responseHeaders = null;
+            if (responseHeaderMeta != null) {
+                responseHeaders = new LinkedHashMap<String, List<String>>();
+                if (responseHeaderMeta.isGetAll()) {
+                    for (Map.Entry<String, List<String>> header : response
+                            .getHeaders()) {
+                        responseHeaders.put(header.getKey().toLowerCase(Locale.ROOT), header.getValue());
+                    }
+                } else {
+                    for (String key : responseHeaderMeta.getKeys()) {
+                        if (response.getHeaders().containsKey(key)) {
+                            responseHeaders.put(key.toLowerCase(Locale.ROOT),
+                                    response.getHeaders().get(key));
+                        }
+                    }
+                }
+            }
 
             int statusCodeInt = response.getStatusCode();
             String statusCode = statusCodeInt + " " + response.getStatusText();
 
             reply(response.getResponseBody(), false, null, null, statusCode,
-                    statusCodeInt);
+                    statusCodeInt, responseHeaders);
         } catch (IOException e) {
             getLogger().error("fail response.getResponseBody " + e);
         }

@@ -28,6 +28,8 @@ import io.parallec.core.util.PcDateUtils;
 import io.parallec.core.util.PcHttpUtils;
 import io.parallec.core.util.PcStringUtils;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -170,7 +172,7 @@ public class OperationWorker extends UntypedActor {
                         "invalid message type to OperationWorker");
             }
         } catch (Exception e) {
-            reply(true, e.toString(), PcStringUtils.printStackTrace(e),
+            replyErrors(e.toString(), PcStringUtils.printStackTrace(e),
                     PcConstants.NA, PcConstants.NA_INT);
         }
     }
@@ -190,7 +192,7 @@ public class OperationWorker extends UntypedActor {
                         client, String.format("%s://%s:%d%s", request
                                 .getProtocol().toString(), trueTargetNode,
                                 request.getPort(), pollUrl), pollerHttpMethod,
-                        postBodyForPoller, request.getHttpHeaderMap()));
+                        postBodyForPoller, request.getHttpHeaderMap(), request.getResponseHeaderMeta()));
 
         logger.info("POLL_REQ_SEND" + pollUrl + " "
                 + PcDateUtils.getNowDateTimeStrStandard());
@@ -329,7 +331,7 @@ public class OperationWorker extends UntypedActor {
                 respOnSingleReq.getStackTrace(),
                 respOnSingleReq.getStatusCode(),
                 respOnSingleReq.getStatusCodeInt(),
-                respOnSingleReq.getReceiveTime());
+                respOnSingleReq.getReceiveTime(), respOnSingleReq.getResponseHeaders());
 
     }// end func
 
@@ -355,7 +357,7 @@ public class OperationWorker extends UntypedActor {
             if (!PcHttpUtils.isUrlValid(urlComplete.trim())) {
                 String errMsg = "INVALID_URL";
                 logger.error("INVALID_URL: " + urlComplete + " return..");
-                reply(true, errMsg, errMsg, PcConstants.NA, PcConstants.NA_INT);
+                replyErrors(errMsg, errMsg, PcConstants.NA, PcConstants.NA_INT);
                 return;
             } else {
                 logger.debug("url pass validation: " + urlComplete);
@@ -364,7 +366,7 @@ public class OperationWorker extends UntypedActor {
             asyncWorker = getContext().actorOf(
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             client, urlComplete, request.getHttpMethod(),
-                            request.getPostData(), request.getHttpHeaderMap()));
+                            request.getPostData(), request.getHttpHeaderMap(), request.getResponseHeaderMeta()));
 
         } else if (request.getProtocol() == RequestProtocol.SSH ){
             asyncWorker = getContext().actorOf(
@@ -433,7 +435,7 @@ public class OperationWorker extends UntypedActor {
             logger.info("asyncWorker has been killed or uninitialized (null). "
                     + "Not send PROCESS ON TIMEOUT.\nREQ: "
                     + request.toString());
-            reply(true, PcConstants.OPERATION_TIMEOUT,
+            replyErrors(PcConstants.OPERATION_TIMEOUT,
                     PcConstants.OPERATION_TIMEOUT, PcConstants.NA,
                     PcConstants.NA_INT);
         }
@@ -460,7 +462,7 @@ public class OperationWorker extends UntypedActor {
             // this.
             if (sender == null)
                 sender = getSender();
-            reply(true, PcConstants.REQUEST_CANCELED,
+            replyErrors(PcConstants.REQUEST_CANCELED,
                     PcConstants.REQUEST_CANCELED, PcConstants.NA,
                     PcConstants.NA_INT);
         }
@@ -482,7 +484,7 @@ public class OperationWorker extends UntypedActor {
     }
 
     /**
-     * Reply.
+     * Reply used in error cases. set the response header as null.
      *
      * @param error the error
      * @param errorMessage the error message
@@ -490,11 +492,11 @@ public class OperationWorker extends UntypedActor {
      * @param statusCode the status code
      * @param statusCodeInt the status code int
      */
-    private final void reply(final boolean error, final String errorMessage,
+    private final void replyErrors(final String errorMessage,
             final String stackTrace, final String statusCode,
             final int statusCodeInt) {
-        reply(error, errorMessage, stackTrace, statusCode, statusCodeInt,
-                PcConstants.NA);
+        reply(true, errorMessage, stackTrace, statusCode, statusCodeInt,
+                PcConstants.NA, null);
 
     }
 
@@ -507,11 +509,12 @@ public class OperationWorker extends UntypedActor {
      * @param statusCode the status code
      * @param statusCodeInt the status code int
      * @param receiveTime the receive time
+     * @param responseHeaders the response headers
      */
     @SuppressWarnings("deprecation")
     private final void reply(final boolean error, final String errorMessage,
             final String stackTrace, final String statusCode,
-            final int statusCodeInt, final String receiveTime) {
+            final int statusCodeInt, final String receiveTime,  Map<String, List<String>> responseHeaders) {
         
         if (!sentReply) {
             sentReply = true;
@@ -534,6 +537,7 @@ public class OperationWorker extends UntypedActor {
                 response.setStatusCode(statusCode);
                 response.setStatusCodeInt(statusCodeInt);
                 response.setReceiveTime(receiveTime);
+                response.setResponseHeaders(responseHeaders);
 
                 // add history.
                 if (request.isPollable() && pollerData != null) {
@@ -552,11 +556,8 @@ public class OperationWorker extends UntypedActor {
                                 , response.toString(),  t.getLocalizedMessage());
                     }
                 }
-                
-                
                 sender.tell(response, getSelf());
             }
-
             
             if (asyncWorker != null && !asyncWorker.isTerminated()) {
                 getContext().stop(asyncWorker);

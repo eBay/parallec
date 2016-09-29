@@ -33,23 +33,6 @@ public class PcTargetHostsUtils {
             .getLogger(PcTargetHostsUtils.class);
 
     /**
-     * Must have maximum limit.
-     *
-     * @param args
-     *            the arguments
-     */
-
-    public static void main(String[] args) {
-
-        // System.out.println(getAgentVersionWisb());
-        // models.utils.LogUtilslogger.info(getAgentVersionWisb());
-        // getEvpsUrl();
-        // models.utils.LogUtilslogger.info(testGetGenericVersionWisb());
-
-        // testChunkStrStrMap();
-    }
-
-    /**
      * Gets the node list from string line seperate or space seperate.
      *
      * @param listStr
