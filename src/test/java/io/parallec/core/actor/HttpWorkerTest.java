@@ -41,7 +41,7 @@ public class HttpWorkerTest extends TestBase {
      * fake a bad request
      */
     @Test
-    public void testSshWorkerCreateRequestException() {
+    public void testHttpWorkerCreateRequestException() {
         ActorRef asyncWorker = null;
         try {
             // Start new job
@@ -52,7 +52,7 @@ public class HttpWorkerTest extends TestBase {
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
                                     .getCurrentDefaultClient(), urlComplete,
-                            HttpMethod.GET, "", null));
+                            HttpMethod.GET, "", null,null));
             ;
 
             final FiniteDuration duration = Duration.create(20,
@@ -83,7 +83,7 @@ public class HttpWorkerTest extends TestBase {
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
                                     .getCurrentDefaultClient(), urlComplete,
-                            HttpMethod.GET, "", null));
+                            HttpMethod.GET, "", null,null));
 
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
@@ -115,7 +115,7 @@ public class HttpWorkerTest extends TestBase {
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
                                     .getCurrentDefaultClient(), urlComplete,
-                            HttpMethod.GET, "", null));
+                            HttpMethod.GET, "", null,null));
 
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
@@ -155,7 +155,7 @@ public class HttpWorkerTest extends TestBase {
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
                                     .getCurrentDefaultClient(), urlComplete,
-                            HttpMethod.GET, "", null));
+                            HttpMethod.GET, "", null,null));
             ;
 
             final FiniteDuration duration = Duration.create(20,
@@ -188,7 +188,7 @@ public class HttpWorkerTest extends TestBase {
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
                                     .getCurrentDefaultClient(), urlComplete,
-                            HttpMethod.GET, "", null));
+                            HttpMethod.GET, "", null,null));
 
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);
@@ -216,7 +216,7 @@ public class HttpWorkerTest extends TestBase {
                     Props.create(HttpWorker.class, actorMaxOperationTimeoutSec,
                             HttpClientStore.getInstance()
                                     .getCurrentDefaultClient(), urlComplete,
-                            HttpMethod.GET, "", null));
+                            HttpMethod.GET, "", null,null));
 
             final FiniteDuration duration = Duration.create(20,
                     TimeUnit.SECONDS);

@@ -54,21 +54,28 @@ import akka.actor.ActorRef;
 
 import com.ning.http.client.AsyncHttpClient;
 
-
 /**
- * The key class represents a onetime execution on multiple requests. It contains all the task 
- * and request metadata, target hosts, configs, and the responses.
+ * The key class represents a onetime execution on multiple requests. It
+ * contains all the task and request metadata, target hosts, configs, and the
+ * responses.
  * 
- * A ParallelTask is the returned object from the {@link ParallelTaskBuilder#execute}
+ * A ParallelTask is the returned object from the
+ * {@link ParallelTaskBuilder#execute}
  * 
  * <ul>
-    <li>The metadata on this whole task, including config, running state, progress, request count, task id.&nbsp;</li>
-    <li>The results of the task:&nbsp;parallelTaskResult,&nbsp;&nbsp;which is a hashmap of each target host map with its response. There is also a received count</li>
-    <li>Detailed request metadata on HTTP/SSH/PING/TCP. &nbsp;The async http client used for this task ( you may replace it with your own )</li>
-    <li>Target host list</li>
-    <li>The user defined response handler</li>
-    <li>A actorRef pointer to the command manager so that you may use it to cancel the whole task or those requests&nbsp;that match a sublist of target host lists.</li>
-</ul>
+ * <li>The metadata on this whole task, including config, running state,
+ * progress, request count, task id.&nbsp;</li>
+ * <li>The results of the task:&nbsp;parallelTaskResult,&nbsp;&nbsp;which is a
+ * hashmap of each target host map with its response. There is also a received
+ * count</li>
+ * <li>Detailed request metadata on HTTP/SSH/PING/TCP. &nbsp;The async http
+ * client used for this task ( you may replace it with your own )</li>
+ * <li>Target host list</li>
+ * <li>The user defined response handler</li>
+ * <li>A actorRef pointer to the command manager so that you may use it to
+ * cancel the whole task or those requests&nbsp;that match a sublist of target
+ * host lists.</li>
+ * </ul>
  * 
  *
  * @author Yuanteng (Jeff) Pei
@@ -121,10 +128,11 @@ public class ParallelTask {
     /** The aggregate result map. */
     private final Map<String, LinkedHashSet<String>> aggregateResultMap = new ConcurrentHashMap<String, LinkedHashSet<String>>();
 
-    /** The parallel task result: 
-     * a hashmap to store the request parameters, host name, ResponseOnSingleTask.
-     * Note that by default, the response content is not saved into the ResponseOnSingleTask.
-     * Unless the user changes the config by calling {@link ParallelTaskBuilder#setSaveResponseToTask}
+    /**
+     * The parallel task result: a hashmap to store the request parameters, host
+     * name, ResponseOnSingleTask. Note that by default, the response content is
+     * not saved into the ResponseOnSingleTask. Unless the user changes the
+     * config by calling {@link ParallelTaskBuilder#setSaveResponseToTask}
      * 
      * */
     private Map<String, NodeReqResponse> parallelTaskResult = new ConcurrentHashMap<String, NodeReqResponse>();
@@ -143,10 +151,10 @@ public class ParallelTask {
 
     /** The UDP meta. */
     private UdpMeta udpMeta;
-    
+
     /** The ping meta. */
     private PingMeta pingMeta;
-    
+
     /**
      * The command manager. if private: getter/setter: openpojo unit test will
      * fail.
@@ -178,43 +186,58 @@ public class ParallelTask {
         this.responsedNum = 0;
         this.requestNum = 0;
         this.state = ParallelTaskState.WAITING;
-        
 
         // use default config
         this.config = new ParallelTaskConfig();
 
     }
 
-
     /**
      * Instantiates a new parallel task.
      *
-     * @param requestProtocol the request protocol
-     * @param concurrency the concurrency
-     * @param httpMeta the http meta
-     * @param targetHostMeta the target host meta
-     * @param sshMeta the ssh meta
-     * @param tcpMeta the tcp meta
-     * @param udpMeta the udp meta
-     * @param pingMeta the ping meta
-     * @param handler the handler
-     * @param responseContext the response context
-     * @param replacementVarMapNodeSpecific the replacement var map node specific
-     * @param replacementVarMap the replacement var map
-     * @param requestReplacementType the request replacement type
-     * @param config the config
+     * @param requestProtocol
+     *            the request protocol
+     * @param concurrency
+     *            the concurrency
+     * @param httpMeta
+     *            the http meta
+     * @param targetHostMeta
+     *            the target host meta
+     * @param sshMeta
+     *            the ssh meta
+     * @param tcpMeta
+     *            the tcp meta
+     * @param udpMeta
+     *            the udp meta
+     * @param pingMeta
+     *            the ping meta
+     * @param handler
+     *            the handler
+     * @param responseContext
+     *            the response context
+     * @param replacementVarMapNodeSpecific
+     *            the replacement var map node specific
+     * @param replacementVarMap
+     *            the replacement var map
+     * @param requestReplacementType
+     *            the request replacement type
+     * @param config
+     *            the config
      */
-    public ParallelTask(RequestProtocol requestProtocol, int concurrency, HttpMeta httpMeta, TargetHostMeta targetHostMeta,
-            SshMeta sshMeta, TcpMeta tcpMeta, UdpMeta udpMeta, PingMeta pingMeta, ParallecResponseHandler handler,
+    public ParallelTask(RequestProtocol requestProtocol, int concurrency,
+            HttpMeta httpMeta, TargetHostMeta targetHostMeta, SshMeta sshMeta,
+            TcpMeta tcpMeta, UdpMeta udpMeta, PingMeta pingMeta,
+            ParallecResponseHandler handler,
             Map<String, Object> responseContext,
             Map<String, StrStrMap> replacementVarMapNodeSpecific,
             Map<String, String> replacementVarMap,
-            RequestReplacementType requestReplacementType, ParallelTaskConfig config
+            RequestReplacementType requestReplacementType,
+            ParallelTaskConfig config
 
     ) {
         this.requestProtocol = requestProtocol;
         this.concurrency = concurrency;
-        this.targetHostMeta =targetHostMeta;
+        this.targetHostMeta = targetHostMeta;
         // set taskid / requestNum must be after set target hosts meta;
         // as it is using the target hosts count
         this.taskId = this.generateTaskId();
@@ -245,7 +268,8 @@ public class ParallelTask {
     /**
      * Cancel on target hosts.
      *
-     * @param targetHosts the target hosts
+     * @param targetHosts
+     *            the target hosts
      * @return true, if successful
      */
     @SuppressWarnings("deprecation")
@@ -258,10 +282,10 @@ public class ParallelTask {
             switch (state) {
 
             case IN_PROGRESS:
-                if (executionManager != null && !executionManager.isTerminated()) {
-                    executionManager.tell(
-                            new CancelTaskOnHostRequest(targetHosts),
-                            executionManager);
+                if (executionManager != null
+                        && !executionManager.isTerminated()) {
+                    executionManager.tell(new CancelTaskOnHostRequest(
+                            targetHosts), executionManager);
                     logger.info(
                             "asked task to stop from running on target hosts with count {}...",
                             targetHosts.size());
@@ -293,7 +317,8 @@ public class ParallelTask {
     /**
      * Cancel.
      *
-     * @param sync the sync
+     * @param sync
+     *            the sync
      * @return true, if successful
      */
     @SuppressWarnings("deprecation")
@@ -309,7 +334,8 @@ public class ParallelTask {
                 success = true;
                 break;
             case IN_PROGRESS:
-                if (executionManager != null && !executionManager.isTerminated()) {
+                if (executionManager != null
+                        && !executionManager.isTerminated()) {
 
                     executionManager.tell(ExecutionManagerMsgType.CANCEL,
                             executionManager);
@@ -323,9 +349,7 @@ public class ParallelTask {
                             try {
                                 Thread.sleep(100L);
                             } catch (InterruptedException e) {
-                                logger.error(
-                                        "running task {} was interrupted  {}",
-                                        this.taskId, e);
+                                logger.error(" task {} interrupted ", this.taskId);
                             }
                         }
                         logger.info("Task completed! Cancellation is completed.");
@@ -408,13 +432,12 @@ public class ParallelTask {
         }
 
         // check if ssh
-        if (this.requestProtocol==
-                RequestProtocol.SSH) {
+        if (this.requestProtocol == RequestProtocol.SSH) {
 
             // this will throw ParallelTaskInvalidException
             this.sshMeta.validation();
-            
-            if (this.getConcurrency() > ParallecGlobalConfig.concurrencySshLimit){
+
+            if (this.getConcurrency() > ParallecGlobalConfig.concurrencySshLimit) {
                 logger.info("SSH CONCURRENCY LIMIT is lower. Apply value as: "
                         + ParallecGlobalConfig.concurrencySshLimit);
                 this.setConcurrency(ParallecGlobalConfig.concurrencySshLimit);
@@ -430,46 +453,42 @@ public class ParallelTask {
             this.pingMeta = null;
             // remove udp object
             this.udpMeta = null;
-        }else if (this.requestProtocol==
-                RequestProtocol.PING) {
+        } else if (this.requestProtocol == RequestProtocol.PING) {
 
             if (this.httpMeta.isPollable())
                 throw new ParallelTaskInvalidException(
                         "Not support pollable job with PING.");
             this.httpMeta.initValuesNa();
-            
+
             this.pingMeta.validation();
             // remove ssh object
             this.sshMeta = null;
             // remove tcp object
             this.tcpMeta = null;
             // remove udp object
-            this.udpMeta = null;            
+            this.udpMeta = null;
 
-            
-        //TCP
-        }else if (this.requestProtocol==
-                RequestProtocol.TCP) { 
+            // TCP
+        } else if (this.requestProtocol == RequestProtocol.TCP) {
             if (this.httpMeta.isPollable())
                 throw new ParallelTaskInvalidException(
                         "Not support pollable job with TCP.");
             this.httpMeta.initValuesNa();
-            
+
             this.tcpMeta.validation();
             // remove ssh object
             this.sshMeta = null;
             // remove ping object
-            this.pingMeta = null;            
+            this.pingMeta = null;
             // remove udp object
-            this.udpMeta = null;            
-        //UDP
-        }else if (this.requestProtocol==
-                RequestProtocol.UDP) { 
+            this.udpMeta = null;
+            // UDP
+        } else if (this.requestProtocol == RequestProtocol.UDP) {
             if (this.httpMeta.isPollable())
                 throw new ParallelTaskInvalidException(
                         "Not support pollable job with UDP.");
             this.httpMeta.initValuesNa();
-            
+
             this.udpMeta.validation();
             // remove tcp object
             this.tcpMeta = null;
@@ -477,9 +496,9 @@ public class ParallelTask {
             this.sshMeta = null;
             // remove ping object
             this.pingMeta = null;
-        //HTTP/HTTPS
+            // HTTP/HTTPS
         } else {
-            
+
             this.httpMeta.validation();
             // remove ssh object
             this.sshMeta = null;
@@ -516,12 +535,12 @@ public class ParallelTask {
 
         if (state.equals(ParallelTaskState.IN_PROGRESS)) {
             if (requestNum != 0) {
-                return 100.0 * ((double) responsedNum / (double)requestNumActual);
+                return 100.0 * ((double) responsedNum / (double) requestNumActual);
             } else {
                 return 0.0;
             }
         }
-        
+
         if (state.equals(ParallelTaskState.WAITING)) {
             return 0.0;
         }
@@ -531,7 +550,6 @@ public class ParallelTask {
                 || state.equals(ParallelTaskState.COMPLETED_WITHOUT_ERROR)) {
             return 100.0;
         }
-
 
         return 0.0;
 
@@ -634,10 +652,9 @@ public class ParallelTask {
         return taskErrorMetas;
     }
 
-
-
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
@@ -661,7 +678,6 @@ public class ParallelTask {
                 + requestReplacementType + ", requestProtocol="
                 + requestProtocol + ", concurrency=" + concurrency + "]";
     }
-
 
     /**
      * Gets the ssh meta.
@@ -717,13 +733,14 @@ public class ParallelTask {
      */
     public HttpMeta getHttpMeta() {
         return httpMeta;
-        
+
     }
 
     /**
      * Sets the command meta.
      *
-     * @param httpMeta the new http meta
+     * @param httpMeta
+     *            the new http meta
      */
     public void setHttpMeta(HttpMeta httpMeta) {
         this.httpMeta = httpMeta;
@@ -856,7 +873,7 @@ public class ParallelTask {
 
         return summaryMap;
     }
-    
+
     /**
      * Gets the aggregated result human str.
      *
@@ -865,8 +882,6 @@ public class ParallelTask {
     public String getAggregatedResultHumanStr() {
         return PcStringUtils.getAggregatedResultHuman(aggregateResultMap);
     }
-    
-    
 
     /**
      * Gets the aggregate result count summary. only list the counts for brief
@@ -926,12 +941,13 @@ public class ParallelTask {
     /**
      * Sets the tcp meta.
      *
-     * @param tcpMeta the new tcp meta
+     * @param tcpMeta
+     *            the new tcp meta
      */
     public void setTcpMeta(TcpMeta tcpMeta) {
         this.tcpMeta = tcpMeta;
     }
-    
+
     /**
      * Gets the request protocol.
      *
@@ -969,7 +985,7 @@ public class ParallelTask {
     public void setConcurrency(int concurrency) {
         this.concurrency = concurrency;
     }
-    
+
     /**
      * Gets the submit time.
      *
@@ -1115,17 +1131,16 @@ public class ParallelTask {
     /**
      * Sets the ping meta.
      *
-     * @param pingMeta the new ping meta
+     * @param pingMeta
+     *            the new ping meta
      */
     public void setPingMeta(PingMeta pingMeta) {
         this.pingMeta = pingMeta;
     }
 
-
     public UdpMeta getUdpMeta() {
         return udpMeta;
     }
-
 
     public void setUdpMeta(UdpMeta udpMeta) {
         this.udpMeta = udpMeta;

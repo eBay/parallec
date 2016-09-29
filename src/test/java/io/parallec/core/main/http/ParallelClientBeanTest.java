@@ -30,6 +30,7 @@ public class ParallelClientBeanTest extends TestBase {
         pc.setCustomClientFast(null);
         pc.setCustomClientSlow(null);
         pc.setHttpClientTypeCurrentDefault(HttpClientType.EMBED_FAST);
+        pc.getRunningJobCount();
 
     }
 

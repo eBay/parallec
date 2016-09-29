@@ -156,7 +156,7 @@ public final class AsyncHttpClientFactoryEmbed {
     /**
      * class CustomTrustManager.
      */
-    private static class CustomTrustManager implements X509TrustManager {
+    public static class CustomTrustManager implements X509TrustManager {
 
         /**
          * Gets the accepted issuers.

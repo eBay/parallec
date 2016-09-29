@@ -10,6 +10,7 @@ _2016-09-30_
 * Erased the response headers in the ResponseOnSingleTask if `task.getConfig().isSaveResponseToTask()` is false (default).
 * Minor refactored multiple places.
 * Fixed javadoc.
+* Fixed the test cases with HttpWorker constructor.
 
 ```java
 
