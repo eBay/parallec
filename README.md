@@ -32,7 +32,7 @@ Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&
 <dependency>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.10.0</version>
+	<version>0.10.1-beta</version>
 </dependency>
 ```
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/io/parallec/parallec-core/).
