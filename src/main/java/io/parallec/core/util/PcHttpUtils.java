@@ -20,7 +20,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
+import org.asynchttpclient.BoundRequestBuilder;
 
 
 /**

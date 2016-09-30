@@ -43,7 +43,7 @@ import akka.actor.Cancellable;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
-import com.ning.http.client.AsyncHttpClient;
+import org.asynchttpclient.AsyncHttpClient;
 
 
 

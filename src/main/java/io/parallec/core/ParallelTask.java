@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 
 import akka.actor.ActorRef;
 
-import com.ning.http.client.AsyncHttpClient;
+import org.asynchttpclient.AsyncHttpClient;
 
 /**
  * The key class represents a onetime execution on multiple requests. It

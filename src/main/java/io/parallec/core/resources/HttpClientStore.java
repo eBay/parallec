@@ -12,11 +12,14 @@ limitations under the License.
  */
 package io.parallec.core.resources;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.ning.http.client.AsyncHttpClient;
+import org.asynchttpclient.AsyncHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -35,6 +38,10 @@ import com.ning.http.client.AsyncHttpClient;
  */
 public class HttpClientStore {
 
+    /** The logger. */
+    private static Logger logger = LoggerFactory
+            .getLogger(HttpClientStore.class);
+    
     /** The http client type current default. */
     private HttpClientType httpClientTypeCurrentDefault;
 
@@ -93,7 +100,11 @@ public class HttpClientStore {
         for (Entry<HttpClientType, AsyncHttpClient> entry : map.entrySet()) {
             AsyncHttpClient client = entry.getValue();
             if (client != null)
-                client.close();
+                try {
+                    client.close();
+                } catch (IOException ex) {
+                    logger.error("error",ex);
+                }
         }
 
     }

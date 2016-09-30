@@ -68,7 +68,7 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 import com.google.common.base.Strings;
-import com.ning.http.client.AsyncHttpClient;
+import org.asynchttpclient.AsyncHttpClient;
 
 /**
  * This is the Akka Actor that executes the ParallelTask.

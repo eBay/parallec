@@ -1,6 +1,16 @@
 Parallec Change Log
 ==========
 
+
+
+## Version 0.20.0-SNAPSHOT
+
+_2016-09-30_
+
+* Issue [#37](https://github.com/eBay/parallec/issues/37). Upgraded Async-http-client to version 2.0.15.  This version has not been tested in PROD environment. The client auth plugin is to be tested. The code is in branch `issue37`
+
+ 
+
 ## Version 0.10.1-beta
 
 

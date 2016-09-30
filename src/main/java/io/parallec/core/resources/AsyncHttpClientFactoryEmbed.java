@@ -32,11 +32,12 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.AsyncHttpClientConfig;
+import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.AsyncHttpClientConfigBean;
 
 
 /**
@@ -65,29 +66,28 @@ public final class AsyncHttpClientFactoryEmbed {
 
         try {
             // create and configure async http client
-            AsyncHttpClientConfigBean configFastClient = new AsyncHttpClientConfigBean();
-
+            AsyncHttpClientConfig configFastClient = new DefaultAsyncHttpClientConfig.Builder()
+            .setConnectTimeout(ParallecGlobalConfig.ningFastClientConnectionTimeoutMillis)
+            .setRequestTimeout(ParallecGlobalConfig.ningFastClientConnectionTimeoutMillis)
+            .build();
             logger.info(
                     "FastClient: ningFastClientConnectionTimeoutMillis: {}",
                     ParallecGlobalConfig.ningFastClientConnectionTimeoutMillis);
-            configFastClient
-                    .setConnectionTimeOutInMs(ParallecGlobalConfig.ningFastClientConnectionTimeoutMillis);
-
+            
             logger.info("FastClient: ningFastClientRequestTimeoutMillis: {}",
                     ParallecGlobalConfig.ningFastClientRequestTimeoutMillis);
-            configFastClient
-                    .setRequestTimeoutInMs(ParallecGlobalConfig.ningFastClientRequestTimeoutMillis);
-            fastClient = new AsyncHttpClient(configFastClient);
+            fastClient = new DefaultAsyncHttpClient(configFastClient);
+            
 
             // TODO added
             // configFastClient.setMaxRequestRetry(3);
 
-            AsyncHttpClientConfigBean configSlowClient = new AsyncHttpClientConfigBean();
-            configSlowClient
-                    .setConnectionTimeOutInMs(ParallecGlobalConfig.ningSlowClientConnectionTimeoutMillis);
-            configSlowClient
-                    .setRequestTimeoutInMs(ParallecGlobalConfig.ningSlowClientRequestTimeoutMillis);
-            slowClient = new AsyncHttpClient(configSlowClient);
+            //TODO UNTESTED
+            AsyncHttpClientConfig configSlowClient = new DefaultAsyncHttpClientConfig.Builder()
+            .setConnectTimeout(ParallecGlobalConfig.ningSlowClientConnectionTimeoutMillis)
+            .setRequestTimeout(ParallecGlobalConfig.ningSlowClientRequestTimeoutMillis)
+            .build();
+             slowClient = new DefaultAsyncHttpClient(configSlowClient);
 
             disableCertificateVerification();
         } catch (Exception e) {

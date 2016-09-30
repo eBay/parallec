@@ -19,10 +19,9 @@ import io.parallec.core.resources.HttpClientStore;
 import io.parallec.core.resources.HttpMethod;
 import io.parallec.core.util.PcConstants;
 
+import org.asynchttpclient.AsyncHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.ning.http.client.AsyncHttpClient;
 
 // TODO: Auto-generated Javadoc
 /**

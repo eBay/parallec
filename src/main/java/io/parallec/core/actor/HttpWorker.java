@@ -24,7 +24,7 @@ import io.parallec.core.util.PcErrorMsgUtils;
 import io.parallec.core.util.PcHttpUtils;
 import io.parallec.core.util.PcStringUtils;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,6 +32,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.asynchttpclient.AsyncCompletionHandler;
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.BoundRequestBuilder;
+import org.asynchttpclient.ListenableFuture;
+import org.asynchttpclient.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,13 +48,7 @@ import akka.actor.Cancellable;
 import akka.actor.UntypedActor;
 
 import com.google.common.base.Strings;
-import com.ning.http.client.AsyncCompletionHandler;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
-import com.ning.http.client.ListenableFuture;
-import com.ning.http.client.Response;
 
-// TODO: Auto-generated Javadoc
 /**
  * This is an akka actor with async http client.
  *
@@ -367,18 +366,24 @@ public class HttpWorker extends UntypedActor {
         cancelCancellable();
         try {
             Map<String, List<String>> responseHeaders = null;
+            //TODO FIX NOT TESTED
             if (responseHeaderMeta != null) {
                 responseHeaders = new LinkedHashMap<String, List<String>>();
                 if (responseHeaderMeta.isGetAll()) {
-                    for (Map.Entry<String, List<String>> header : response
-                            .getHeaders()) {
-                        responseHeaders.put(header.getKey().toLowerCase(Locale.ROOT), header.getValue());
+                    for (Map.Entry<String,String> header : response.getHeaders()
+                            .entries()) {
+                        List<String> list = new ArrayList<String>();
+                        list.add( header.getValue());
+                        responseHeaders.put(header.getKey().toLowerCase(Locale.ROOT),  
+                               list);
                     }
                 } else {
                     for (String key : responseHeaderMeta.getKeys()) {
-                        if (response.getHeaders().containsKey(key)) {
+                        if (response.getHeaders().contains(key)) {
+                            List<String> list = new ArrayList<String>();
+                            list.add(response.getHeaders().get(key));
                             responseHeaders.put(key.toLowerCase(Locale.ROOT),
-                                    response.getHeaders().get(key));
+                                   list );
                         }
                     }
                 }
@@ -389,7 +394,7 @@ public class HttpWorker extends UntypedActor {
 
             reply(response.getResponseBody(), false, null, null, statusCode,
                     statusCodeInt, responseHeaders);
-        } catch (IOException e) {
+        } catch (Exception e) {
             getLogger().error("fail response.getResponseBody " + e);
         }
 
