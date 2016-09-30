@@ -8,7 +8,7 @@
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
-[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Samples](https://github.com/eBay/parallec-samples) | [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md) |  [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [News](http://www.parallec.io/blog/) | [Plugin](https://github.com/eBay/parallec-plugins) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
+[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Samples](https://github.com/eBay/parallec-samples) | [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md) / [What's New](https://github.com/eBay/parallec/blob/master/README.md#whats-new) / [Versions](https://github.com/eBay/parallec/blob/master/README.md#versions) |  [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [News](http://www.parallec.io/blog/) | [Plugin](https://github.com/eBay/parallec-plugins) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
 
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
@@ -111,6 +111,12 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 
 More details please check the [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md).
 
+###Versions
+
+* The latest production-ready version is `0.10.x`, where we use in production.
+* **On async-http-client 2.x** The Parallec.io version using more up-to-date `async-http-client` (currently using AHC version `2.0.15`) is `0.20.0-SNAPSHOT`. This version has passed comprehensive unit tests but has not been used yet in production. This version **requires JDK8** due to AHC 2.x and can be used with the parallec-plugins with the same version `0.20.0-SNAPSHOT`, details please check [#37](https://github.com/eBay/parallec/issues/37).
+
+
 ###More Readings
 
 - [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example is [here](https://github.com/eBay/parallec/blob/master/src/test/java/io/parallec/core/main/udp/ParallelClientUdpBasicTest.java), with more to come. 
@@ -141,7 +147,7 @@ Parallec is built on Akka actors and [Async HTTP Client](https://github.com/Asyn
 1. **Generic response handler with context**. Special response context enables total freedom and convenience of processing each response your way. Process and aggregate data **anywhere** to Kafka, Redis, Elastic Search, mongoDB, CMS and etc.  
 1. **Flexible on when to invoke the handler**:  before (in worker thread) or after the aggregation (in master/manager thread).
 1. **Flexible Input of target hosts**: Input target hosts from a list, string, JSON Path from local files or a remote URL
-1. **Scalable and fast**, **infinitely scalable** with built-in **Concurrency control**.
+1. **Scalable and fast**, **infinitely scalable** with built-in [**Concurrency control**](http://www.ebaytechblog.com/2014/03/11/rest-commander-scalable-web-server-management-and-monitoring/#akka).
 1. **Auto-progress polling** to enable task level concurrency with **Async API** for long jobs and  orchestrations.
 1. **Request template** to handle non-uniform requests.
 1. **Convenient single place handling success and failure cases**. Handle in a single function where you can get the response including the actual response if success; or stacktrace and error details if failures.
