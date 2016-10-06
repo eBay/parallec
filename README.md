@@ -8,7 +8,7 @@
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
-[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Samples](https://github.com/eBay/parallec-samples) | [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md) / [What's New](https://github.com/eBay/parallec/blob/master/README.md#whats-new) / [Versions](https://github.com/eBay/parallec/blob/master/README.md#versions) |  [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [News](http://www.parallec.io/blog/) | [Plugin](https://github.com/eBay/parallec-plugins) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
+[ [Get-Started](https://github.com/eBay/parallec/blob/master/README.md#get-started) | [Features](https://github.com/eBay/parallec/blob/master/README.md#features) | [Use Cases](https://github.com/eBay/parallec/blob/master/README.md#use-cases) | [Samples](https://github.com/eBay/parallec-samples) | [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md) / [What's New](https://github.com/eBay/parallec/blob/master/README.md#whats-new) / [Versions](https://github.com/eBay/parallec/blob/master/README.md#versions) |  [User Group](https://github.com/eBay/parallec/blob/master/README.md#user-group) |  [Motivation](https://github.com/eBay/parallec/blob/master/README.md#motivation) | [Demos](https://github.com/eBay/parallec/blob/master/README.md#demos) | [Performance](https://github.com/eBay/parallec/blob/master/README.md#performance) | [Compare](https://github.com/eBay/parallec/blob/master/README.md#compare) | [Contributors](https://github.com/eBay/parallec/blob/master/README.md#contributors) | [About](https://github.com/eBay/parallec/blob/master/README.md#authors) | [News](http://www.parallec.io/blog/) | [Plugin](https://github.com/eBay/parallec-plugins) | [中文介绍](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) ]
 
 
 [ [API Overview](http://www.parallec.io/docs/api-overview/) | [Generate & Submit Task](http://www.parallec.io/docs/submit-task/) | [Track Status & Examine Responses](http://www.parallec.io/docs/track-status/) | [Configurations](http://www.parallec.io/docs/configurations/) ]
@@ -129,6 +129,13 @@ More details please check the [Change Log](https://github.com/eBay/parallec/blob
 - [**Ping Demo**](https://github.com/eBay/parallec/blob/master/README.md#demos) Ping 8000 Servers within 11.1 Seconds, performance test vs. [FPing](http://fping.org/).
 
 
+###User Group
+
+* Ask a question, and keep up to date on the library development by joining the discussion group / forum: [Parallec.io Google Group](https://groups.google.com/forum/#!forum/parallec). 
+* Feel free to submit a [Github Issue](https://github.com/eBay/parallec/issues/new) for any questions and suggestions too.
+* Check [FAQ](http://www.parallec.io/docs/faq/).
+
+
 ###Use Cases
 
 1. Scalable web server monitoring, management, and configuration push, ping check.
@@ -137,6 +144,7 @@ More details please check the [Change Log](https://github.com/eBay/parallec/blob
 1. Orchestration and work flows on multiple web servers. 
 1. Parallel different requests with controlled concurrency to a single server: as a parallec client for REST API enabled Database / Web Server CRUD operations. Variable replacement allowed in post body, url and headers.
 1. Load testing with request template. 
+1. Network monitoring with active probing via UDP/Ping etc. 
 
 
 
