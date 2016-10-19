@@ -64,40 +64,32 @@ public class InternalDataProvider {
     public void genNodeDataMap(ParallelTask task) {
 
         TargetHostMeta targetHostMeta = task.getTargetHostMeta();
-
         HttpMeta httpMeta = task.getHttpMeta();
 
-        String entityBody = httpMeta
-                .getEntityBody();
+        String entityBody = httpMeta.getEntityBody();
         String requestContent = HttpMeta
                 .replaceDefaultFullRequestContent(entityBody);
 
         Map<String, NodeReqResponse> parallelTaskResult = task
                 .getParallelTaskResult();
-        try {
-            for (String fqdn : targetHostMeta.getHosts()) {
-                NodeReqResponse nodeReqResponse = new NodeReqResponse(fqdn);
-                nodeReqResponse.setDefaultReqestContent(requestContent);
-                parallelTaskResult.put(fqdn, nodeReqResponse);
-
-            }
-
-        } catch (Exception e) {
-            logger.error("sleep exception " + e + " details: ", e);
+        for (String fqdn : targetHostMeta.getHosts()) {
+            NodeReqResponse nodeReqResponse = new NodeReqResponse(fqdn);
+            nodeReqResponse.setDefaultReqestContent(requestContent);
+            parallelTaskResult.put(fqdn, nodeReqResponse);
         }
-
     }// end func.
 
     /**
      * Filter unsafe or unnecessary request.
      *
-     * @param nodeDataMapValidSource the node data map valid source
-     * @param nodeDataMapValidSafe the node data map valid safe
+     * @param nodeDataMapValidSource
+     *            the node data map valid source
+     * @param nodeDataMapValidSafe
+     *            the node data map valid safe
      */
     public void filterUnsafeOrUnnecessaryRequest(
             Map<String, NodeReqResponse> nodeDataMapValidSource,
-            Map<String, NodeReqResponse> nodeDataMapValidSafe
-            ) {
+            Map<String, NodeReqResponse> nodeDataMapValidSafe) {
 
         for (Entry<String, NodeReqResponse> entry : nodeDataMapValidSource
                 .entrySet()) {
@@ -116,8 +108,8 @@ public class InternalDataProvider {
                         .get(PcConstants.NODE_REQUEST_WILL_EXECUTE));
 
                 if (!willExecute) {
-                    logger.info("NOT_EXECUTE_COMMAND "
-                             + " on target: " + hostName + " at "
+                    logger.info("NOT_EXECUTE_COMMAND " + " on target: "
+                            + hostName + " at "
                             + PcDateUtils.getNowDateTimeStrStandard());
                     continue;
                 }

@@ -1,6 +1,14 @@
 Parallec Change Log
 ==========
 
+
+## Version 0.10.1
+
+_2016-10-18_
+
+* Issue [#47](https://github.com/eBay/parallec/issues/47). Created the response with proper error msg for the host when the whole parallel task [timeouts](http://www.parallec.io/docs/configurations/#long-running-jobs), added unit tests on this case. 
+* Fixed not setting context in some tests. Code refactoring. 
+
 ## Version 0.10.1-beta
 
 

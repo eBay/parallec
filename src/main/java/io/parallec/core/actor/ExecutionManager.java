@@ -135,7 +135,8 @@ public class ExecutionManager extends UntypedActor {
     /**
      * Instantiates a new command manager.
      *
-     * @param task the task
+     * @param task
+     *            the task
      */
     public ExecutionManager(ParallelTask task) {
         this.task = task;
@@ -169,17 +170,16 @@ public class ExecutionManager extends UntypedActor {
 
                 httpMeta = task.getHttpMeta();
                 targetHostMeta = task.getTargetHostMeta();
-                final RequestProtocol requestProtocol = task.getRequestProtocol();
+                final RequestProtocol requestProtocol = task
+                        .getRequestProtocol();
 
                 // Get request parameters to construct a REST CALL
                 final String requestUrlPrefixOrig = httpMeta
                         .getRequestUrlPostfix();
                 final HttpMethod httpMethod = httpMeta.getHttpMethod();
-                
-                String requestPortStrOrig = httpMeta
-                        .getRequestPort();
-                
-                
+
+                String requestPortStrOrig = httpMeta.getRequestPort();
+
                 final boolean pollable = httpMeta.isPollable();
 
                 final int maxConcurrency = task.getConcurrency();
@@ -194,7 +194,7 @@ public class ExecutionManager extends UntypedActor {
 
                 InternalDataProvider.getInstance()
                         .filterUnsafeOrUnnecessaryRequest(nodeDataMapValid,
-                                nodeDataMapValidSafe );
+                                nodeDataMapValidSafe);
 
                 logger.info(
                         "After Safety Check: total entry count in nodeDataMapValidSafe: {}",
@@ -235,7 +235,8 @@ public class ExecutionManager extends UntypedActor {
                     final String targetHost = entry.getKey();
                     NodeReqResponse nodeReqResponse = entry.getValue();
 
-                    final String requestContentOrig = nodeReqResponse.getRequestParameters().get(
+                    final String requestContentOrig = nodeReqResponse
+                            .getRequestParameters().get(
                                     PcConstants.REQUEST_BODY_PLACE_HOLDER);
 
                     final String requestContent = NodeReqResponse
@@ -246,25 +247,27 @@ public class ExecutionManager extends UntypedActor {
                             .replaceStrByMap(
                                     nodeReqResponse.getRequestParameters(),
                                     requestUrlPrefixOrig);
-                    //add support for port replacement
+                    // add support for port replacement
                     final String requestPortStr = NodeReqResponse
                             .replaceStrByMap(
                                     nodeReqResponse.getRequestParameters(),
                                     requestPortStrOrig);
                     int requestPort = 80;
-                    try{
+                    try {
                         requestPort = Integer.parseInt(requestPortStr);
-                    }catch(NumberFormatException nfe){
-                        logger.error("Error parsing replacable port with NumberFormatException. "
-                                + "No valid port for host {}. Now use default port 80", targetHost);
+                    } catch (NumberFormatException nfe) {
+                        logger.error(
+                                "Error parsing replacable port with NumberFormatException. "
+                                        + "No valid port for host {}. Now use default port 80",
+                                targetHost);
                     }
-                    //only pass when it is not in manager
-                    final ParallecResponseHandler handler = 
-                            task.getConfig().getHandlerExecutionLocation()==HandlerExecutionLocation.MANAGER
-                            ? null : task.getHandler();
-                    final Map<String, Object> responseContext =
-                            task.getConfig().getHandlerExecutionLocation()==HandlerExecutionLocation.MANAGER
-                            ? null : task.getResponseContext();
+                    // only pass when it is not in manager
+                    final ParallecResponseHandler handler = task.getConfig()
+                            .getHandlerExecutionLocation() == HandlerExecutionLocation.MANAGER ? null
+                            : task.getHandler();
+                    final Map<String, Object> responseContext = task
+                            .getConfig().getHandlerExecutionLocation() == HandlerExecutionLocation.MANAGER ? null
+                            : task.getResponseContext();
                     Map<String, String> httpHeaderMapLocal = new HashMap<String, String>();
                     httpHeaderMapLocal.putAll(httpMeta.getHeaderMetadata()
                             .getHeaderMap());
@@ -348,33 +351,32 @@ public class ExecutionManager extends UntypedActor {
                     final SshMeta sshMeta = task.getSshMeta();
                     final TcpMeta tcpMeta = task.getTcpMeta();
                     final UdpMeta udpMeta = task.getUdpMeta();
-                    
+
                     final PingMeta pingMeta = task.getPingMeta();
-                    final ResponseHeaderMeta responseHeaderMeta = task.getHttpMeta().getResponseHeaderMeta();
-                    
-                    
+                    final ResponseHeaderMeta responseHeaderMeta = task
+                            .getHttpMeta().getResponseHeaderMeta();
+
                     logger.debug("REQUEST GENERATED: "
                             + (sentRequestCounter + 1)
                             + " / "
                             + requestCount
                             + " after "
-                            + Double.toString((prepareRequestTime - startTime) / 1000.0) + " secs"
-                            + ":  (NOT SEND YET) " + targetHost + " at "
-                            + prepareRequestTimeStr);
+                            + Double.toString((prepareRequestTime - startTime) / 1000.0)
+                            + " secs" + ":  (NOT SEND YET) " + targetHost
+                            + " at " + prepareRequestTimeStr);
 
                     ActorRef worker = getContext().system().actorOf(
-                            Props.create(
-                                    OperationWorker.class,
+                            Props.create(OperationWorker.class,
                                     new TaskRequest(task.getConfig()
                                             .getActorMaxOperationTimeoutSec(),
-                                            requestProtocol,
-                                            targetHost, hostUniform,
-                                            requestPort, resourcePath,
-                                            requestContent, httpMethod
-                                                    , pollable,
-                                            httpHeaderMapLocal, 
-                                            handler,responseContext,
-                                            sshMeta, tcpMeta, udpMeta, pingMeta, responseHeaderMeta),
+                                            requestProtocol, targetHost,
+                                            hostUniform, requestPort,
+                                            resourcePath, requestContent,
+                                            httpMethod, pollable,
+                                            httpHeaderMapLocal, handler,
+                                            responseContext, sshMeta, tcpMeta,
+                                            udpMeta, pingMeta,
+                                            responseHeaderMeta),
                                     asyncHttpClient, task.getHttpMeta()
                                             .getHttpPollerProcessor()
 
@@ -410,8 +412,9 @@ public class ExecutionManager extends UntypedActor {
                                 ExecutionManagerMsgType.OPERATION_TIMEOUT,
                                 getContext().system().dispatcher(), getSelf());
 
-                logger.debug("Scheduled TIMEOUT_IN_MANAGER_SCONDS OPERATION_TIMEOUT after SEC {} ",
-                         task.getConfig().getTimeoutInManagerSec());
+                logger.debug(
+                        "Scheduled TIMEOUT_IN_MANAGER_SCONDS OPERATION_TIMEOUT after SEC {} ",
+                        task.getConfig().getTimeoutInManagerSec());
             } else if (message instanceof ResponseOnSingleTask) {
 
                 ResponseOnSingleTask taskResponse = (ResponseOnSingleTask) message;
@@ -474,39 +477,52 @@ public class ExecutionManager extends UntypedActor {
                         / (double) (requestCount) * 100.0;
                 String responseReceiveTimeStr = PcDateUtils
                         .getDateTimeStrStandard(new Date(responseReceiveTime));
-                String secondElapsedStr = Double.toString((responseReceiveTime - startTime) / 1000.0);
-                
+                String secondElapsedStr = Double
+                        .toString((responseReceiveTime - startTime) / 1000.0);
+
                 // log the first/ last 5 percent; then sample the middle
-                if(requestCount < ParallecGlobalConfig.logAllResponseIfTotalLessThan
+                if (requestCount < ParallecGlobalConfig.logAllResponseIfTotalLessThan
                         || responseCount <= ParallecGlobalConfig.logAllResponseBeforeInitCount
                         || progressPercent < ParallecGlobalConfig.logAllResponseBeforePercent
                         || progressPercent > ParallecGlobalConfig.logAllResponseAfterPercent
-                        || responseCount % ParallecGlobalConfig.logResponseInterval==0
-                        ){
+                        || responseCount
+                                % ParallecGlobalConfig.logResponseInterval == 0) {
                     // percent is escaped using percent sign; hostName
                     logger.info(String
                             .format("\n[%d]__RESP_RECV_IN_MGR %d (+%d) / %d (%.5g%%)  "
                                     + "AFT %s S @ %s @ %s , TaskID : %s , CODE: %s, RESP_BRIEF: %s %s",
-                                    responseCount, responseCount, requestCount
-                                    - responseCount, requestCount,
-                                    progressPercent, secondElapsedStr, hostName,
-                                    responseReceiveTimeStr, taskIdTrim,
-                                    taskResponse.getStatusCode(), displayResponse,
-                                    taskResponse.getErrorMessage()==null? "" : ", ERR: "+ taskResponse.getErrorMessage()));
+                                    responseCount,
+                                    responseCount,
+                                    requestCount - responseCount,
+                                    requestCount,
+                                    progressPercent,
+                                    secondElapsedStr,
+                                    hostName,
+                                    responseReceiveTimeStr,
+                                    taskIdTrim,
+                                    taskResponse.getStatusCode(),
+                                    displayResponse,
+                                    taskResponse.getErrorMessage() == null ? ""
+                                            : ", ERR: "
+                                                    + taskResponse
+                                                            .getErrorMessage()));
                 }
 
                 nrr.getRequestParameters().put(PcConstants.NODE_REQUEST_STATUS,
                         SingleTargetTaskStatus.COMPLETED.toString());
 
-                if (task.getConfig().getHandlerExecutionLocation()==HandlerExecutionLocation.MANAGER
-                        &&  task != null && task.getHandler() != null) {
+                if (task.getConfig().getHandlerExecutionLocation() == HandlerExecutionLocation.MANAGER
+                        && task != null && task.getHandler() != null) {
                     try {
-                        //logger.debug("HANDLE In manager: " + taskResponse.getHost());
+                        // logger.debug("HANDLE In manager: " +
+                        // taskResponse.getHost());
                         task.getHandler().onCompleted(taskResponse,
                                 task.getResponseContext());
                     } catch (Exception t) {
-                        logger.error("Error handling onCompleted in manager for response: {} Error {}"
-                                , taskResponse.toString(),  t.getLocalizedMessage());
+                        logger.error(
+                                "Error handling onCompleted in manager for response: {} Error {}",
+                                taskResponse.toString(),
+                                t.getLocalizedMessage());
                     }
                 }
 
@@ -540,10 +556,13 @@ public class ExecutionManager extends UntypedActor {
                 // reply
                 case OPERATION_TIMEOUT:
                     cancelRequestAndWorkers();
+                    String msg = "Execution manager timeout on whole Parallel Task.";
                     ExecutionManagerExecutionException ex = new ExecutionManagerExecutionException(
-                            "Manager timeout after",
+                            msg,
                             ManagerExceptionType.TIMEOUT);
+                    logger.error(msg);
                     reply(ParallelTaskState.COMPLETED_WITH_ERROR, ex);
+                    
                     break;
                 // this will wait for the works to reply.
                 case CANCEL:
@@ -596,8 +615,31 @@ public class ExecutionManager extends UntypedActor {
                     new TaskErrorMeta(TaskErrorType.COMMAND_MANAGER_ERROR,
                             t == null ? "NA" : t.getLocalizedMessage()));
 
+            String curTimeStr = PcDateUtils.getNowDateTimeStrStandard();
             logger.info("COMPLETED_WITH_ERROR.  " + this.requestCount
-                    + " at time: " + PcDateUtils.getNowDateTimeStrStandard());
+                    + " at time: " + curTimeStr);
+//TODO
+            // #47
+            if (t instanceof ExecutionManagerExecutionException
+                    && ((ExecutionManagerExecutionException) t).getType() == ManagerExceptionType.TIMEOUT) {
+
+                for (Entry<String, NodeReqResponse> entry : task
+                        .getParallelTaskResult().entrySet()) {
+
+                    // no response yet
+                    if (entry.getValue() != null
+                            && entry.getValue().getSingleTaskResponse() == null) {
+                        ResponseOnSingleTask response = new ResponseOnSingleTask();
+                        response.setReceiveTimeInManager(curTimeStr);
+                        response.setError(true);
+                        response.setErrorMessage(t.getLocalizedMessage()+" Response was not received");
+                        response.setReceiveTime(curTimeStr);
+                        entry.getValue().setSingleTaskResponse(response);
+                        logger.info("Found empty response for {}",
+                                entry.getKey());
+                    }
+                }
+            }//end if
 
         } else {
             logger.info("SUCCESSFUL GOT ON ALL RESPONSES: Received all the expected messages. Count matches: "
@@ -628,14 +670,15 @@ public class ExecutionManager extends UntypedActor {
         }
         workers.clear();
 
-        if (batchSenderAsstManager != null && !batchSenderAsstManager.isTerminated()) {
+        if (batchSenderAsstManager != null
+                && !batchSenderAsstManager.isTerminated()) {
             getContext().stop(batchSenderAsstManager);
         }
 
         if (timeoutMessageCancellable != null) {
             timeoutMessageCancellable.cancel();
         }
-        
+
         if (getSelf() != null && !getSelf().isTerminated()) {
             getContext().stop(getSelf());
         }
@@ -660,7 +703,8 @@ public class ExecutionManager extends UntypedActor {
     /**
      * Cancel request and worker on host.
      *
-     * @param targetHosts the target hosts
+     * @param targetHosts
+     *            the target hosts
      */
     @SuppressWarnings("deprecation")
     private void cancelRequestAndWorkerOnHost(List<String> targetHosts) {

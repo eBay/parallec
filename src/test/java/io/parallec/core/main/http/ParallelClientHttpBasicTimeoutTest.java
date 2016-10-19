@@ -12,12 +12,12 @@ limitations under the License.
  */
 package io.parallec.core.main.http;
 
-import io.parallec.core.FilterRegex;
 import io.parallec.core.ParallecResponseHandler;
 import io.parallec.core.ParallelClient;
 import io.parallec.core.ParallelTask;
 import io.parallec.core.ResponseOnSingleTask;
 import io.parallec.core.TestBase;
+import io.parallec.core.config.ParallelTaskConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ import org.junit.Test;
  * context to pass value during the response handler out to a global space
  * </p>
  */
-public class ParallelClientHttpBasicTest extends TestBase {
+public class ParallelClientHttpBasicTimeoutTest extends TestBase {
 
     /** The pc. */
     private static ParallelClient pc;
@@ -67,14 +67,18 @@ public class ParallelClientHttpBasicTest extends TestBase {
      * Hit websites min sync.
      */
     @Test
-    public void hitWebsitesMinSync() {
+    public void hitWebsitesMinSyncTimeout() {
+
+        ParallelTaskConfig config = new ParallelTaskConfig();
+        config.setTimeoutInManagerSec(0);
 
         Map<String, Object> responseContext = new HashMap<String, Object>();
         ParallelTask task = pc
                 .prepareHttpGet("/validateInternals.html")
-                .setResponseContext(responseContext)
                 .setConcurrency(1700)
-                //.handleInWorker()
+                .setResponseContext(responseContext)
+                .handleInWorker()
+                .setConfig(config)
                 .setTargetHostsFromString(
                         "www.parallec.io www.jeffpei.com www.restcommander.com")
                 .execute(new ParallecResponseHandler() {
@@ -82,31 +86,14 @@ public class ParallelClientHttpBasicTest extends TestBase {
                     @Override
                     public void onCompleted(ResponseOnSingleTask res,
                             Map<String, Object> responseContext) {
-                        String cpu = new FilterRegex(
-                                ".*<td>CPU-Usage-Percent</td>\\s*<td>(.*?)</td>.*")
-                                .filter(res.getResponseContent());
-                        String memory = new FilterRegex(
-                                ".*<td>Memory-Used-KB</td>\\s*<td>(.*?)</td>.*")
-                                .filter(res.getResponseContent());
 
-                        Map<String, Object> metricMap = new HashMap<String, Object>();
-                        metricMap.put("CpuUsage", cpu);
-                        metricMap.put("MemoryUsage", memory);
-
-                        logger.info("cpu:" + cpu + " memory: " + memory
-                                + " host: " + res.getHost());
-                        responseContext.put(res.getHost(), cpu);
-                        logger.debug(res.toString());
-
+                            ;
                     }
                 });
-        Asserts.check(responseContext.values().size() >= 3,
+
+        Asserts.check(task.getParallelTaskResult().get("www.parallec.io")
+                .getSingleTaskResponse().getErrorMessage().contains("Execution manager timeout"),
                 " Fail to get 3 results");
-        for (Object o : responseContext.values()) {
-            Double cpuDouble = Double.parseDouble((String) o);
-            Asserts.check(cpuDouble <= 100.0 && cpuDouble >= 0.0,
-                    " Fail to extract cpu values");
-        }
         logger.info("Task Pretty Print: \n{}", task.prettyPrintInfo());
     }
 

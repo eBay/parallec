@@ -73,6 +73,7 @@ public class ParallelClientHttpBasicMoreOptionsTest extends TestBase {
         ParallelTask task = pc
                 .prepareHttpGet("/validateInternals.html")
                 .setConcurrency(1700)
+                .setResponseContext(responseContext)
                 .setTargetHostsFromString(
                         "www.parallec.io www.jeffpei.com www.restcommander.com")
 
