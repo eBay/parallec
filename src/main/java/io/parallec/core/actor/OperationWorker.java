@@ -232,7 +232,7 @@ public class OperationWorker extends UntypedActor {
          * complete, if not, send the request again.
          */
         if (request.isPollable()) {
-            boolean scheduleNextPoll = false;
+            boolean scheduleNextPoll;
             boolean errorFindingUuid = false;
 
             // set JobId of the poller

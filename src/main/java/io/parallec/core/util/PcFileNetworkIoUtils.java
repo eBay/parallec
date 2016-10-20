@@ -99,7 +99,7 @@ public class PcFileNetworkIoUtils {
      */
     public static String readFileContentToString(String filePath)
             throws IOException {
-        String content = "";
+        String content;
         content = Files.toString(new File(filePath), Charsets.UTF_8);
         return content;
     }

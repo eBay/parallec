@@ -163,8 +163,8 @@ public class TargetHostsBuilderHelperCms {
             JSONObject jsonObject = readJsonFromUrlWithCmsHeader(url);
             nodes.addAll(getFQDNValueListCMS(jsonObject, projectionStr));
             JSONObject jsonObjectNext = jsonObject;
-            Boolean hasMore = false;
-            String hasMoreNextUrl = null;
+            Boolean hasMore;
+            String hasMoreNextUrl;
             String KEY_HAS_MORE = "hasmore";
             String KEY_NEXT_PARENT = "next";
             String KEY_NEXT_URL = "url";

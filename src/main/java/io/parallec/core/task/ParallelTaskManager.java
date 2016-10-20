@@ -262,7 +262,7 @@ public class ParallelTaskManager {
         Map<String, StrStrMap> replacementVarMapNodeSpecific = null;
         Map<String, String> replacementVarMap = null;
 
-        ResponseFromManager batchResponseFromManager = null;
+        ResponseFromManager batchResponseFromManager;
 
         switch (task.getRequestReplacementType()) {
         case UNIFORM_VAR_REPLACEMENT:
