@@ -2,6 +2,13 @@ Parallec Change Log
 ==========
 
 
+## Version 0.10.2
+
+_2016-10-27_
+
+* Issue [#48](https://github.com/eBay/parallec/issues/48). 
+* Fixed not setting context in some tests. Code refactoring. 
+
 ## Version 0.10.1
 
 _2016-10-18_

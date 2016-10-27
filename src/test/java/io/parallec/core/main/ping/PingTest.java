@@ -69,7 +69,7 @@ public class PingTest extends TestBase {
     @Test
     public void pingWebsitesMinBasicSync() {
 
-        ParallelTask task = pc.preparePing().setConcurrency(1500)
+        ParallelTask task = pc.preparePing().setConcurrency(100)
                  .setTargetHostsFromString(
                  "www.parallec.io www.jeffpei.com www.restcommander.com bad.c21tom")
                 .execute(new ParallecResponseHandler() {
@@ -88,12 +88,12 @@ public class PingTest extends TestBase {
     @Test
     public void pingWebsitesMoreOptions() {
 
-        ParallelTask task = pc.preparePing().setConcurrency(1500)
+        ParallelTask task = pc.preparePing().setConcurrency(100)
                  .setTargetHostsFromString(
-                 "www.parallec.io www.jeffpei.com www.restcommander.com")
+                 "www.parallec.io www.jeffpei.com www.restcommander.com 192.168.99.11")
                  .setPingMode(PingMode.PROCESS)
                  .setPingNumRetries(3)
-                 .setPingTimeoutMillis(500)
+                 .setPingTimeoutMillis(2000)
                  
                 .execute(new ParallecResponseHandler() {
                     @Override
@@ -112,7 +112,7 @@ public class PingTest extends TestBase {
     @Test
     public void testInvalidPoller() {
         try {
-            pc.preparePing().setConcurrency(1500)
+            pc.preparePing().setConcurrency(100)
             .setHttpPollable(true)
             .setTargetHostsFromString(
             "www.parallec.io www.jeffpei.com www.restcommander.com bad.c21tom")
@@ -128,6 +128,5 @@ public class PingTest extends TestBase {
             logger.info("EXPECTED Exception {}", e.getLocalizedMessage());
         }
     }
-    
-  
+ 
 }

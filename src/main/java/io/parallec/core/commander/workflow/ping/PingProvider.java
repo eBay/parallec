@@ -43,10 +43,10 @@ public class PingProvider {
                 String cmd = "";
                 if (System.getProperty("os.name").startsWith("Windows")) {
                     // For Windows
-                    cmd = "ping -n 1 " + targetHost;
+                    cmd = "ping -n 1 -w " + pingMeta.getPingTimeoutMillis() + " " + targetHost;
                 } else {
                     // For Linux and OSX
-                    cmd = "ping -c 1 " + targetHost;
+                    cmd = "ping -c 1 -t "+ (int) (pingMeta.getPingTimeoutMillis()/1000) + " "  + targetHost;
                 }
                 
                 Process myProcess = Runtime.getRuntime().exec(cmd);
