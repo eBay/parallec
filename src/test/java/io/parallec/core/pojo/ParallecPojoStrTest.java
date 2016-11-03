@@ -156,6 +156,9 @@ public class ParallecPojoStrTest extends TestBase {
         manager.checkClientTrusted(null, null);
         manager.checkServerTrusted(null, null);
         manager.getAcceptedIssuers();
+        
+        
+        
     }
 
 }

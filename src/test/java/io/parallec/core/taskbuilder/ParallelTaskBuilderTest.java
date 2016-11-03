@@ -1,18 +1,25 @@
 package io.parallec.core.taskbuilder;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import io.parallec.core.ParallecResponseHandler;
 import io.parallec.core.ParallelClient;
 import io.parallec.core.ParallelTaskBuilder;
+import io.parallec.core.ResponseOnSingleTask;
 import io.parallec.core.TestBase;
 import io.parallec.core.bean.HttpMeta;
 import io.parallec.core.bean.ssh.SshLoginType;
 import io.parallec.core.exception.ParallelTaskInvalidException;
 import io.parallec.core.exception.TargetHostsLoadException;
 import io.parallec.core.resources.HttpClientStore;
+import io.parallec.core.resources.HttpMethod;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ParallelTaskBuilderTest extends TestBase {
@@ -56,8 +63,78 @@ public class ParallelTaskBuilderTest extends TestBase {
     }
     
     @Test
+    public void testExecuteMock() throws Exception {
+        
+        ParallelTaskBuilder tb = mock(ParallelTaskBuilder.class);
+        HttpMeta meta = new HttpMeta();
+        meta.initValuesNa();
+        meta.setHttpMethod(HttpMethod.GET);
+        meta.setRequestPort("80");
+        
+        ParallecResponseHandler handler = new ParallecResponseHandler() {
+            @Override
+            public void onCompleted(ResponseOnSingleTask res,
+                    Map<String, Object> responseContext) {
+                logger.info("test:"  + res.toString());
+            }
+        };
+        try {
+            when(tb.getMode()).thenThrow(new RuntimeException());
+            when(tb.execute(handler)).thenCallRealMethod();
+            tb.setHttpMeta(meta);
+            tb.execute(handler);
+            
+        } catch (Exception e) {
+            logger.info("expected NPE error " + e);
+        }
+    }
+    
+    @Ignore
+    public void testExecute() throws Exception {
+        ParallelTaskBuilder tb = new ParallelTaskBuilder();
+        
+        
+        tb.setTargetHostsFromString("www.google.com");
+        HttpMeta meta = new HttpMeta();
+        meta.initValuesNa();
+        meta.setHttpMethod(HttpMethod.GET);
+        meta.setRequestPort("80");
+        tb.setHttpMeta(meta);
+        try {
+            tb.execute(new ParallecResponseHandler() {
+
+                @Override
+                public void onCompleted(ResponseOnSingleTask res,
+                        Map<String, Object> responseContext) {
+                    logger.info("test:"  + res.toString());
+
+                }
+            });
+            
+        } catch (Exception e) {
+            logger.info("expected error " + e);
+        }
+    }
+    
+    @Test
+    public void testSetReplaceVarMapToSingleTargetSingleVar() throws Exception {
+        ParallelTaskBuilder tb = new ParallelTaskBuilder();
+        
+        
+        //test setReplaceVarMapToSingleTargetSingleVar
+        tb.setReplaceVarMapToSingleTargetSingleVar(null, null, null);
+        
+        tb.setReplaceVarMapToSingleTargetSingleVar(null, Arrays.asList("a", null,"c"), "replace");
+        
+        tb.setRunAsSuperUser(true);
+    }
+    
+    @Test
     public void testSetterGetters() throws Exception {
         ParallelTaskBuilder tb = new ParallelTaskBuilder();
+        
+        
+        
         tb.setResponseContext(null);
         try {
             tb.setTargetHostsFromCmsQueryUrl("", "");

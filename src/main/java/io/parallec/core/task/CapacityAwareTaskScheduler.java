@@ -98,8 +98,7 @@ public class CapacityAwareTaskScheduler implements Runnable {
             }
 
         } catch (Exception e) {
-            logger.error("TASK_WAIT_Q: fail in EvalTaskInWaitQRunner " + e
-                    + " details ", e);
+            logger.error("TASK_WAIT_Q: fail in EvalTaskInWaitQRunner ", e);
         }
     }
 

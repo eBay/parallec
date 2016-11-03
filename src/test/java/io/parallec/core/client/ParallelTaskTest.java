@@ -68,13 +68,26 @@ public class ParallelTaskTest extends TestBase {
     }
 
     @Test
+    public void testGetProgress() {
+        ParallelTask task = ExecutionManagerTest.genParallelTask();
+        task.setState(ParallelTaskState.IN_PROGRESS);
+        task.setRequestNum(0);
+        logger.info("progress: {}",task.getProgress());
+        task.setState(ParallelTaskState.COMPLETED_WITHOUT_ERROR);
+        logger.info("progress: {}",task.getProgress());
+        
+    }
+
+    
+    @Test
     public void testCancelNullManager() {
         ParallelTask task = ExecutionManagerTest.genParallelTask();
         task.setState(ParallelTaskState.IN_PROGRESS);
         task.executionManager = null;
         task.cancel(true);
     }
-
+    
+    
     @Test
     public void testValidation() {
         ParallelTask task = ExecutionManagerTest.genParallelTask();

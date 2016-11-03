@@ -146,12 +146,6 @@ public final class AsyncHttpClientFactoryEmbed {
         HttpsURLConnection.setDefaultHostnameVerifier(verifier);
     }
 
-    /**
-     * dummy.
-     */
-    public void state() {
-        logger.info("Initializing Default AHC CLient Factory...");
-    }
 
     /**
      * class CustomTrustManager.

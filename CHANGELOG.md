@@ -2,6 +2,12 @@ Parallec Change Log
 ==========
 
 
+## Version 0.10.3
+
+_2016-11-??_
+
+* Improved unit tests coverage.
+
 ## Version 0.10.2
 
 _2016-10-27_

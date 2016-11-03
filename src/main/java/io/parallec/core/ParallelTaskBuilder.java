@@ -271,7 +271,7 @@ public class ParallelTaskBuilder {
                 new Thread(director).start();
             }
 
-            if (this.mode == TaskRunMode.SYNC) {
+            if (this.getMode() == TaskRunMode.SYNC) {
                 logger.info("Executing task {} in SYNC mode...  ",
                         task.getTaskId());
 
@@ -300,7 +300,7 @@ public class ParallelTaskBuilder {
             logger.error("fail task builder. Unknown error: " + t, t);
             task.setState(ParallelTaskState.COMPLETED_WITH_ERROR);
             task.getTaskErrorMetas().add(
-                    new TaskErrorMeta(TaskErrorType.UNKNOWN, "validation eror",
+                    new TaskErrorMeta(TaskErrorType.UNKNOWN, "unknown eror",
                             t));
         }
 
@@ -681,8 +681,8 @@ public class ParallelTaskBuilder {
             String uniformTargetHost) {
         setReplacementVarMapNodeSpecific(replacementVarMapNodeSpecific);
 
-        if (uniformTargetHost == null || uniformTargetHost.isEmpty()) {
-            logger.error("uniform target host is empty or null. skil setting.");
+        if (Strings.isNullOrEmpty(uniformTargetHost)) {
+            logger.error("uniform target host is empty or null. skip setting.");
             return this;
         }
         for (Entry<String, StrStrMap> entry : replacementVarMapNodeSpecific
@@ -718,8 +718,10 @@ public class ParallelTaskBuilder {
         this.targetHosts.clear();
         int i = 0;
         for (String replace : replaceList) {
-            if (replace == null)
+            if (replace == null){
+                logger.error("null replacement.. skip");
                 continue;
+            }
             String hostName = PcConstants.API_PREFIX + i;
 
             replacementVarMapNodeSpecific.put(

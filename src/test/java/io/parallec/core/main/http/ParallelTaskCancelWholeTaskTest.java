@@ -13,8 +13,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * TODO Testing the enabled capacity control
- * 
  * @author Yuanteng (Jeff) Pei
  *
  */
@@ -34,7 +32,6 @@ public class ParallelTaskCancelWholeTaskTest extends TestBase {
 
     @Test
     public void cancelAfter100ms() {
-        // $NULL_UR
         ParallelTask pt = pc
                 .prepareHttpGet("")
                 .async()
@@ -61,6 +58,12 @@ public class ParallelTaskCancelWholeTaskTest extends TestBase {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        
+        try {
+            Thread.sleep(3000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
@@ -93,10 +96,17 @@ public class ParallelTaskCancelWholeTaskTest extends TestBase {
             }
         }
         pt.cancel(true);
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void cancelAfter2Sec() {
+    public void cancelAfter2SecSync() {
+        
+        logger.info("START cancelAfter2SecSync ");
         ParallelTask pt = pc
                 .prepareHttpGet("")
                 .async()
@@ -123,6 +133,8 @@ public class ParallelTaskCancelWholeTaskTest extends TestBase {
             }
         }
         pt.saveLogToLocal();
+        
+        logger.info("COMPLETED cancelAfter2SecSync ");
     }
 
 }
