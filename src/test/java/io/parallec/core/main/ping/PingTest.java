@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -85,6 +86,36 @@ public class PingTest extends TestBase {
         logger.info("Total Duration: " + task.getDurationSec());
     }// end func
     
+    
+    @Ignore
+    public void pingWebsitesMoreOptionsForever() {
+        for(int i=1; i<100; i++){
+            pingWebsitesMoreOptionsHelper();
+        }
+    }
+    
+    public void pingWebsitesMoreOptionsHelper() {
+
+        ParallelTask task = pc.preparePing().setConcurrency(100)
+                .setTargetHostsFromLineByLineText(FILEPATH_TOP_100,
+                        SOURCE_LOCAL)
+                 .setPingMode(PingMode.PROCESS)
+                 .setPingNumRetries(1)
+                 .setPingTimeoutMillis(2000)
+                 
+                .execute(new ParallecResponseHandler() {
+                    @Override
+                    public void onCompleted(ResponseOnSingleTask res,
+                            Map<String, Object> responseContext) {
+                        logger.info(res.toString());
+                    }
+                });
+
+        logger.info("Task Pretty Print: \n{}",
+                PcStringUtils.renderJson(task.getAggregateResultFullSummary()));
+        logger.info("Total Duration: " + task.getDurationSec());
+    }// end func
+    
     @Test
     public void pingWebsitesMoreOptions() {
 
@@ -92,7 +123,7 @@ public class PingTest extends TestBase {
                  .setTargetHostsFromString(
                  "www.parallec.io www.jeffpei.com www.restcommander.com 192.168.99.11")
                  .setPingMode(PingMode.PROCESS)
-                 .setPingNumRetries(3)
+                 .setPingNumRetries(2)
                  .setPingTimeoutMillis(2000)
                  
                 .execute(new ParallecResponseHandler() {
