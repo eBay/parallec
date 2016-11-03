@@ -123,7 +123,8 @@ public class ParallelTaskCancelWholeTaskTest extends TestBase {
                 });
         while (!pt.isCompleted()) {
             try {
-                Thread.sleep(2000L);
+                // travis ci is quick; can often finish the whole task within 1 sec.
+                Thread.sleep(500L);
                 pt.cancel(true);
                 System.err.println(String.format(
                         "POLL_JOB_PROGRESS (%.5g%%)  PT jobid: %s",
