@@ -3,7 +3,10 @@ package io.parallec.core.pojo;
 import io.parallec.core.ParallelTaskBuilder;
 import io.parallec.core.ResponseOnSingleTask;
 import io.parallec.core.TestBase;
+import io.parallec.core.actor.ActorConfig;
 import io.parallec.core.actor.message.NodeReqResponse;
+import io.parallec.core.actor.message.ResponseOnSingeRequest;
+import io.parallec.core.actor.poll.HttpPollerProcessor;
 import io.parallec.core.actor.poll.PollerData;
 import io.parallec.core.app.ParallecAppMin;
 import io.parallec.core.bean.HttpMeta;
@@ -157,8 +160,69 @@ public class ParallecPojoStrTest extends TestBase {
         manager.checkServerTrusted(null, null);
         manager.getAcceptedIssuers();
         
+        ActorConfig.getTimeoutduration();
+        ActorConfig.shutDownActorSystemForce();
+        ActorConfig.shutDownActorSystemForce();
+        TcpUdpSshPingResourceStore.getInstance().shutdown();
+        TcpUdpSshPingResourceStore.getInstance().shutdown();
+        
+      
         
         
+        
+    }
+    
+    @Test
+    public void testPollerException() {
+        //test poller
+        HttpPollerProcessor poller = new HttpPollerProcessor();
+        ResponseOnSingeRequest res = new ResponseOnSingeRequest();
+        res.setResponseBody("status/01218");
+        res.setFailObtainResponse(false);
+        poller.setSuccessRegex(null);
+        poller.setProgressRegex(null);
+        
+        try{
+            poller.ifTaskCompletedSuccessOrFailureFromResponse(res);
+        }catch(Exception e){
+            logger.info("expected ", e);
+        }
+        
+        try{
+            poller.ifTaskCompletedSuccessOrFailureFromResponse(res);
+        }catch(Exception e){
+            logger.info("expected ", e);
+        }
+        poller.getProgressFromResponse(new ResponseOnSingeRequest());
+    }
+    
+    @Test
+    public void testPollerNotMatch() {
+        //test poller
+        HttpPollerProcessor poller = new HttpPollerProcessor();
+        ResponseOnSingeRequest res = new ResponseOnSingeRequest();
+        res.setResponseBody("status/01218");
+        poller.setSuccessRegex("testregex");
+        res.setFailObtainResponse(false);
+        String progressRegex = ".*\"pr111ogress\"\\s*:\\s*([0-9]*).*}";
+        String failureRegex = ".*\"error\"\\s*:\\s*(.*).*}";
+        poller.setProgressRegex(progressRegex);
+        poller.setFailureRegex(failureRegex);
+        logger.info("completed (with failure): {} ",poller.ifTaskCompletedSuccessOrFailureFromResponse(res));
+        logger.info("fail to match progress (should be 0): {} ",poller.getProgressFromResponse(res));
+    }
+    
+    @Test
+    public void testPoller() {
+        //test poller
+        HttpPollerProcessor poller = new HttpPollerProcessor();
+        
+        poller.ifTaskCompletedSuccessOrFailureFromResponse(null);
+        poller.ifTaskCompletedSuccessOrFailureFromResponse(new ResponseOnSingeRequest());
+        poller.ifThereIsErrorInResponse(null);
+        
+        poller.getProgressFromResponse(null);
+        poller.getProgressFromResponse(new ResponseOnSingeRequest());
     }
 
 }

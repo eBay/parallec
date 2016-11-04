@@ -319,16 +319,6 @@ public class PingWorker extends UntypedActor {
     }
 
     /**
-     * Sets the sent reply.
-     *
-     * @param sentReply
-     *            the new sent reply
-     */
-    public void setSentReply(boolean sentReply) {
-        this.sentReply = sentReply;
-    }
-
-    /**
      * Gets the response future.
      *
      * @return the response future

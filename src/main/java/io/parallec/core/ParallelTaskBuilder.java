@@ -279,8 +279,7 @@ public class ParallelTaskBuilder {
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException e) {
-                        logger.error("fail sleep interrup exception in executing task "
-                                + e);
+                        logger.error("InterruptedException " + e);
                     }
                 }
             }
@@ -710,7 +709,7 @@ public class ParallelTaskBuilder {
     public ParallelTaskBuilder setReplaceVarMapToSingleTargetSingleVar(
             String variable, List<String> replaceList, String uniformTargetHost) {
 
-        if (uniformTargetHost == null || uniformTargetHost.isEmpty()) {
+        if (Strings.isNullOrEmpty(uniformTargetHost)) {
             logger.error("uniform target host is empty or null. skil setting.");
             return this;
         }

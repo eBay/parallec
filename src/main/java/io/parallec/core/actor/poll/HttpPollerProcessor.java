@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * Define how to poll progress 1. how to get the job id from the 1st response.
  * 2. what is the URL template to poll progress (assuming it is a HTTP GET) 3.
@@ -76,8 +77,7 @@ public class HttpPollerProcessor {
      * default as the cronus agent poller
      * 
      * Assuming the polling API is By HTTP GET; without any postbody (for GET, no
-     * post body for sure)
-     * 
+     * post body for sure).
      */
 
     public HttpPollerProcessor() {
@@ -221,7 +221,7 @@ public class HttpPollerProcessor {
             }
 
         } catch (Exception t) {
-            logger.error("fail" + t);
+            logger.error("fail " + t);
 
         }
 
@@ -264,7 +264,7 @@ public class HttpPollerProcessor {
             }
 
         } catch (Exception t) {
-            logger.error("fail" + t);
+            logger.error("fail " + t);
 
         }
         return isCompleted;
@@ -420,5 +420,24 @@ public class HttpPollerProcessor {
     public void setMaxPollError(int maxPollError) {
         this.maxPollError = maxPollError;
     }
+
+    /**
+     * Gets the success regex.
+     *
+     * @return the success regex
+     */
+    public String getSuccessRegex() {
+        return successRegex;
+    }
+
+    /**
+     * Sets the success regex.
+     *
+     * @param successRegex the new success regex
+     */
+    public void setSuccessRegex(String successRegex) {
+        this.successRegex = successRegex;
+    }
+    
 
 }

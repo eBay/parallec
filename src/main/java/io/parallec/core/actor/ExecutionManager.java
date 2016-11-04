@@ -437,9 +437,7 @@ public class ExecutionManager extends UntypedActor {
 
                 String hostName = taskResponse.getRequest().getHost();
                 if (responseMap.containsKey(hostName)) {
-
-                    logger.error("ERROR: dupliated response received: "
-                            + hostName + PcDateUtils.getNowDateTimeStr());
+                    logger.error("ERROR: duplicate response received {}", hostName);
                 }
                 responseMap.put(hostName, taskResponse);
 
@@ -724,7 +722,7 @@ public class ExecutionManager extends UntypedActor {
                 logger.info("Submitted CANCEL request on Host {}", targetHost);
             } else {
                 logger.info(
-                        "Dit NOT Submitted "
+                        "Did NOT Submitted "
                                 + "CANCEL request on Host {} as worker on this host is null or already killed",
                         targetHost);
             }

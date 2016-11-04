@@ -551,7 +551,7 @@ public class OperationWorker extends UntypedActor {
                         request.getHandler().onCompleted(response,
                                 request.getResponseContext());
                     } catch (Exception t) {
-                        logger.error("Error handling onCompleted in manager for response: {} Error {}"
+                        logger.error("Error handling onCompleted in op worker for response: {} Error {}"
                                 , response.toString(),  t.getLocalizedMessage());
                     }
                 }
