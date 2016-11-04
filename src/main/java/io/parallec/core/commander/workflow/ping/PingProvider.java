@@ -41,14 +41,17 @@ public class PingProvider {
                 return address.isReachable(pingMeta.getPingTimeoutMillis());
             }else{
                 String cmd = "";
-                if (System.getProperty("os.name").startsWith("Windows")) {
+                String os = System.getProperty("os.name").toLowerCase();
+                if (os.indexOf("win")>=0) {
                     // For Windows
                     cmd = "ping -n 1 -w " + pingMeta.getPingTimeoutMillis() + " " + targetHost;
                 } else {
-                    // For Linux and OSX
-                    cmd = "ping -c 1 -t "+ (int) (pingMeta.getPingTimeoutMillis()/1000) + " "  + targetHost;
+                    // For Linux (-W) and OSX (-t)
+                    String timeoutArg = os.indexOf("mac")>=0 ? "-t" : "-W"; 
+                    cmd = "ping -c 1 "
+                            + timeoutArg
+                            + " "+ (int) (pingMeta.getPingTimeoutMillis()/1000) + " "  + targetHost;
                 }
-                
                 Process myProcess = Runtime.getRuntime().exec(cmd);
                 myProcess.waitFor();
                 if (myProcess.exitValue() == 0) {

@@ -4,8 +4,9 @@ Parallec Change Log
 
 ## Version 0.10.3
 
-_2016-11-??_
+_2016-11-03_
 
+* Fixed the ping status check in linux with process mode.
 * Improved unit tests coverage.
 
 ## Version 0.10.2
