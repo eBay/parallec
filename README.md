@@ -25,8 +25,9 @@ Parallec is a fast parallel async HTTP(S)/SSH/TCP/UDP/Ping client java library b
 **[Production Use Cases](http://www.parallec.io/#testimonial-ebay)**
 
 1. Application Deployment / PaaS: Parallec has been [integrated](http://www.parallec.io/#testimonial-ebay) in eBay main production application deployment system (PaaS). Parallec orchestrates 10+ API tasks, with each task targeting 10s to 1,000s servers over 1,000+ application pools in production.  
-2. Data Extraction / ETL: Parallec was [used](http://www.parallec.io/#testimonial-ebay) by eBay Israel web intelligence team for executing 10k-100k API parallel calls to a single 3rd party server with dramatic improved performance and reduced resources. 
-3. Network troubleshooting via end-to-end probing:  In eBay Network/Cloud team, Parallec serves as the core polling engine in the master component to check agent healths and mark down agents to eliminate noises when detecting switch soft failures. 
+2. Data Extraction / ETL: Parallec was [used](http://www.parallec.io/#testimonial-ebay) by eBay Israel's web intelligence team for executing 10k-100k API parallel calls to a single 3rd party server with dramatic improved performance and reduced resources. 
+3. Network Troubleshooting via Probing:  In eBay's network / cloud team, Parallec is instrumental to ensure an extremely low false alert rates to accurately detect switch soft failures. Parallec serves as the core polling engine in the master component to check agent healths and mark down agents to effectively and timely eliminate noises.
+4. Agent Management / Master: In eBay's site operation / tools team, Parallec serves as the core engine to manage and monitor a puppet agent/salt minion/kubernetes kubelet like agent on 100,000+ production servers to ensure scalable operations.
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
