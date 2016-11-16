@@ -22,7 +22,11 @@ Parallec is a fast parallel async HTTP(S)/SSH/TCP/UDP/Ping client java library b
 **Aggregated error messages - Debug friendly with full visibility**: Having trouble debugging in concurrent environment? Not any more! All exceptions, timeout, stack traces, request sent and response received time are **captured and aggregated** in the [response](http://www.parallec.io/javadoc/index.html?io/parallec/core/ResponseOnSingleTask.html) map. It is available in [ParallelTask](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelTask.html) for polling right after you execute a task asynchronously.  Multi-level (worker/manager) timeout guarantees tasks return even for 100,000s of requests.  
 
 
-Parallec has been [integrated](http://www.parallec.io/#testimonial-ebay) in eBay main production application deployment system (PaaS). Parallec orchestrates 10+ API tasks, with each task targeting 10s to 1,000s servers over 1,000+ application pools in production. 
+**[Production Use Cases](http://www.parallec.io/#testimonial-ebay)**
+
+1. Application Deployment / PaaS: Parallec has been [integrated](http://www.parallec.io/#testimonial-ebay) in eBay main production application deployment system (PaaS). Parallec orchestrates 10+ API tasks, with each task targeting 10s to 1,000s servers over 1,000+ application pools in production.  
+2. Data Extraction / ETL: Parallec was [used](http://www.parallec.io/#testimonial-ebay) by eBay Israel web intelligence team for executing 10k-100k API parallel calls to a single 3rd party server with dramatic improved performance and reduced resources. 
+3. Network troubleshooting via end-to-end probing:  In eBay Network/Cloud team, Parallec serves as the core polling engine in the master component to check agent healths and mark down agents to eliminate noises when detecting switch soft failures. 
 
 ![Workflow Overview](http://www.parallec.io/images/parallec-flow.svg)
 
