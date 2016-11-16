@@ -23,5 +23,7 @@ Parallec内置特别的响应上下文（response context），在处理服务�
 “Parallec.io现已经被集成在eBay的应用程序部署系统(PaaS)。Parallec被用于控制10个以上的并行API的任务的工作流，每个任务并行执行到数十到数千台的生产服务器的上。与以前的实现相比，Parallec 处理并行操作代码简洁，方便进行批作业的管理，为我们提高了资源利用率和效率。”
 －－ Xiaotang (Sheldon) Shao, Principle Software Engineer, Deployment Platform / PaaS, Cloud Engineering at eBay Inc.
 
+“eBay 网络智能分析组目前的几个项目都需要并行执行万级到十万级的API到第三方的服务器，这毫无疑问是我们最大的瓶颈。因此我们一致在寻找一个高效的异步I/O的解决方案。使用Parallec，不但显著的提升了性能，同时有效的减少了资源的使用。 ” －－ Tomer Balan, Data Extraction Engineer, Structured Data at eBay Inc (以色列).
+
 您可以用5分钟按照[样例程序](http://www.parallec.io/#code-sample)试试Parallec去给多个服务器（网站）发送相同或者不同的请求。我们渴望收到您的意见和建议。您可以通过[提交Github Issue](https://github.com/eBay/parallec/issues/new), 查看[FAQ](http://www.parallec.io/docs/faq/)，登陆论坛 [Parallec.io Google Group](https://groups.google.com/forum/#!forum/parallec)，或者发邮件至 ypei@ebay.com 进行反馈或者提问。谢谢！
 
