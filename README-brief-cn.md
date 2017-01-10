@@ -20,6 +20,13 @@ Parallec内置特别的响应上下文（response context），在处理服务�
 
 通过过去一年内部使用和开源REST Superman/ REST Commander的开发， 反馈，经验教训，我们现在做把REST Commander的核心做成一个易于使用的独立库 （便于从Maven导入，让所有程序都写20行代码变成REST Commander）。在此基础上，我们添加超过[**15个新的功能**](https://github.com/eBay/parallec/blob/master/README.md#compare)，**改写超过70%的代码**，**以90%以上的测试覆盖率**，确保了用户和开源贡献者能够更加放心的开发和使用。与此同时，我们也把整体软件结构进行了优化，使得大部分内部开发可以直接在github开源平台上直接进行。
 
+**生产环境使用案例**：广泛用于基础设施软件作为轮询和聚合引擎:
+
+* 应用程序部署/ PaaS：Parallec已集成在eBay主要生产应用程序部署系统（PaaS）中。 Parallec协调10+个API任务，每**个任务针对生产中超过1,000个应用程序池的10到1,000个服务器。 Parallec已经与工作流引擎Winder一起使用来处理复杂的部署工作流程。
+* 数据提取/ ETL：Parallec已被eBay以色列的结构化大数据团队用于对单个第三方服务器执行10k-100k API并行调用，具有显着改进的性能和减少的资源。
+* 主动探测进行网络故障排除：在eBay的网络/云团队中，Parallec有助于确保极低的错误警报率，从而准确检测交换机软故障。 Parallec在Master组件中充当核心轮询引擎，以检查Agent运行状况，及时有效地消除噪音和错误报警。
+* Agent管理/Agent Master：在eBay的网站操作/工具团队中，Parallec作为核心引擎，在100,000个生产服务器上管理和监控一种和 puppet agent / salt minion / kubernetes kubelet 类似的agent，以确保快速大规模的并行的操作。
+
 “Parallec.io现已经被集成在eBay的应用程序部署系统(PaaS)。Parallec被用于控制10个以上的并行API的任务的工作流，每个任务并行执行到数十到数千台的生产服务器的上。与以前的实现相比，Parallec 处理并行操作代码简洁，方便进行批作业的管理，为我们提高了资源利用率和效率。”
 －－ Xiaotang (Sheldon) Shao, Principle Software Engineer, Deployment Platform / PaaS, Cloud Engineering at eBay Inc.
 
