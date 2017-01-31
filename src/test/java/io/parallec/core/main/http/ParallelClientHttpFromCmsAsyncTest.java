@@ -35,6 +35,55 @@ public class ParallelClientHttpFromCmsAsyncTest extends TestBase {
      * Added token
      */
     @Test(timeout = 15000)
+    public void hitCmsQuerySinglePageWithoutTokenAsync() {
+
+        // http://ccoetech.ebay.com/cms-configuration-management-service-based-mongodb
+        String cmsQueryUrl = URL_CMS_QUERY_SINGLE_PAGE;
+        ParallelTask pt = pc.prepareHttpGet("/validateInternals.html")
+                .setTargetHostsFromCmsQueryUrl(cmsQueryUrl, "label")
+                .setConcurrency(1700).async()
+                .execute(new ParallecResponseHandler() {
+
+                    @Override
+                    public void onCompleted(ResponseOnSingleTask res,
+                            Map<String, Object> responseContext) {
+                        String cpu = new FilterRegex(
+                                ".*<td>CPU-Usage-Percent</td>\\s*<td>(.*?)</td>[\\s\\S]*")
+                                .filter(res.getResponseContent());
+                        String memory = new FilterRegex(
+                                ".*<td>Memory-Used-KB</td>\\s*<td>(.*?)</td>[\\s\\S]*")
+                                .filter(res.getResponseContent());
+
+                        Map<String, Object> metricMap = new HashMap<String, Object>();
+                        metricMap.put("CpuUsage", cpu);
+                        metricMap.put("MemoryUsage", memory);
+                        metricMap.put("LastUpdated",
+                                PcDateUtils.getNowDateTimeStrStandard());
+                        metricMap.put("NodeGroupType", "OpenSource");
+
+                        logger.info("cpu:" + cpu + " host: " + res.getHost());
+                    }
+                });
+        logger.info(pt.toString());
+        Asserts.check(pt.getRequestNum() == 3, "fail to load all target hosts");
+        while (!pt.isCompleted()) {
+            try {
+                Thread.sleep(100L);
+                System.err.println(String.format("POLL_JOB_PROGRESS (%.5g%%)",
+                        pt.getProgress()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }    
+    
+    
+    /**
+     * With CMS query; async timeout 15 seconds
+     * Added token
+     */
+    @Test(timeout = 15000)
     public void hitCmsQuerySinglePageWithTokenAsync() {
 
         // http://ccoetech.ebay.com/cms-configuration-management-service-based-mongodb
