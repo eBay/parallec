@@ -139,6 +139,13 @@ public class ParallelTaskBuilderTest extends TestBase {
         } catch (TargetHostsLoadException e) {
             logger.info("expected error " + e);
         }
+        
+        try {
+            tb.setTargetHostsFromCmsQueryUrl("", "", "token");
+        } catch (TargetHostsLoadException e) {
+            logger.info("expected error " + e);
+        }
+        
         tb.getTargetHostMeta();
         tb.setTargetHostMeta(null);
         tb.setSshPort(22);

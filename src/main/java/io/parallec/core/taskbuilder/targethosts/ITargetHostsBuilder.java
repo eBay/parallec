@@ -104,4 +104,20 @@ public interface ITargetHostsBuilder {
     public List<String> setTargetHostsFromCmsQueryUrl(String cmsQueryUrl,
             String projection) throws TargetHostsLoadException;
 
+    /**
+     * Sets the target hosts from cms query url with projection and authorization token.
+     *
+     * @param cmsQueryUrl
+     *            the cms query url
+     * @param projection
+     *            the projection
+     * @param token
+     *            the cms authorization token
+     * @return the list
+     * @throws TargetHostsLoadException
+     *             the target hosts load exception
+     */
+    public List<String> setTargetHostsFromCmsQueryUrl(String cmsQueryUrl,
+            String projection, String token) throws TargetHostsLoadException;
+    
 }

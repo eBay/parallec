@@ -32,14 +32,15 @@ public class ParallelClientHttpFromCmsAsyncTest extends TestBase {
 
     /**
      * With CMS query; async timeout 15 seconds
+     * Added token
      */
     @Test(timeout = 15000)
-    public void hitCmsQuerySinglePageAsync() {
+    public void hitCmsQuerySinglePageWithTokenAsync() {
 
         // http://ccoetech.ebay.com/cms-configuration-management-service-based-mongodb
         String cmsQueryUrl = URL_CMS_QUERY_SINGLE_PAGE;
         ParallelTask pt = pc.prepareHttpGet("/validateInternals.html")
-                .setTargetHostsFromCmsQueryUrl(cmsQueryUrl, "label")
+                .setTargetHostsFromCmsQueryUrl(cmsQueryUrl, "label", "someToken")
                 .setConcurrency(1700).async()
                 .execute(new ParallecResponseHandler() {
 

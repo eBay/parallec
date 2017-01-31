@@ -185,7 +185,6 @@ public class TargetHostsBuilder implements ITargetHostsBuilder {
 
             logger.info("will use default project label");
             targetHosts = setTargetHostsFromCmsQueryUrl(cmsQueryUrl, "label");
-
         } catch (Exception e) {
             throw new TargetHostsLoadException("error when reading  "
                     + cmsQueryUrl, e);
@@ -194,6 +193,8 @@ public class TargetHostsBuilder implements ITargetHostsBuilder {
         return targetHosts;
 
     }
+    
+    
 
     /*
      * (non-Javadoc)
@@ -204,6 +205,18 @@ public class TargetHostsBuilder implements ITargetHostsBuilder {
     @Override
     public List<String> setTargetHostsFromCmsQueryUrl(String cmsQueryUrl,
             String projection) {
+        return setTargetHostsFromCmsQueryUrl(cmsQueryUrl, projection, null);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see io.parallec.core.taskbuilder.targethosts.ITargetHostsBuilder#
+     * setTargetHostsFromCmsQueryUrl(java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
+    public List<String> setTargetHostsFromCmsQueryUrl(String cmsQueryUrl,
+            String projection, String token) {
 
         List<String> targetHosts = new ArrayList<String>();
 
@@ -215,7 +228,7 @@ public class TargetHostsBuilder implements ITargetHostsBuilder {
             }
             TargetHostsBuilderHelperCms helper = new TargetHostsBuilderHelperCms();
             targetHosts = helper.getNodeListCompleteURLForCMS(cmsQueryUrl,
-                    projection);
+                    projection, token);
 
         } catch (Exception e) {
             throw new TargetHostsLoadException("error when reading  "
@@ -224,6 +237,6 @@ public class TargetHostsBuilder implements ITargetHostsBuilder {
 
         return targetHosts;
 
-    }
-
+    }    
+    
 }

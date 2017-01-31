@@ -106,7 +106,7 @@ public class TargetHostsBuilderHelperCms {
      * @throws JSONException
      *             the JSON exception
      */
-    static JSONObject readJsonFromUrlWithCmsHeader(String url)
+    static JSONObject readJsonFromUrlWithCmsHeader(String url, String token)
             throws MalformedURLException, IOException, JSONException {
         InputStream is = null;
 
@@ -116,6 +116,9 @@ public class TargetHostsBuilderHelperCms {
             HttpURLConnection.setFollowRedirects(false);
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setRequestMethod("GET");
+            if(token!=null){
+                con.setRequestProperty("Authorization", token);
+            }
             con.setConnectTimeout(ParallecGlobalConfig.urlConnectionConnectTimeoutMillis);
             con.setReadTimeout(ParallecGlobalConfig.urlConnectionReadTimeoutMillis);
             is = con.getInputStream();
@@ -141,7 +144,6 @@ public class TargetHostsBuilderHelperCms {
 
 
     /**
-     * TODO : will be removed .
      *
      * @param url
      *            the url
@@ -150,7 +152,7 @@ public class TargetHostsBuilderHelperCms {
      * @return the node list complete url for cms
      */
     public List<String> getNodeListCompleteURLForCMS(String url,
-            String projectionStr) {
+            String projectionStr, String token) {
         List<String> nodes = new ArrayList<String>();
 
         try {
@@ -160,7 +162,7 @@ public class TargetHostsBuilderHelperCms {
 
             // add 1st
             // updated 201501 for adding auth header.
-            JSONObject jsonObject = readJsonFromUrlWithCmsHeader(url);
+            JSONObject jsonObject = readJsonFromUrlWithCmsHeader(url, token);
             nodes.addAll(getFQDNValueListCMS(jsonObject, projectionStr));
             JSONObject jsonObjectNext = jsonObject;
             Boolean hasMore = false;
@@ -169,9 +171,6 @@ public class TargetHostsBuilderHelperCms {
             String KEY_NEXT_PARENT = "next";
             String KEY_NEXT_URL = "url";
             do {
-                /**
-                 * 20141103: BEGIN: for loop to check if has more.
-                 */
                 hasMore = false;
                 hasMoreNextUrl = null;
 
@@ -190,7 +189,7 @@ public class TargetHostsBuilderHelperCms {
                                 + hasMoreNextUrl;
 
                         // 201501 add here too.
-                        jsonObjectNext = readJsonFromUrlWithCmsHeader(nextUrlComplete);
+                        jsonObjectNext = readJsonFromUrlWithCmsHeader(nextUrlComplete, token);
                         nodes.addAll(getFQDNValueListCMS(jsonObjectNext,
                                 projectionStr));
 
@@ -200,9 +199,6 @@ public class TargetHostsBuilderHelperCms {
                 }
             } while (hasMore);
 
-            /**
-             * 20141103: END: for loop to check if has more.
-             */
 
             // filtering duplicated nodes:
             int removedDuplicatedNodeCount = PcTargetHostsUtils

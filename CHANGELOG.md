@@ -2,6 +2,13 @@ Parallec Change Log
 ==========
 
 
+## Version 0.10.4
+
+_2017-01-29_
+
+* Issue [#56](https://github.com/eBay/parallec/issues/56).  For loading target hosts from CMS (YiDB), add support for authorization token.
+
+
 ## Version 0.10.3
 
 _2016-11-03_

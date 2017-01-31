@@ -547,7 +547,8 @@ public class ParallelTaskBuilder {
 
 
     /**
-     * Sets the target hosts from cms query url.
+     * Sets the target hosts from CMS query url. 
+     * Will use label as projection, will not use authorization token
      *
      * @param cmsQueryUrl
      *            the cms query url
@@ -563,6 +564,7 @@ public class ParallelTaskBuilder {
     }
 
     /**
+     * Sets the target hosts from CMS query url. Will not use authorization token.
      * CMS: configuration-management-service. 
      * A.k.a. YiDB: http://www.yidb.org/
      * 
@@ -585,6 +587,34 @@ public class ParallelTaskBuilder {
             throws TargetHostsLoadException {
         this.targetHosts = targetHostBuilder.setTargetHostsFromCmsQueryUrl(cmsQueryUrl,
                 projection);
+        return this;
+    }
+    
+    /**
+     * CMS: configuration-management-service. 
+     * A.k.a. YiDB: http://www.yidb.org/
+     * 
+     * Parallec supports CMS query
+     * 
+     * http://ccoetech.ebay.com/cms-configuration-management-service-based-
+     * mongodb
+     *
+     * @param cmsQueryUrl
+     *            the cms query url
+     * @param projection
+     *            the projection
+     * @param token
+     *            the CMS authorization token if needed
+     * @return the parallel task builder
+     * @throws TargetHostsLoadException
+     *             the target hosts load exception
+     */
+
+    public ParallelTaskBuilder setTargetHostsFromCmsQueryUrl(
+            String cmsQueryUrl, String projection, String token)
+            throws TargetHostsLoadException {
+        this.targetHosts = targetHostBuilder.setTargetHostsFromCmsQueryUrl(cmsQueryUrl,
+                projection, token);
         return this;
     }
 
