@@ -1,7 +1,7 @@
 
 <a href="http://www.parallec.io"><img alt="Parallec-logo" src="http://www.parallec.io/images/parallec-logo.png" width="325"></a>
 
-##Parallec 中文介绍
+## Parallec 中文介绍
 
 [Parallec](http://www.parallec.io/) 是一个基于[Akka](http://akka.io)的快速并行异步HTTP(S)/SSH/TCP/UDP/Ping 客户端的Java库。它是eBay云计算部门开发并在[REST Commander](http://www.restcommander.com/)基础上开源的。Parallec的寓意是**"并行客户端"**： **Paralle**l **C**lient, 发音如 "Para-like". 更多说明请见[这里](http://www.parallec.io/)。
 
