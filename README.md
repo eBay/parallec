@@ -112,7 +112,7 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 - [http://www.parallec.io/userdata/sample_weather_95037.txt](http://www.parallec.io/userdata/sample_weather_95037.txt)
 
 
-###What's New
+### What's New
 
 * 09/2016 Add option to save response headers in HTTP [#24](https://github.com/eBay/parallec/issues/24).
 * 08/2016 Support Parallel async UDP (via Netty) [#41](https://github.com/eBay/parallec/issues/41).
@@ -121,13 +121,13 @@ pc.prepareHttpGet("/userdata/sample_weather_$ZIP.txt")
 
 More details please check the [Change Log](https://github.com/eBay/parallec/blob/master/CHANGELOG.md).
 
-###Versions
+### Versions
 
 * The latest production-ready version is `0.10.x`, where we use in production.
 * **On async-http-client 2.x** The Parallec.io version using more up-to-date `async-http-client` (currently using AHC version `2.0.15`) is `0.20.0-SNAPSHOT`. This version has passed comprehensive unit tests but has not been used yet in production. This version **requires JDK8** due to AHC 2.x and can be used with the parallec-plugins with the same version `0.20.0-SNAPSHOT`, details please check [#37](https://github.com/eBay/parallec/issues/37).
 
 
-###More Readings
+### More Readings
 
 - [**More Examples**](https://github.com/ebay/parallec-samples#http) on setting context, send to Elastic Search / Kafka, async running, auto progress polling, track progress, TCP/SSH/Ping.  UDP example is [here](https://github.com/eBay/parallec/blob/master/src/test/java/io/parallec/core/main/udp/ParallelClientUdpBasicTest.java), with more to come. 
 - [**Set Target Hosts**](http://www.parallec.io/docs/submit-task/#set-target-hosts) from list, string, line by line text, json path, from local or remote URLs.
@@ -136,14 +136,14 @@ More details please check the [Change Log](https://github.com/eBay/parallec/blob
 - [**Ping Demo**](https://github.com/eBay/parallec/blob/master/README.md#demos) Ping 8000 Servers within 11.1 Seconds, performance test vs. [FPing](http://fping.org/).
 
 
-###User Group
+### User Group
 
 * Ask a question, and keep up to date on the library development by joining the discussion group / forum: [Parallec.io Google Group](https://groups.google.com/forum/#!forum/parallec). 
 * Feel free to submit a [Github Issue](https://github.com/eBay/parallec/issues/new) for any questions and suggestions too.
 * Check [FAQ](http://www.parallec.io/docs/faq/).
 
 
-###Use Cases
+### Use Cases
 
 1. Scalable web server monitoring, management, and configuration push, ping check.
 1. Asset / server status discovery, remote task execution in agent-less(parallel SSH) or agent based (parallel HTTP/TCP) method.
@@ -179,7 +179,7 @@ Parallec is built on Akka actors and [Async HTTP Client](https://github.com/Asyn
 
 
 
-##Motivation
+## Motivation
 - Flexible response handling and immediate processing embedded in other applications.
 - Handle async APIs with auto progress polling for task level concurrency control.
 - Support of other protocols, and [more](https://github.com/eBay/parallec/blob/master/README.md#features)..
@@ -205,13 +205,13 @@ With the feedbacks, lessons, and improvements from the past year of internal usa
 
 Note that speed varies based on network speed, API response time, the slowest servers, timeout, and concurrency settings.
 
-#####HTTP
+##### HTTP
 
 We conducted remote task execution API on 3,000 servers with response aggregated to elastic search, visualized within 15 seconds, by writing 25 lines of code.
 
 With another faster API, calls to 8,000 servers in the same datacenter with response aggregated in memory in 12 seconds. 
 
-#####Ping
+##### Ping
 Parallec 2.2 seconds vs FPing 4.5 seconds on 1500 servers. Parallec is 2x the speed of [FPing](http://fping.org/) (after best-effort tuning : -i 1 -r 0 v3.12)  of pinging 1500 servers while getting the same ping results.  Parallec pings 8000 servers within 11.1 seconds with breeze.
 
 As usual, don't rely on these numbers and perform your own benchmarks.
@@ -282,7 +282,7 @@ Parallec is served to you by [Yuanteng (Jeff) Pei](https://www.linkedin.com/in/p
 
 
 
-##Contributions
+## Contributions
 <div style="text-align:right">
   <img src="https://github.com/eBay/Winder/blob/master/docs/ebaysf-open-x.png" width="150px"/>
 </div>
