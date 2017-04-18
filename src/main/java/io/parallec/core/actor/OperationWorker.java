@@ -545,7 +545,7 @@ public class OperationWorker extends UntypedActor {
                 }
                 
                 // handle response. if handle in manager, getHandler() will be null
-                if (request != null && request.getHandler() != null) {
+                if (request.getHandler() != null) {
                     try {
                         //logger.debug("HANDLE IN WORKER : " + response.getHost());
                         request.getHandler().onCompleted(response,
