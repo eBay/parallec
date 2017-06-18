@@ -12,6 +12,7 @@ limitations under the License.
  */
 package io.parallec.core;
 
+import com.ning.http.client.AsyncHttpClient;
 import io.parallec.core.actor.ActorConfig;
 import io.parallec.core.monitor.MonitorProvider;
 import io.parallec.core.resources.HttpClientStore;
@@ -19,13 +20,10 @@ import io.parallec.core.resources.HttpClientType;
 import io.parallec.core.resources.HttpMethod;
 import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.task.ParallelTaskManager;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ning.http.client.AsyncHttpClient;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 
@@ -170,7 +168,7 @@ public class ParallelClient {
             } catch (InterruptedException e) {
                 logger.error("error reinit httpClientStore", e);
             }
-            isClosed.set(true);
+            isClosed.set(false);
             logger.info("Parallel Client Resources has been reinitialized.");
         } else {
             logger.debug("NO OP. Resource was not released.");
