@@ -4,7 +4,7 @@
 ![build status](https://img.shields.io/badge/build-info=>-green.svg) [![Build Status](https://travis-ci.org/eBay/parallec.svg?branch=master)](https://travis-ci.org/eBay/parallec) [![Coverage Status](https://img.shields.io/codecov/c/github/eBay/parallec.svg)](https://codecov.io/github/eBay/parallec) [![Apache V2.0 License](http://www.parallec.io/images/apache2.svg) ](https://github.com/eBay/parallec/blob/master/LICENSE)
 
 
-![latest 0.10.x](http://img.shields.io/badge/latest_stable-0.10.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.10.4|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![latest 0.10.x](http://img.shields.io/badge/latest_stable-0.10.x=>-green.svg) [ ![latest beta  maven central](https://maven-badges.herokuapp.com/maven-central/io.parallec/parallec-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|io.parallec|parallec-core|0.10.5|) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eBay/parallec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Javadoc](http://www.parallec.io/images/parallec-javadoc-blue.svg)](http://www.parallec.io/javadoc/index.html?io/parallec/core/ParallelClient.html) [![Documentation](http://www.parallec.io/images/parallec-documentation-red.svg)](http://www.parallec.io/docs/) [![Samples](http://www.parallec.io/images/parallec-samples-brightgreen.svg)](https://github.com/eBay/parallec-samples) [![Chinese](http://www.parallec.io/images/parallec-cnbrief-blue.svg)](https://github.com/eBay/parallec/blob/master/README-brief-cn.md) 
 
@@ -42,14 +42,14 @@ Donwload [the latest JAR](https://search.maven.org/remote_content?g=io.parallec&
 <dependency>
 	<groupId>io.parallec</groupId>
 	<artifactId>parallec-core</artifactId>
-	<version>0.10.4</version>
+	<version>0.10.5</version>
 </dependency>
 ```
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/io/parallec/parallec-core/).
 
 or Gradle:
 ```xml
-compile 'io.parallec:parallec-core:0.10.4'
+compile 'io.parallec:parallec-core:0.10.5'
 ```
 
 
@@ -267,7 +267,8 @@ We deeply thank all contributors for their effort.
 - [billzwu](https://github.com/billzwu)
 - [faisal-hameed](https://github.com/faisal-hameed)
 - [fivesmallq](https://github.com/fivesmallq)
-
+- [bryant1410](https://github.com/bryant1410)
+- [djKooks](https://github.com/djKooks)
 
 ## Authors
 
@@ -293,5 +294,5 @@ Any helpful feedback is more than welcome. This includes feature requests, bug r
 
 Code licensed under Apache License v2.0
 
-© 2015-2016 eBay Software Foundation
+© 2015-2017 eBay Software Foundation
 

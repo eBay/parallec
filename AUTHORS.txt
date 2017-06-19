@@ -13,3 +13,5 @@ Contributors:
 - billzwu https://github.com/billzwu
 - faisal-hameed https://github.com/faisal-hameed
 - fivesmallq https://github.com/fivesmallq
+- bryant1410 https://github.com/bryant1410
+- djKooks https://github.com/djKooks

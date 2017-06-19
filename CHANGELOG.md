@@ -2,6 +2,13 @@ Parallec Change Log
 ==========
 
 
+## Version 0.10.5
+
+_2017-06-18_
+
+* Pull [#60](https://github.com/eBay/parallec/pull/60).  Fix the param setup issue in reinitializing ParallelClient, thanks to [djKooks](https://github.com/djKooks).
+
+
 ## Version 0.10.4
 
 _2017-01-29_
