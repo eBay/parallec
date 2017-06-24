@@ -18,6 +18,7 @@ import io.parallec.core.ParallelClient;
 import io.parallec.core.ParallelTask;
 import io.parallec.core.ResponseOnSingleTask;
 import io.parallec.core.TestBase;
+import io.parallec.core.config.ParallecGlobalConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,35 +71,27 @@ public class ParallelClientHttpBasicMoreOptionsTest extends TestBase {
     @Test
     public void hitWebsitesMinSync() {
         Map<String, Object> responseContext = new HashMap<String, Object>();
-        ParallelTask task = pc
-                .prepareHttpGet("/validateInternals.html")
-                .setConcurrency(1700)
+        ParallelTask task = pc.prepareHttpGet("/validateInternals.html").setConcurrency(1700)
                 .setResponseContext(responseContext)
-                .setTargetHostsFromString(
-                        "www.parallec.io www.jeffpei.com www.restcommander.com")
+                .setTargetHostsFromString("www.parallec.io www.jeffpei.com www.restcommander.com")
 
-                .setSaveResponseToTask(true).setAutoSaveLogToLocal(true)
-                .setEnableCapacityAwareTaskScheduler(true)
+                .setSaveResponseToTask(true).setAutoSaveLogToLocal(true).setEnableCapacityAwareTaskScheduler(true)
                 // .setSaveResponseToTask(true)
 
                 .execute(new ParallecResponseHandler() {
 
                     @Override
-                    public void onCompleted(ResponseOnSingleTask res,
-                            Map<String, Object> responseContext) {
-                        String cpu = new FilterRegex(
-                                ".*<td>CPU-Usage-Percent</td>\\s*<td>(.*?)</td>.*")
+                    public void onCompleted(ResponseOnSingleTask res, Map<String, Object> responseContext) {
+                        String cpu = new FilterRegex(".*<td>CPU-Usage-Percent</td>\\s*<td>(.*?)</td>.*")
                                 .filter(res.getResponseContent());
-                        String memory = new FilterRegex(
-                                ".*<td>Memory-Used-KB</td>\\s*<td>(.*?)</td>.*")
+                        String memory = new FilterRegex(".*<td>Memory-Used-KB</td>\\s*<td>(.*?)</td>.*")
                                 .filter(res.getResponseContent());
 
                         Map<String, Object> metricMap = new HashMap<String, Object>();
                         metricMap.put("CpuUsage", cpu);
                         metricMap.put("MemoryUsage", memory);
 
-                        logger.info("cpu:" + cpu + " memory: " + memory
-                                + " host: " + res.getHost());
+                        logger.info("cpu:" + cpu + " memory: " + memory + " host: " + res.getHost());
                         responseContext.put(res.getHost(), cpu);
 
                         logger.info(res.toString());
@@ -109,12 +102,37 @@ public class ParallelClientHttpBasicMoreOptionsTest extends TestBase {
         for (Object o : responseContext.values()) {
 
             Double cpuDouble = Double.parseDouble((String) o);
-            Asserts.check(cpuDouble <= 100.0 && cpuDouble >= 0.0,
-                    " Fail to extract cpu values");
+            Asserts.check(cpuDouble <= 100.0 && cpuDouble >= 0.0, " Fail to extract cpu values");
         }
 
         logger.info("Task Pretty Print: \n{}", task.prettyPrintInfo());
         logger.info("Aggregated results: \n{}", task.getAggregatedResultHumanStr());
     }
 
+    /**
+     * Test hitting none unicode websites assuming www.rakuten.co.jp still uses
+     * the following none unicode encoding. If www.rakuten.co.jp changes the
+     * encoding to utf-8, this test may still pass but not serve the purpose.
+     * Content-Type: text/html; charset=EUC-JP
+     */
+    @Test
+    public void hitNoneUnicodeWebsite() {
+        ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType = true;
+        Map<String, Object> responseContext = new HashMap<String, Object>();
+        pc.prepareHttpGet("").setResponseContext(responseContext).setTargetHostsFromString("www.rakuten.co.jp")
+                .setSaveResponseToTask(true).setAutoSaveLogToLocal(true).setEnableCapacityAwareTaskScheduler(true)
+                .execute(new ParallecResponseHandler() {
+
+                    @Override
+                    public void onCompleted(ResponseOnSingleTask res, Map<String, Object> responseContext) {
+                        responseContext.put("content", res.getResponseContent());
+                        logger.info(res.getResponseContent());
+                    }
+                });
+
+        Asserts.check(responseContext.get("content").toString().contains("楽天"),
+                " Fail to get response from none unicode sites");
+        ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType = false;
+
+    }
 }

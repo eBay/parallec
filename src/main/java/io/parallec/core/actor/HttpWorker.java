@@ -15,6 +15,7 @@ package io.parallec.core.actor;
 import io.parallec.core.actor.message.ResponseOnSingeRequest;
 import io.parallec.core.actor.message.type.RequestWorkerMsgType;
 import io.parallec.core.bean.ResponseHeaderMeta;
+import io.parallec.core.config.ParallecGlobalConfig;
 import io.parallec.core.exception.ActorMessageTypeInvalidException;
 import io.parallec.core.exception.HttpRequestCreateException;
 import io.parallec.core.resources.HttpMethod;
@@ -48,6 +49,7 @@ import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
 import com.ning.http.client.ListenableFuture;
 import com.ning.http.client.Response;
+import com.ning.http.util.AsyncHttpProviderUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -386,8 +388,10 @@ public class HttpWorker extends UntypedActor {
 
             int statusCodeInt = response.getStatusCode();
             String statusCode = statusCodeInt + " " + response.getStatusText();
-
-            reply(response.getResponseBody(), false, null, null, statusCode,
+            String charset = ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType ? 
+                    AsyncHttpProviderUtils.parseCharset(response.getContentType())
+                    : ParallecGlobalConfig.httpResponseBodyDefaultCharset;
+            reply(response.getResponseBody(charset), false, null, null, statusCode,
                     statusCodeInt, responseHeaders);
         } catch (IOException e) {
             getLogger().error("fail response.getResponseBody " + e);

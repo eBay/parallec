@@ -113,4 +113,9 @@ public class ParallecGlobalConfig {
     
     /** The url connection read timeout millis. Used when load target host from URL/CMS*/
     public static int urlConnectionReadTimeoutMillis = 15000;
+    
+    /** The default charset when getting the response body for http*/
+    public static String httpResponseBodyDefaultCharset = "UTF-8";
+    /** Whether to derive the http response body charset from response header of content type field*/
+    public static boolean httpResponseBodyCharsetUsesResponseContentType = false;
 }

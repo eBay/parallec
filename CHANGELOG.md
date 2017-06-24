@@ -1,6 +1,11 @@
 Parallec Change Log
 ==========
 
+## Version 0.10.6
+
+_2017-06-23_
+
+* Pull [#46](https://github.com/eBay/parallec/issues/46).  Enable http response body charset encoding to be a static value of "UTF-8" from `ParallecGlobalConfig.httpResponseBodyDefaultCharset`; or dynamically derived from the response header's content type. User may overwrite the static value when overloading the config. 
 
 ## Version 0.10.5
 
