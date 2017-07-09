@@ -114,7 +114,6 @@ public class ParallelClient {
             ActorConfig.createAndGetActorSystem();
             httpClientStore.init();
             tcpSshPingResourceStore.init();
-            ParallelTaskManager.getInstance();
             isClosed.set(false);
             logger.info("Parallel Client Resources has been initialized.");
         } else {
@@ -139,8 +138,8 @@ public class ParallelClient {
             ActorConfig.shutDownActorSystemForce();
             httpClientStore.shutdown();
             tcpSshPingResourceStore.shutdown();
-            taskManager.cleanWaitTaskQueue();
-            taskManager.cleanInprogressJobMap();
+            cleanWaitTaskQueue();
+            cleanInprogressJobMap();
             isClosed.set(true);
             logger.info("Have released all ParallelClient resources "
                     + "(actor system + async+sync http client + task queue)"
