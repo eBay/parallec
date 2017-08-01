@@ -12,20 +12,18 @@ limitations under the License.
  */
 package io.parallec.core;
 
+import com.ning.http.client.AsyncHttpClient;
 import io.parallec.core.actor.ActorConfig;
 import io.parallec.core.monitor.MonitorProvider;
 import io.parallec.core.resources.HttpClientStore;
 import io.parallec.core.resources.HttpClientType;
 import io.parallec.core.resources.HttpMethod;
-import io.parallec.core.resources.TcpSshPingResourceStore;
+import io.parallec.core.resources.TcpUdpSshPingResourceStore;
 import io.parallec.core.task.ParallelTaskManager;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ning.http.client.AsyncHttpClient;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 
@@ -95,7 +93,7 @@ public class ParallelClient {
     public HttpClientStore httpClientStore = HttpClientStore.getInstance();
 
     /** The tcp client store. */
-    public TcpSshPingResourceStore tcpSshPingResourceStore = TcpSshPingResourceStore.getInstance();
+    public TcpUdpSshPingResourceStore tcpSshPingResourceStore = TcpUdpSshPingResourceStore.getInstance();
 
     /** The is closed is marked when all resources are released/not initialized. */
     public static AtomicBoolean isClosed = new AtomicBoolean(true);
@@ -116,7 +114,6 @@ public class ParallelClient {
             ActorConfig.createAndGetActorSystem();
             httpClientStore.init();
             tcpSshPingResourceStore.init();
-            ParallelTaskManager.getInstance();
             isClosed.set(false);
             logger.info("Parallel Client Resources has been initialized.");
         } else {
@@ -141,8 +138,8 @@ public class ParallelClient {
             ActorConfig.shutDownActorSystemForce();
             httpClientStore.shutdown();
             tcpSshPingResourceStore.shutdown();
-            taskManager.cleanWaitTaskQueue();
-            taskManager.cleanInprogressJobMap();
+            cleanWaitTaskQueue();
+            cleanInprogressJobMap();
             isClosed.set(true);
             logger.info("Have released all ParallelClient resources "
                     + "(actor system + async+sync http client + task queue)"
@@ -170,7 +167,7 @@ public class ParallelClient {
             } catch (InterruptedException e) {
                 logger.error("error reinit httpClientStore", e);
             }
-            isClosed.set(true);
+            isClosed.set(false);
             logger.info("Parallel Client Resources has been reinitialized.");
         } else {
             logger.debug("NO OP. Resource was not released.");
@@ -213,6 +210,21 @@ public class ParallelClient {
         ParallelTaskBuilder cb = new ParallelTaskBuilder();
         cb.setProtocol(RequestProtocol.TCP);
         cb.getTcpMeta().setCommand(command);
+        return cb;
+    }
+    
+    /**
+     * Prepare a parallel UDP Task.
+     *
+     * @param command
+     *            the command
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareUdp(String command) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.setProtocol(RequestProtocol.UDP);
+        cb.getUdpMeta().setCommand(command);
         return cb;
     }
 
@@ -310,7 +322,52 @@ public class ParallelClient {
         return cb;
 
     }
+    /**
+     * Prepare a parallel HTTP Trace Task.
+     *
+     * @param url
+     *            the UrlPostfix: e.g. in http://localhost:8080/index.html.,the url is "/index.html"
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareHttpTrace(String url) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.getHttpMeta().setHttpMethod(HttpMethod.TRACE);
+        cb.getHttpMeta().setRequestUrlPostfix(url);
+        return cb;
 
+    }
+    
+    /**
+     * Prepare a parallel HTTP Connect Task.
+     *
+     * @param url
+     *            the UrlPostfix: e.g. in http://localhost:8080/index.html.,the url is "/index.html"
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareHttpConnect(String url) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.getHttpMeta().setHttpMethod(HttpMethod.CONNECT);
+        cb.getHttpMeta().setRequestUrlPostfix(url);
+        return cb;
+
+    }
+    /**
+     * Prepare a parallel HTTP PATCH Task.
+     *
+     * @param url
+     *            the UrlPostfix: e.g. in http://localhost:8080/index.html.,the url is "/index.html"
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareHttpPatch(String url) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.getHttpMeta().setHttpMethod(HttpMethod.PATCH);
+        cb.getHttpMeta().setRequestUrlPostfix(url);
+        return cb;
+
+    }   
     /**
      * Sets the custom fast client in the httpClientStore.
      *

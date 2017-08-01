@@ -30,6 +30,12 @@ public enum HttpMethod {
     DELETE,
     /** The options. */
     OPTIONS,
+    /** The TRACE. */
+    TRACE,  
+    /** The CONNECT. */
+    CONNECT,  
+    /** The PATCH. */
+    PATCH, 
     /** The na. */
     NA
 }
