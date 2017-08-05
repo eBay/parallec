@@ -16,7 +16,7 @@ import org.junit.Test;
 public class ParallelClientHttpTraceTest extends TestBase{
 	private static ParallelClient pc;
 	  
-	@BeforeClass
+    @BeforeClass
     public static void setUp() throws Exception {
         pc = new ParallelClient();
     }
