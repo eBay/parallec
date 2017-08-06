@@ -67,13 +67,17 @@ public final class AsyncHttpClientFactoryEmbed {
             // create and configure async http client
             AsyncHttpClientConfigBean configFastClient = new AsyncHttpClientConfigBean();
 
+           configFastClient.setConnectionTimeOut(ParallecGlobalConfig.ningFastClientConnectionTimeoutMillis);
+           configFastClient.setRequestTimeout(ParallecGlobalConfig.ningFastClientRequestTimeoutMillis);
            fastClient = new AsyncHttpClient(configFastClient);
-
+        
             // TODO added
             // configFastClient.setMaxRequestRetry(3);
 
             AsyncHttpClientConfigBean configSlowClient = new AsyncHttpClientConfigBean();
-             slowClient = new AsyncHttpClient(configSlowClient);
+            configFastClient.setConnectionTimeOut(ParallecGlobalConfig.ningSlowClientConnectionTimeoutMillis);
+            configFastClient.setRequestTimeout(ParallecGlobalConfig.ningSlowClientRequestTimeoutMillis);
+            slowClient = new AsyncHttpClient(configSlowClient);
 
             disableCertificateVerification();
         } catch (Exception e) {
