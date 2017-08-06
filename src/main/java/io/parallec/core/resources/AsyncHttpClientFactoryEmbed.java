@@ -75,8 +75,8 @@ public final class AsyncHttpClientFactoryEmbed {
             // configFastClient.setMaxRequestRetry(3);
 
             AsyncHttpClientConfigBean configSlowClient = new AsyncHttpClientConfigBean();
-            configFastClient.setConnectionTimeOut(ParallecGlobalConfig.ningSlowClientConnectionTimeoutMillis);
-            configFastClient.setRequestTimeout(ParallecGlobalConfig.ningSlowClientRequestTimeoutMillis);
+            configSlowClient.setConnectionTimeOut(ParallecGlobalConfig.ningSlowClientConnectionTimeoutMillis);
+            configSlowClient.setRequestTimeout(ParallecGlobalConfig.ningSlowClientRequestTimeoutMillis);
             slowClient = new AsyncHttpClient(configSlowClient);
 
             disableCertificateVerification();
