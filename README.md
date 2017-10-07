@@ -76,6 +76,10 @@ pc.prepareHttpGet("").setTargetHostsFromString("www.google.com www.ebay.com www.
 Now that you have learned the basics, check out how easy to pass an elastic search client using the convenient **response context** to aggregate data anywhere you like. You can also pass a hash map to the `responseContext`, save the processed results to the map during `onCompleted`, and use the map outside for further work. 
 
 ```java
+...
+import org.elasticsearch.client.Client;
+import static org.elasticsearch.node.NodeBuilder.*;
+
 ParallelClient pc = new ParallelClient();
 org.elasticsearch.node.Node node = nodeBuilder().node(); //elastic client initialize
 HashMap<String, Object> responseContext = new HashMap<String, Object>();
@@ -213,6 +217,7 @@ We conducted remote task execution API on 3,000 servers with response aggregated
 With another faster API, calls to 8,000 servers in the same datacenter with response aggregated in memory in 12 seconds. 
 
 ##### Ping
+
 Parallec 2.2 seconds vs FPing 4.5 seconds on 1500 servers. Parallec is 2x the speed of [FPing](http://fping.org/) (after best-effort tuning : -i 1 -r 0 v3.12)  of pinging 1500 servers while getting the same ping results.  Parallec pings 8000 servers within 11.1 seconds with breeze.
 
 As usual, don't rely on these numbers and perform your own benchmarks.
