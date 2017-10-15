@@ -322,7 +322,52 @@ public class ParallelClient {
         return cb;
 
     }
+    /**
+     * Prepare a parallel HTTP Trace Task.
+     *
+     * @param url
+     *            the UrlPostfix: e.g. in http://localhost:8080/index.html.,the url is "/index.html"
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareHttpTrace(String url) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.getHttpMeta().setHttpMethod(HttpMethod.TRACE);
+        cb.getHttpMeta().setRequestUrlPostfix(url);
+        return cb;
 
+    }
+    
+    /**
+     * Prepare a parallel HTTP Connect Task.
+     *
+     * @param url
+     *            the UrlPostfix: e.g. in http://localhost:8080/index.html.,the url is "/index.html"
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareHttpConnect(String url) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.getHttpMeta().setHttpMethod(HttpMethod.CONNECT);
+        cb.getHttpMeta().setRequestUrlPostfix(url);
+        return cb;
+
+    }
+    /**
+     * Prepare a parallel HTTP PATCH Task.
+     *
+     * @param url
+     *            the UrlPostfix: e.g. in http://localhost:8080/index.html.,the url is "/index.html"
+     * @return the parallel task builder
+     */
+    public ParallelTaskBuilder prepareHttpPatch(String url) {
+        reinitIfClosed();
+        ParallelTaskBuilder cb = new ParallelTaskBuilder();
+        cb.getHttpMeta().setHttpMethod(HttpMethod.PATCH);
+        cb.getHttpMeta().setRequestUrlPostfix(url);
+        return cb;
+
+    }   
     /**
      * Sets the custom fast client in the httpClientStore.
      *

@@ -172,6 +172,17 @@ public class HttpWorker extends UntypedActor {
             case DELETE:
                 builder = client.prepareDelete(requestUrl);
                 break;
+             case TRACE:
+                builder = client.prepareTrace(requestUrl);
+                break;
+            case CONNECT:
+                builder = client.prepareConnect(requestUrl);
+                break;
+            case PATCH:
+                builder = client.preparePatch(requestUrl);
+                break;
+                
+                
             default:
                 break;
             }
