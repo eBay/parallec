@@ -16,6 +16,7 @@ import io.parallec.core.FilterRegex;
 import io.parallec.core.ParallecResponseHandler;
 import io.parallec.core.ParallelClient;
 import io.parallec.core.ParallelTask;
+import io.parallec.core.RequestProtocol;
 import io.parallec.core.ResponseOnSingleTask;
 import io.parallec.core.TestBase;
 import io.parallec.core.config.ParallecGlobalConfig;
@@ -119,17 +120,22 @@ public class ParallelClientHttpBasicMoreOptionsTest extends TestBase {
     public void hitNoneUnicodeWebsite() {
         ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType = true;
         Map<String, Object> responseContext = new HashMap<String, Object>();
-        pc.prepareHttpGet("").setResponseContext(responseContext).setTargetHostsFromString("www.rakuten.co.jp")
-                .setSaveResponseToTask(true).setAutoSaveLogToLocal(true).setEnableCapacityAwareTaskScheduler(true)
-                .execute(new ParallecResponseHandler() {
-
-                    @Override
-                    public void onCompleted(ResponseOnSingleTask res, Map<String, Object> responseContext) {
-                        responseContext.put("content", res.getResponseContent());
-                        logger.info(res.getResponseContent());
-                    }
-                });
-
+        pc.prepareHttpGet("/")
+        .setResponseContext(responseContext)
+        .setProtocol(RequestProtocol.HTTPS)
+        .setHttpPort(443)
+        .setTargetHostsFromString("www.rakuten.co.jp")
+        .setSaveResponseToTask(true)
+        .setAutoSaveLogToLocal(true)
+        .setEnableCapacityAwareTaskScheduler(true)
+        .execute(new ParallecResponseHandler() {
+            @Override
+            public void onCompleted(ResponseOnSingleTask res, Map<String, Object> responseContext) {
+                responseContext.put("content", res.getResponseContent());
+                logger.info("resultTest:getStatusCode " + res.getStatusCode());
+            }
+        });
+        System.out.println(responseContext.get("content"));
         Asserts.check(responseContext.get("content").toString().contains("楽天"),
                 " Fail to get response from none unicode sites");
         ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType = false;

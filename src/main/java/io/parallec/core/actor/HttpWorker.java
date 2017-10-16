@@ -368,6 +368,7 @@ public class HttpWorker extends UntypedActor {
 
         cancelCancellable();
         try {
+            
             Map<String, List<String>> responseHeaders = null;
             if (responseHeaderMeta != null) {
                 responseHeaders = new LinkedHashMap<String, List<String>>();
@@ -388,9 +389,14 @@ public class HttpWorker extends UntypedActor {
 
             int statusCodeInt = response.getStatusCode();
             String statusCode = statusCodeInt + " " + response.getStatusText();
-            String charset = ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType ? 
+            String charset = ParallecGlobalConfig.httpResponseBodyCharsetUsesResponseContentType &&
+                    response.getContentType()!=null ? 
                     AsyncHttpProviderUtils.parseCharset(response.getContentType())
                     : ParallecGlobalConfig.httpResponseBodyDefaultCharset;
+            if(charset == null){
+                getLogger().error("charset is not provided from response content type. Use default");
+                charset = ParallecGlobalConfig.httpResponseBodyDefaultCharset; 
+            }
             reply(response.getResponseBody(charset), false, null, null, statusCode,
                     statusCodeInt, responseHeaders);
         } catch (IOException e) {
