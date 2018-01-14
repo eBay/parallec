@@ -179,6 +179,13 @@ public class HttpWorker extends UntypedActor {
             PcHttpUtils.addHeaders(builder, this.httpHeaderMap);
             if (!Strings.isNullOrEmpty(postData)) {
                 builder.setBody(postData);
+                String charset = "";
+                if (null!=this.httpHeaderMap) {
+                    charset = this.httpHeaderMap.get("charset");
+                }
+                if(!Strings.isNullOrEmpty(charset)) {
+                    builder.setBodyEncoding(charset);
+                }
             }
 
         } catch (Exception t) {
